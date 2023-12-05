@@ -11,6 +11,7 @@ public class Spikes extends entity{
 	private Image anispike;
 	public Spikes(int x,int y,int w,int h) {
 		super(x,y,w,h);
+		System.out.println("Beans");
 		spikesloadAnimations();
 	}
 	public void render(Graphics g) {
