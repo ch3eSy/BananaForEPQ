@@ -150,7 +150,7 @@ public class player extends entity {
 
             if (playerHitbox.intersects(spikeHitbox)) {
             	posx = 0;
-            	posy = 0;
+            	posy = 700;
 
             	return true;
             }
