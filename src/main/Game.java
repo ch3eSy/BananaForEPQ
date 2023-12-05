@@ -29,6 +29,7 @@ public class Game implements Runnable{
 	private floorTiles floor2;
 	
 	
+	
 	public Game() {
 		initClasses();
 		
