@@ -18,7 +18,7 @@ public class Spikes extends entity{
 	}
 	
 	private void spikesloadAnimations() {
-		InputStream is = getClass().getResourceAsStream("/box.png");
+		InputStream is = getClass().getResourceAsStream("/spike.png");
 		try {
 			Image img = ImageIO.read(is);
 			anispike = img;
@@ -39,7 +39,7 @@ public class Spikes extends entity{
 
 	}
 	public Rectangle getHitbox() {
-		return new Rectangle((int)posx,(int)posy,32,32);
+		return new Rectangle((int)posx-5,(int)posy-5,32,32);
 	}
 
     public double getX() {

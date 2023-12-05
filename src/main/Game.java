@@ -45,10 +45,10 @@ public class Game implements Runnable{
 
 	private void initClasses() {
         floorTilesList = new ArrayList<>();
+        spikeList = new ArrayList<>();
         floorTilesList.add(new floorTiles(0, 1048, 32, 32));
         floorTilesList.add(new floorTiles(32, 1048, 32, 32));
-
-
+        spikeList.add(new Spikes(500,1048,32,32));
 		Player = new player(0,600,80,80);
 		Backdrop = new backdrop(0,0,1920,1080);
 	}
@@ -63,13 +63,16 @@ public class Game implements Runnable{
 		gameThread.start();
 	}
 	public void update() {
-        Player.update(floorTilesList);
+        Player.update(floorTilesList,spikeList);
 	}
 	public void render(Graphics g) {
 		Backdrop.render(g);
 		Player.render(g);
 	    for (floorTiles tile : floorTilesList) {
 	        tile.render(g);
+	    }
+	    for (Spikes spike : spikeList) {
+	    	spike.render(g);
 	    }
 	}
 	
