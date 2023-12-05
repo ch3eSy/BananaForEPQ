@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import entities.Spikes;
 import entities.backdrop;
 import entities.floorTiles;
 import entities.player;
@@ -25,8 +26,7 @@ public class Game implements Runnable{
     private List<floorTiles> floorTilesList;
 	private player Player;
 	private backdrop Backdrop;
-	private floorTiles floor;
-	private floorTiles floor2;
+	private List<Spikes> spikeList;
 	
 	
 	
@@ -45,49 +45,12 @@ public class Game implements Runnable{
 
 	private void initClasses() {
         floorTilesList = new ArrayList<>();
-        floorTilesList.add(new floorTiles(0, 690, 32, 32));
-        floorTilesList.add(new floorTiles(32, 690, 32, 32));
-        floorTilesList.add(new floorTiles(64, 690, 32, 32));
-        floorTilesList.add(new floorTiles(96, 690, 32, 32));
-        floorTilesList.add(new floorTiles(128, 690, 32, 32));
-        floorTilesList.add(new floorTiles(160, 690, 32, 32));
-        floorTilesList.add(new floorTiles(192, 690, 32, 32));
-        floorTilesList.add(new floorTiles(224, 690, 32, 32));
-        floorTilesList.add(new floorTiles(256, 690, 32, 32));
-        floorTilesList.add(new floorTiles(288, 690, 32, 32));
-        floorTilesList.add(new floorTiles(320, 690, 32, 32));
-        floorTilesList.add(new floorTiles(352, 690, 32, 32));
-        floorTilesList.add(new floorTiles(384, 690, 32, 32));
-        floorTilesList.add(new floorTiles(416, 690, 32, 32));
-        floorTilesList.add(new floorTiles(448, 690, 32, 32));
-        floorTilesList.add(new floorTiles(480, 690, 32, 32));
-        floorTilesList.add(new floorTiles(512, 690, 32, 32));
-        floorTilesList.add(new floorTiles(544, 690, 32, 32));
-        floorTilesList.add(new floorTiles(576, 690, 32, 32));
-        floorTilesList.add(new floorTiles(608, 690, 32, 32));
-        floorTilesList.add(new floorTiles(640, 690, 32, 32));
-        floorTilesList.add(new floorTiles(672, 690, 32, 32));
-        floorTilesList.add(new floorTiles(704, 690, 32, 32));
-        floorTilesList.add(new floorTiles(736, 690, 32, 32));
-        floorTilesList.add(new floorTiles(768, 690, 32, 32));
-        floorTilesList.add(new floorTiles(800, 690, 32, 32));
-        floorTilesList.add(new floorTiles(832, 690, 32, 32));
-        floorTilesList.add(new floorTiles(864, 690, 32, 32));
-        floorTilesList.add(new floorTiles(896, 690, 32, 32));
-        floorTilesList.add(new floorTiles(928, 690, 32, 32));
-        floorTilesList.add(new floorTiles(960, 690, 32, 32));
-        floorTilesList.add(new floorTiles(992, 690, 32, 32));
-        floorTilesList.add(new floorTiles(1024, 690, 32, 32));
-        floorTilesList.add(new floorTiles(1056, 690, 32, 32));
-        floorTilesList.add(new floorTiles(1088, 690, 32, 32));
-        floorTilesList.add(new floorTiles(1120, 690, 32, 32));
-        floorTilesList.add(new floorTiles(1152, 690, 32, 32));
-        floorTilesList.add(new floorTiles(1184, 690, 32, 32));
-        floorTilesList.add(new floorTiles(1216, 690, 32, 32));
-        floorTilesList.add(new floorTiles(200, 570, 32, 32));
-        floorTilesList.add(new floorTiles(232, 570, 32, 32));
+        floorTilesList.add(new floorTiles(0, 1048, 32, 32));
+        floorTilesList.add(new floorTiles(32, 1048, 32, 32));
+
+
 		Player = new player(0,600,80,80);
-		Backdrop = new backdrop(0,0,1280,800);
+		Backdrop = new backdrop(0,0,1920,1080);
 	}
 
 	public Image Image(InputStream is) {

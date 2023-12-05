@@ -41,7 +41,7 @@ public class player extends entity {
     private boolean left, up, right, down;
     private float playerSpeed = 0.02f;
     private float gravity = 0.85f;
-    private double boundaryx = 1152, boundaryy = 717;
+    private double boundaryx = 1840, boundaryy = 1080;
     private Timer timer;
     public boolean isJumping = false;
     private float jumpspeed = 3f;
@@ -53,6 +53,7 @@ public class player extends entity {
     private int jumpTimer = 0;
     private static final int JUMP_TIMER_MAX = 5;
     private floorTiles currentFloorTile;
+    private Spikes currentSpike;
     long lastUpdateTime;
     private float acceleration = 1.0f;
     
@@ -141,7 +142,25 @@ public class player extends entity {
 
         return false;
     }
-    public void update(List<floorTiles> floorTilesList) {
+    
+    public boolean isSpiking(List<Spikes> spikelist) {
+        for (Spikes spike : spikelist) {
+            Rectangle playerHitbox = new Rectangle((int) posx, (int) posy, 80, 80);
+            Rectangle spikeHitbox = spike.getHitbox();
+
+            if (playerHitbox.intersects(spikeHitbox)) {
+            	posx = 0;
+            	posy = 0;
+
+            	return true;
+            }
+        }
+
+        return false;
+    }
+    
+    public void update(List<floorTiles> floorTilesList,List<Spikes> spikelist) {
+    	isSpiking(spikelist);
         isCollidingWith(floorTilesList);
         updatePos();
         updateAnimationTick();
@@ -276,7 +295,7 @@ public class player extends entity {
         }
 
         if (left && !right) {
-            if (posx <= -32) {
+            if (posx <= 0) {
                 System.out.println("Out of bounds");
                 hsp = 0;
             } else {
@@ -372,6 +391,9 @@ public class player extends entity {
                 posx += hsp;
             }
         }else {
+        	if(posx<=0&&left) {
+        		hsp=0;
+        	}
         	posx += hsp;
         }
 

@@ -38,7 +38,7 @@ public class GamePanel extends JPanel{ //creates class for gamepanel using jpane
 
 
 	private void setPanelSize() {
-		Dimension size = new Dimension(1280,800);
+		Dimension size = new Dimension(1920,1080);
 		setMinimumSize(size);
 		setPreferredSize(size);
 		setMaximumSize(size);

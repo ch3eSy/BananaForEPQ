@@ -8,16 +8,15 @@ import javax.swing.*;
 
 public class GameWindow{
 	private JFrame jframe;
-	private JLabel displayfield;
-	private ImageIcon image;
-	
+
 	public GameWindow(GamePanel gamePanel) {
 		
 		
 		jframe= new JFrame("Beans");
 		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		jframe.add(gamePanel);
 		jframe.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		jframe.add(gamePanel);
+
 		jframe.setUndecorated(true);
 		jframe.setResizable(false);
 		jframe.pack();
