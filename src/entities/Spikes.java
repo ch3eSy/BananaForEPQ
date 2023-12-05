@@ -31,7 +31,6 @@ public class Spikes extends entity{
 				e.printStackTrace();
 			}
 		}
-
 	}
 	public void update() {
 		posx=0;
