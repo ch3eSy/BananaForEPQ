@@ -49,3 +49,5 @@ public class Spikes extends entity{
 		return posy;
 	}
 }
+
+
