@@ -4,10 +4,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import main.GamePanel;
+import main.GameWindow;
+
 import static utils.Constants.Directions.*;
 
 public class keyboardinputs implements KeyListener {
 	private GamePanel gamePanel;
+	private GameWindow window;
 	public keyboardinputs(GamePanel gamePanel) {
 		this.gamePanel = gamePanel;
 		

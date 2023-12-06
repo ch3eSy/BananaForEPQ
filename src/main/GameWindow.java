@@ -14,7 +14,6 @@ public class GameWindow{
 		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jframe.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		jframe.add(gamePanel);
-		
 		jframe.setUndecorated(true);
 		jframe.setResizable(true);
 		jframe.setVisible(true);
@@ -34,6 +33,8 @@ public class GameWindow{
 				
 			}
 			
+
+			
 			
 			
 		});
@@ -43,4 +44,6 @@ public class GameWindow{
 		
 
 	}
+
+
 }

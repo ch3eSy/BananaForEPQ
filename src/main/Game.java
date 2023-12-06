@@ -32,23 +32,25 @@ public class Game implements Runnable{
 	
 	
 	public Game() {
+
 		initClasses();
-		if(!started) {
-			gamePanel = new GamePanel(this);
-		}
+		gamePanel = new GamePanel(this);
 		gameWindow = new GameWindow(gamePanel);
+		started = true;
+
 //		gamePanel = new GamePanel(this);
 
 		gamePanel.requestFocus();
 		
 		
 		startGameLoop();
-		started = true;
+
 	}
 
 	public void reset() {
 		gamePanel.removeAll();
-		new Game();
+		level=2;
+		initClasses();
 	}
 
 	private void initClasses() {
@@ -59,6 +61,8 @@ public class Game implements Runnable{
             floorTilesList.add(new floorTiles(32, 1048, 32, 32));
             floorTilesList.add(new floorTiles(64, 1048, 32, 32));
             floorTilesList.add(new floorTiles(500, 990, 32, 32));
+            spikeList.add(new Spikes(500,1048,32,32));
+        }else if(level==2) {
             spikeList.add(new Spikes(500,1048,32,32));
         }
 
