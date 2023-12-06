@@ -38,7 +38,7 @@ public class Portals extends entity{
 
 	}
 	public Rectangle getHitbox() {
-		return new Rectangle((int)posx-5,(int)posy-5,128,128);
+		return new Rectangle((int)posx-5,(int)posy-5,96,128);
 	}
 
     public double getX() {
