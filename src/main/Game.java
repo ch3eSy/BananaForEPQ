@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import entities.Portals;
 import entities.Spikes;
 import entities.backdrop;
 import entities.floorTiles;
@@ -27,8 +28,9 @@ public class Game implements Runnable{
 	private player Player;
 	private backdrop Backdrop;
 	private List<Spikes> spikeList;
+	private List<Portals> portalList;
 	private boolean started = false;
-	
+	private int i = 0;
 	
 	
 	public Game() {
@@ -49,26 +51,35 @@ public class Game implements Runnable{
 
 	public void reset() {
 		gamePanel.removeAll();
-		level=2;
+		level+=1;
 		initClasses();
 	}
 
 	private void initClasses() {
         floorTilesList = new ArrayList<>();
         spikeList = new ArrayList<>();
+        portalList = new ArrayList<>();
         if(level==1) {
+        	for(i = 0; i<1920;i+=32) {
+                floorTilesList.add(new floorTiles(i, 1048, 32, 32));
+        	}
+        	floorTilesList.add(new floorTiles(0, 920, 32, 32));
+        	spikeList.add(new Spikes(928,1016,32,32));
+        	spikeList.add(new Spikes(896,1016,32,32));
+        	portalList.add(new Portals(896,900,128,128));
+        }else if(level==2) {
             floorTilesList.add(new floorTiles(0, 1048, 32, 32));
             floorTilesList.add(new floorTiles(32, 1048, 32, 32));
-            floorTilesList.add(new floorTiles(64, 1048, 32, 32));
-            floorTilesList.add(new floorTiles(500, 990, 32, 32));
-            spikeList.add(new Spikes(500,1048,32,32));
-        }else if(level==2) {
-            spikeList.add(new Spikes(500,1048,32,32));
+            floorTilesList.add(new floorTiles(128, 1000, 32, 32));
+            floorTilesList.add(new floorTiles(160, 1000, 32, 32));
+//            spikeList.add(new Spikes(500,1048,32,32));
+        }else if(level == 3) {
+        	floorTilesList.add(new floorTiles(160, 1000, 32, 32));
         }
 
 
 
-		Player = new player(0,600,80,80);
+		Player = new player(0,600,80,80,this);
 		Backdrop = new backdrop(0,0,1920,1080);
 	}
 
@@ -84,7 +95,7 @@ public class Game implements Runnable{
 		gameThread.start();
 	}
 	public void update() {
-        Player.update(floorTilesList,spikeList);
+        Player.update(floorTilesList,spikeList, portalList);
 	}
 	public void render(Graphics g) {
 		Backdrop.render(g);
@@ -94,6 +105,9 @@ public class Game implements Runnable{
 	    }
 	    for (Spikes spike : spikeList) {
 	    	spike.render(g);
+	    }
+	    for (Portals portal : portalList) {
+	    	portal.render(g);
 	    }
 	}
 	

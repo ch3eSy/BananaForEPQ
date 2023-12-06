@@ -26,6 +26,8 @@ import java.awt.*;
 import java.util.TimerTask;
 import java.util.Timer;
 import entities.floorTiles.*;
+import main.GamePanel;
+import main.Game;
 import main.Game.*;
 import java.util.List;
 import java.awt.Graphics;
@@ -56,6 +58,7 @@ public class player extends entity {
     private Spikes currentSpike;
     long lastUpdateTime;
     private float acceleration = 1.0f;
+    private Game game;
     
     public class OnTile {
         public OnTile(int seconds) {
@@ -71,8 +74,9 @@ public class player extends entity {
         }
     }
 
-    public player(int x, int y, int w, int h) {
+    public player(int x, int y, int w, int h, Game game) {
         super(x, y, w, h);
+        this.game = game;
         loadAnimations();
     }
 
@@ -158,10 +162,27 @@ public class player extends entity {
 
         return false;
     }
-    
-    public void update(List<floorTiles> floorTilesList,List<Spikes> spikelist) {
+    public boolean touchingPortal(List<Portals> portallist) {
+        for (Portals portal : portallist) {
+            Rectangle playerHitbox = new Rectangle((int) posx, (int) posy, 80, 80);
+            Rectangle portalHitbox = portal.getHitbox();
+
+            if (playerHitbox.intersects(portalHitbox)) {
+            	posx = 0;
+            	posy = 700;
+            	
+            	game.reset();
+
+            	return true;
+            }
+        }
+
+        return false;
+    }
+    public void update(List<floorTiles> floorTilesList,List<Spikes> spikelist, List<Portals> portallist) {
     	isSpiking(spikelist);
         isCollidingWith(floorTilesList);
+        touchingPortal(portallist);
         updatePos();
         updateAnimationTick();
         setAnimation();
