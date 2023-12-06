@@ -10,16 +10,13 @@ public class GameWindow{
 	private JFrame jframe;
 
 	public GameWindow(GamePanel gamePanel) {
-		
-		
 		jframe= new JFrame("Beans");
 		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jframe.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		jframe.add(gamePanel);
-
+		
 		jframe.setUndecorated(true);
-		jframe.setResizable(false);
-		jframe.pack();
+		jframe.setResizable(true);
 		jframe.setVisible(true);
 		jframe.addWindowFocusListener(new WindowFocusListener() {
 
@@ -40,6 +37,7 @@ public class GameWindow{
 			
 			
 		});
+		jframe.pack();
 		
 		
 		

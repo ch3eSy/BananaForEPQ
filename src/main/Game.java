@@ -22,36 +22,48 @@ public class Game implements Runnable{
 	private Thread gameThread;
 	private final int fps_max = 140;
 	private final int ups_max = 200;
-	
+	private int level = 1;
     private List<floorTiles> floorTilesList;
 	private player Player;
 	private backdrop Backdrop;
 	private List<Spikes> spikeList;
+	private boolean started = false;
 	
 	
 	
 	public Game() {
 		initClasses();
-		
-		gamePanel = new GamePanel(this);
+		if(!started) {
+			gamePanel = new GamePanel(this);
+		}
 		gameWindow = new GameWindow(gamePanel);
+//		gamePanel = new GamePanel(this);
+
 		gamePanel.requestFocus();
 		
 		
 		startGameLoop();
-
+		started = true;
 	}
 
+	public void reset() {
+		gamePanel.removeAll();
+		new Game();
+	}
 
 	private void initClasses() {
         floorTilesList = new ArrayList<>();
         spikeList = new ArrayList<>();
-        floorTilesList.add(new floorTiles(0, 1048, 32, 32));
-        floorTilesList.add(new floorTiles(32, 1048, 32, 32));
-        floorTilesList.add(new floorTiles(64, 1048, 32, 32));
-        floorTilesList.add(new floorTiles(500, 990, 32, 32));
+        if(level==1) {
+            floorTilesList.add(new floorTiles(0, 1048, 32, 32));
+            floorTilesList.add(new floorTiles(32, 1048, 32, 32));
+            floorTilesList.add(new floorTiles(64, 1048, 32, 32));
+            floorTilesList.add(new floorTiles(500, 990, 32, 32));
+            spikeList.add(new Spikes(500,1048,32,32));
+        }
 
-        spikeList.add(new Spikes(500,1048,32,32));
+
+
 		Player = new player(0,600,80,80);
 		Backdrop = new backdrop(0,0,1920,1080);
 	}
@@ -60,6 +72,8 @@ public class Game implements Runnable{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+
 
 	private void startGameLoop() {
 		gameThread = new Thread(this);

@@ -67,6 +67,9 @@ public class keyboardinputs implements KeyListener {
 		case KeyEvent.VK_E:
 			gamePanel.getGame().getPlayer().setAttacking(true);
 			break;
+		case KeyEvent.VK_F:
+			gamePanel.getGame().reset();
+			break;
 		}
 		
 		
