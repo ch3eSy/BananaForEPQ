@@ -401,12 +401,12 @@ public class player extends entity {
         if (!isOntile) {
             posy += vsp;
 
-            // Check if the player is hitting the side of the box
+
             if (isHittingSide) {
                 if (left) {
-                    posx += hsp;  // Adjusted from posx -= boxWalkSpeed to posx += hsp
+                    posx += hsp; 
                 } else if (right) {
-                    posx += hsp;  // Adjusted from posx += boxWalkSpeed to posx += hsp
+                    posx += hsp; 
                 }
             } else {
                 posx += hsp;

@@ -38,7 +38,7 @@ public class Spikes extends entity{
 
 	}
 	public Rectangle getHitbox() {
-		return new Rectangle((int)posx-5,(int)posy-5,32,32);
+		return new Rectangle((int)posx+3,(int)posy-10,32,20);
 	}
 
     public double getX() {

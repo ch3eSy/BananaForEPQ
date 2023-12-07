@@ -71,7 +71,6 @@ public class keyboardinputs implements KeyListener {
 			gamePanel.getGame().getPlayer().setAttacking(true);
 			break;
 		case KeyEvent.VK_F:
-			gamePanel.getGame().reset();
 			break;
 		}
 		
