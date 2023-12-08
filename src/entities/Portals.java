@@ -13,12 +13,12 @@ import javax.imageio.ImageIO;
 public class Portals extends entity{
 	private BufferedImage[][] aniport;
     private int aniTick, aniIndex, aniSpd = 25;
-	public Portals(int x,int y,int w,int h) {
+    public Portals(int x,int y,int w,int h) {
 		super(x,y,w,h);
 		portalsloadAnimations();
 	}
-	public void render(Graphics g) {
-		g.drawImage(aniport[0][aniIndex],(int)posx,(int)posy,(int)width,(int)height,null);
+	public void render(Graphics g, int level) {
+		g.drawImage(aniport[level-1][aniIndex],(int)posx,(int)posy,(int)width,(int)height,null);
 	}
 	
     private void portalsloadAnimations() {
@@ -30,7 +30,7 @@ public class Portals extends entity{
 
             for (int j = 0; j < aniport.length; j++)
                 for (int i = 0; i < aniport[j].length; i++)
-                    aniport[j][i] = img.getSubimage(i *128, j * 128, 128, 128);
+                    aniport[j][i] = img.getSubimage(i * 128, j * 128, 128, 128);
         } catch (Exception e) {
             e.printStackTrace();
         }
