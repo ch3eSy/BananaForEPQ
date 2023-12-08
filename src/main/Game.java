@@ -23,7 +23,7 @@ public class Game implements Runnable{
 	private Thread gameThread;
 	private final int fps_max = 140;
 	private final int ups_max = 200;
-	public int level = 2;
+	public int level = 1;
     private List<floorTiles> floorTilesList;
 	private player Player;
 	private backdrop Backdrop;
@@ -69,19 +69,22 @@ public class Game implements Runnable{
         	for(i=0;i<3;i++) {
         		floorTilesList.add(new floorTiles(0+(i*32),1016,32,32));
         		floorTilesList.add(new floorTiles(1100+(32*i), 850, 32, 32));
+        		floorTilesList.add(new floorTiles(200+(32*i), 1000, 32, 32));
         		floorTilesList.add(new floorTiles(1515+(32*i), 256, 32, 32));
         	}
-        	portalList.add(new Portals(1500,128,128,128));
+        	portalList.add(new Portals(1500,900,128,128));
 
         }else if(level==2) {
             floorTilesList.add(new floorTiles(0, 1048, 32, 32));
             floorTilesList.add(new floorTiles(32, 1048, 32, 32));
             floorTilesList.add(new floorTiles(128, 1000, 32, 32));
             floorTilesList.add(new floorTiles(160, 1000, 32, 32));
-        	portalList.add(new Portals(1500,128,128,128));
+        	portalList.add(new Portals(1500,800,128,128));
 //            spikeList.add(new Spikes(500,1048,32,32));
         }else if(level == 3) {
         	floorTilesList.add(new floorTiles(160, 1000, 32, 32));
+        	portalList.add(new Portals(1500,1000,128,128));
+        }else if(level == 4) {
         	portalList.add(new Portals(1500,128,128,128));
         }
 
