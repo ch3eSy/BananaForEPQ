@@ -85,7 +85,9 @@ public class Game implements Runnable{
         	floorTilesList.add(new floorTiles(160, 1000, 32, 32));
         	portalList.add(new Portals(1500,1000,128,128));
         }else if(level == 4) {
-        	portalList.add(new Portals(1500,128,128,128));
+        	portalList.add(new Portals(1500,900,128,128));
+        }else if(level == 5) {
+        	portalList.add(new Portals(1500,900,128,128));
         }
 
 

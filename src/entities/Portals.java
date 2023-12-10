@@ -17,8 +17,8 @@ public class Portals extends entity{
 		super(x,y,w,h);
 		portalsloadAnimations();
 	}
-	public void render(Graphics g, int level) {
-		g.drawImage(aniport[level-1][aniIndex],(int)posx,(int)posy,(int)width,(int)height,null);
+	public void render(Graphics g, int colournum) {
+		g.drawImage(aniport[colournum-1][aniIndex],(int)posx,(int)posy,(int)width,(int)height,null);
 	}
 	
     private void portalsloadAnimations() {
@@ -26,7 +26,7 @@ public class Portals extends entity{
 
         try {
             BufferedImage img = ImageIO.read(is);
-            aniport = new BufferedImage[5][10];
+            aniport = new BufferedImage[5][12];
 
             for (int j = 0; j < aniport.length; j++)
                 for (int i = 0; i < aniport[j].length; i++)
