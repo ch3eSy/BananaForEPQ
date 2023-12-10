@@ -31,6 +31,7 @@ public class Game implements Runnable{
 	private List<Portals> portalList;
 	private boolean started = false;
 	private int i = 0;
+	private int colournum;
 	
 	
 	public Game() {
@@ -69,10 +70,12 @@ public class Game implements Runnable{
         	for(i=0;i<3;i++) {
         		floorTilesList.add(new floorTiles(0+(i*32),1016,32,32));
         		floorTilesList.add(new floorTiles(1100+(32*i), 850, 32, 32));
+        		floorTilesList.add(new floorTiles(470+(32*i), 950, 32, 32));
         		floorTilesList.add(new floorTiles(200+(32*i), 1000, 32, 32));
         		floorTilesList.add(new floorTiles(1515+(32*i), 256, 32, 32));
         	}
-        	portalList.add(new Portals(1500,900,128,128));
+        	portalList.add(new Portals(1500,128,128,128));
+    		Player = new player(0,600,80,80,this);
 
         }else if(level==2) {
             floorTilesList.add(new floorTiles(0, 1048, 32, 32));
@@ -80,19 +83,37 @@ public class Game implements Runnable{
             floorTilesList.add(new floorTiles(128, 1000, 32, 32));
             floorTilesList.add(new floorTiles(160, 1000, 32, 32));
         	portalList.add(new Portals(1500,800,128,128));
+    		Player = new player(0,200,80,80,this);
 //            spikeList.add(new Spikes(500,1048,32,32));
         }else if(level == 3) {
         	floorTilesList.add(new floorTiles(160, 1000, 32, 32));
-        	portalList.add(new Portals(1500,1000,128,128));
+        	portalList.add(new Portals(1500,900,128,128));
+    		Player = new player(0,600,80,80,this);
         }else if(level == 4) {
         	portalList.add(new Portals(1500,900,128,128));
+    		Player = new player(0,600,80,80,this);
         }else if(level == 5) {
         	portalList.add(new Portals(1500,900,128,128));
+    		Player = new player(0,600,80,80,this);
+        }else if(level == 6) {
+        	portalList.add(new Portals(1500,900,128,128));
+    		Player = new player(0,600,80,80,this);
+        }else if(level == 7) {
+        	portalList.add(new Portals(1500,900,128,128));
+    		Player = new player(0,600,80,80,this);
+        }else if(level == 8) {
+        	portalList.add(new Portals(1500,900,128,128));
+    		Player = new player(0,600,80,80,this);
+        }else if(level == 9) {
+        	portalList.add(new Portals(1500,900,128,128));
+    		Player = new player(0,600,80,80,this);
+        }else if(level == 10) {
+        	portalList.add(new Portals(1500,900,128,128));
+    		Player = new player(0,600,80,80,this);
         }
 
 
 
-		Player = new player(0,600,80,80,this);
 		Backdrop = new backdrop(0,0,1920,1080);
 	}
 
@@ -123,7 +144,19 @@ public class Game implements Runnable{
 	    	spike.render(g);
 	    }
 	    for (Portals portal : portalList) {
-	    	portal.render(g, level);
+	    	if(level==1||level==6||level==11||level==16) {
+	    		colournum=1;
+	    	}else if(level==2||level==7||level==12||level==17) {
+	    		colournum=2;
+	    	}else if(level==3||level==8||level==13||level==18) {
+	    		colournum=3;
+	    	}else if(level==4||level==9||level==14||level==19) {
+	    		colournum=4;
+	    	}else if(level==5||level==10||level==15||level==20) {
+	    		colournum=5;
+	    	}
+	    	
+	    	portal.render(g, colournum);
 	    }
 	}
 	

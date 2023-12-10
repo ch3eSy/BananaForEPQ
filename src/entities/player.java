@@ -102,8 +102,8 @@ public class player extends entity {
             if (playerHitbox.intersects(floorHitbox)) {
                 hittingtile = 1;
 
-                int side1 = ((int) floortile.getX())+3;
-                int side2 = ((int) floortile.getX()) - 35;
+                int side1 = ((int) floortile.getX())-3;
+                int side2 = ((int) floortile.getX())+35;
 
                 // Check if player is within the vertical bounds of the box
                 if (posy + height <= floortile.getY() + 5 && posy + height >= floortile.getY()) {
@@ -118,7 +118,7 @@ public class player extends entity {
                 }
 
                 // Check if player is colliding with the sides of the box
-                if ((posx + width >= side1 && posx <= side1) || (posx <= side2 && posx + width >= side2)) {
+                if (((posx + width-5 >= side1 && posx <= side1) || (posx <= side2 && posx + width >= side2))&&((posy+height>=floortile.getY()+5)&&posy<=floortile.getY()+32)) {
                     isHittingSide = true;
 
                     // Adjust the player's position to be outside the box
@@ -168,8 +168,7 @@ public class player extends entity {
             Rectangle portalHitbox = portal.getHitbox();
 
             if (playerHitbox.intersects(portalHitbox)) {
-            	posx = 0;
-            	posy = 700;
+
             	
             	game.reset();
 
@@ -383,7 +382,7 @@ public class player extends entity {
         // Adjusted the condition for moving the player
         if (isOntile) {
         	movingdown = false;
-            float boxWalkSpeed = 1.0f;
+            float boxWalkSpeed = 0.9f;
             if (left) {
                 hsp -= boxWalkSpeed;
             } else if (right) {
