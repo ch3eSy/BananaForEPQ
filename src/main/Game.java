@@ -15,6 +15,7 @@ import entities.Spikes;
 import entities.backdrop;
 import entities.floorTiles;
 import entities.player;
+import main.levels.*;
 
 public class Game implements Runnable{
 	
@@ -27,6 +28,7 @@ public class Game implements Runnable{
     private List<floorTiles> floorTilesList;
 	private player Player;
 	private backdrop Backdrop;
+	private levels Level;
 	private List<Spikes> spikeList;
 	private List<Portals> portalList;
 	private boolean started = false;
@@ -61,21 +63,10 @@ public class Game implements Runnable{
         spikeList = new ArrayList<>();
         portalList = new ArrayList<>();
         if(level==1) {
-        	for(i = 0; i<1920;i+=32) {
-                spikeList.add(new Spikes(i, 1048, 32, 32));
-        	}
-        	for(i = 0; i<4;i++) {
-        		floorTilesList.add(new floorTiles(850+(32*i), 920, 32, 32));
-        	}
-        	for(i=0;i<3;i++) {
-        		floorTilesList.add(new floorTiles(0+(i*32),1016,32,32));
-        		floorTilesList.add(new floorTiles(1100+(32*i), 850, 32, 32));
-        		floorTilesList.add(new floorTiles(470+(32*i), 950, 32, 32));
-        		floorTilesList.add(new floorTiles(200+(32*i), 1000, 32, 32));
-        		floorTilesList.add(new floorTiles(1515+(32*i), 256, 32, 32));
-        	}
-        	portalList.add(new Portals(1500,128,128,128));
-    		Player = new player(0,600,80,80,this);
+        	Player = new player(0,600,80,80,this);
+        	floorTilesList = levels.level1(1);
+        	spikeList = levels.level1(2);
+        	portalList.add(new Portals(1503,128,128,128));
 
         }else if(level==2) {
             floorTilesList.add(new floorTiles(0, 1048, 32, 32));

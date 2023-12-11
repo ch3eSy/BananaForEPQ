@@ -382,7 +382,7 @@ public class player extends entity {
         // Adjusted the condition for moving the player
         if (isOntile) {
         	movingdown = false;
-            float boxWalkSpeed = 0.9f;
+            float boxWalkSpeed = 0.2f;
             if (left) {
                 hsp -= boxWalkSpeed;
             } else if (right) {
