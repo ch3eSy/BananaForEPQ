@@ -35,11 +35,6 @@ public class floorTiles extends entity{
 		}
 
 	}
-	public void update() {
-		posx=0;
-		posy=0;
-
-	}
 	public Rectangle getHitbox() {
 		return new Rectangle((int)posx,(int)posy,32,32);
 	}

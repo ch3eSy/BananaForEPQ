@@ -96,14 +96,14 @@ public class player extends entity {
         isOntile = false;
 
         for (floorTiles floortile : floorTilesList) {
-            Rectangle playerHitbox = new Rectangle((int) posx, (int) posy, 80, 80);
+            Rectangle playerHitbox = new Rectangle((int) posx+5, (int) posy+20, 59, 58);
             Rectangle floorHitbox = floortile.getHitbox();
 
             if (playerHitbox.intersects(floorHitbox)) {
                 hittingtile = 1;
 
-                int side1 = ((int) floortile.getX())-3;
-                int side2 = ((int) floortile.getX())+35;
+                int side1 = ((int) floortile.getX());
+                int side2 = ((int) floortile.getX())+29;
 
                 // Check if player is within the vertical bounds of the box
                 if (posy + height <= floortile.getY() + 5 && posy + height >= floortile.getY()) {
