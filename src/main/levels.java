@@ -13,10 +13,6 @@ public class levels {
     private static List<floorTiles> floorTilesList;
     private Game game;
     private static int i;
-	
-	public levels() {
-		this.game = game;
-	}
 	public static List level1(int type) {
         floorTilesList = new ArrayList<>();
         spikeList = new ArrayList<>();
@@ -33,6 +29,9 @@ public class levels {
 			floorTilesList.add(new floorTiles(1100+(32*i), 850, 32, 32));
 			floorTilesList.add(new floorTiles(470+(32*i), 950, 32, 32));
 			floorTilesList.add(new floorTiles(1515+(32*i), 256, 32, 32));
+			floorTilesList.add(new floorTiles(590+(32*i),700,32,32));
+			floorTilesList.add(new floorTiles(830+(32*i),550,32,32));
+			floorTilesList.add(new floorTiles(1200+(32*i),400,32,32));
 		}
         
         if(type==1) {

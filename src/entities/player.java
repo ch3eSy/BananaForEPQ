@@ -46,7 +46,7 @@ public class player extends entity {
     private double boundaryx = 1840, boundaryy = 1080;
     private Timer timer;
     public boolean isJumping = false;
-    private float jumpspeed = 3f;
+    private float jumpspeed = 2.25f;
     private int vsp = 0;
     private float hsp = 0f;
     private int hittingtile = 0;
@@ -154,7 +154,7 @@ public class player extends entity {
 
             if (playerHitbox.intersects(spikeHitbox)) {
             	posx = 0;
-            	posy = 700;
+            	posy = 900;
 
             	return true;
             }
@@ -316,7 +316,6 @@ public class player extends entity {
 
         if (left && !right) {
             if (posx <= 0) {
-                System.out.println("Out of bounds");
                 hsp = 0;
             } else {
                 hsp -= playerSpeed;
