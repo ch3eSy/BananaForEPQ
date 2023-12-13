@@ -43,61 +43,24 @@ public class levels {
         }
 		
 	}
-	public void level2() {
-		
-	}
-	public void level3() {
-		
-	}
-	public void level4() {
-		
-	}
-	public void level5() {
-		
-	}
-	public void level6() {
-		
-	}
-	public void level7() {
-		
-	}
-	public void level8() {
-		
-	}
-	public void level9() {
-		
-	}
-	public void level10() {
-		
-	}
-	public void level11() {
-		
-	}
-	public void level12() {
-		
-	}
-	public void level13() {
-		
-	}
-	public void level14() {
-		
-	}
-	public void level15() {
-		
-	}
-	public void level16() {
-		
-	}
-	public void level17() {
-		
-	}
-	public void level18() {
-		
-	}
-	public void level19() {
-		
-	}
-	public void level20() {
+	public static List level2(int type) {
+        floorTilesList = new ArrayList<>();
+        spikeList = new ArrayList<>();
+        for(i=0;i<5;i++) {
+        	floorTilesList.add(new floorTiles(448+(i*32),1016,32,32));
+        }
+    	for(i = 0; i<1920;i+=32) {
+    		spikeList.add(new Spikes(i, 1048, 32, 32));
+    	}
+
+        
+        if(type==1) {
+        	return floorTilesList;
+        }else if(type==2){
+        	return spikeList;
+        }else {
+        	return null;
+        }
 		
 	}
 	

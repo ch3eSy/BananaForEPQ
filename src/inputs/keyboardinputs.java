@@ -49,29 +49,26 @@ public class keyboardinputs implements KeyListener {
 		switch(e.getKeyCode()) {
 		case  KeyEvent.VK_W:
 			gamePanel.getGame().getPlayer().setUp(true);
-			System.out.println("W");
 			break;
 		case  KeyEvent.VK_SPACE:
 			gamePanel.getGame().getPlayer().setUp(true);
-			System.out.println("space");
 			break;
 		case  KeyEvent.VK_A:
 			gamePanel.getGame().getPlayer().setLeft(true);
-			System.out.println("A");
 			break;
 		case  KeyEvent.VK_S:
 			gamePanel.getGame().getPlayer().setDown(true);
-			System.out.println("S");
 			break;
 		case  KeyEvent.VK_D:
 			gamePanel.getGame().getPlayer().setRight(true);
-			System.out.println("D");
 			break;
 		case KeyEvent.VK_E:
 			gamePanel.getGame().getPlayer().setAttacking(true);
 			break;
 		case KeyEvent.VK_F:
 			break;
+		case KeyEvent.VK_RIGHT:
+			gamePanel.getGame().reset();
 		}
 		
 		

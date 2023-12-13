@@ -69,10 +69,7 @@ public class Game implements Runnable{
         	portalList.add(new Portals(1503,128,128,128));
 
         }else if(level==2) {
-            floorTilesList.add(new floorTiles(0, 1048, 32, 32));
-            floorTilesList.add(new floorTiles(32, 1048, 32, 32));
-            floorTilesList.add(new floorTiles(128, 1000, 32, 32));
-            floorTilesList.add(new floorTiles(160, 1000, 32, 32));
+        	floorTilesList = levels.level2(1);
         	portalList.add(new Portals(1500,800,128,128));
     		Player = new player(0,200,80,80,this);
 //            spikeList.add(new Spikes(500,1048,32,32));
