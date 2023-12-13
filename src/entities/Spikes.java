@@ -47,6 +47,10 @@ public class Spikes extends entity{
 	public double getY() {
 		return posy;
 	}
+	public void scroll(float hsp) {
+		posx-=hsp;
+		
+	}
 }
 
 

@@ -183,11 +183,34 @@ public class player extends entity {
         isCollidingWith(floorTilesList);
         touchingPortal(portallist);
         updatePos();
+        checkScroll(floorTilesList, spikelist);
         updateAnimationTick();
         setAnimation();
     }
 
-    public void render(Graphics g) {
+    private void checkScroll(List<floorTiles> floorTilesList, List<Spikes> spikelist) {
+    	if(posx>=boundaryx&&right) {
+    		for(floorTiles floortile : floorTilesList) {
+    			floortile.scroll(hsp);
+    		}
+    		for(Spikes spike : spikelist) {
+    			spike.scroll(hsp);
+    		}
+    		posx = boundaryx;
+    	}
+    	if(posx<=0&&left) {
+    		for(floorTiles floortile : floorTilesList) {
+    			floortile.scroll(hsp);
+    		}
+    		for(Spikes spike : spikelist) {
+    			spike.scroll(hsp);
+    		}
+    		posx = 0;
+    	}
+    	
+	}
+
+	public void render(Graphics g) {
         g.drawImage(animations[playeraction][aniIndex], (int) posx, (int) posy, (int) width, (int) height, null);
     }
 
@@ -315,9 +338,7 @@ public class player extends entity {
         }
 
         if (left && !right) {
-            if (posx <= 0) {
-                hsp = 0;
-            } else {
+
                 hsp -= playerSpeed;
                 if (up && posy >= -31) {
                     movingupleft = true;
@@ -326,13 +347,8 @@ public class player extends entity {
                 } else {
                     movingleft = true;
                 }
-            }
 
         } else if (right && !left) {
-            if (posx >= boundaryx) {
-                System.out.println("Out of bounds");
-                hsp = 0;
-            } else {
                 hsp += playerSpeed;
 
                 if (up && posy >= -31) {
@@ -341,9 +357,7 @@ public class player extends entity {
                     movingdownright = true;
                 } else {
                     movingright = true;
-
                 }
-            }
 
         }else if(!left && !right) {
         	hsp = 0;
@@ -384,18 +398,35 @@ public class player extends entity {
             float boxWalkSpeed = 0.05f;
             if (left) {
                 hsp -= boxWalkSpeed;
+                if(posx>=0) {
+                	posx+=hsp;
+                }else {
+                	posx=0;
+                }
             } else if (right) {
             	hsp += boxWalkSpeed;
-            } 
+            	if(posx<=boundaryx) {
+            		posx+=hsp;
+            	}else {
+            		posx = boundaryx;
+            	}
+            }
             if(up&&left) {
-            	posx-=playerSpeed;
+            	if(posx>=0) {
+            		posx-=playerSpeed;
+            	}else if(posx<0) {
+            		posx=0;
+            	}
             }else if(up&&right){
-            	posx+=playerSpeed;
+            	if(posx<=boundaryx) {
+            		posx+=playerSpeed;
+            	}else if(posx>boundaryx) {
+            		posx=boundaryx;
+            	}
             }
             
         }
 
-        // Adjusted the condition for moving the player
         if (!isOntile) {
             posy += vsp;
 
@@ -407,13 +438,16 @@ public class player extends entity {
                     posx += hsp; 
                 }
             } else {
-                posx += hsp;
+            	if(posx>=0&&posx<=boundaryx) {
+            		posx += hsp;
+            	}else if(posx>boundaryx) {
+            		posx=boundaryx;
+            	}
             }
         }else {
-        	if(posx<=0&&left) {
-        		hsp=0;
+        	if(posx<0&&left) {
+        		posx=0;
         	}
-        	posx += hsp;
         }
 
      // Check if the player is hitting the bottom of the box

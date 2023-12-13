@@ -38,6 +38,9 @@ public class floorTiles extends entity{
 	public Rectangle getHitbox() {
 		return new Rectangle((int)posx,(int)posy,32,32);
 	}
+	public void scroll(float speed) {
+		posx-=speed;
+	}
 
     public double getX() {
         return posx;
