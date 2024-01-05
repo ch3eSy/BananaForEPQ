@@ -43,7 +43,7 @@ public class player extends entity {
     private boolean left, up, right, down;
     private float playerSpeed = 0.02f;
     private float gravity = 0.85f;
-    private double boundaryx = 1840, boundaryy = 1080;
+    private double boundaryx = 1450, boundaryy = 1080;
     private Timer timer;
     public boolean isJumping = false;
     private float jumpspeed = 2.25f;
@@ -183,12 +183,12 @@ public class player extends entity {
         isCollidingWith(floorTilesList);
         touchingPortal(portallist);
         updatePos();
-        checkScroll(floorTilesList, spikelist);
+        checkScroll(floorTilesList, spikelist, portallist);
         updateAnimationTick();
         setAnimation();
     }
 
-    private void checkScroll(List<floorTiles> floorTilesList, List<Spikes> spikelist) {
+    private void checkScroll(List<floorTiles> floorTilesList, List<Spikes> spikelist, List<Portals> portallist) {
     	if(posx>=boundaryx&&right) {
     		for(floorTiles floortile : floorTilesList) {
     			floortile.scroll(hsp);
@@ -196,16 +196,22 @@ public class player extends entity {
     		for(Spikes spike : spikelist) {
     			spike.scroll(hsp);
     		}
+    		for(Portals portal : portallist) {
+    			portal.scroll(hsp);
+    		}
     		posx = boundaryx;
     	}
-    	if(posx<=0&&left) {
+    	if(posx<=300&&left) {
     		for(floorTiles floortile : floorTilesList) {
     			floortile.scroll(hsp);
     		}
     		for(Spikes spike : spikelist) {
     			spike.scroll(hsp);
     		}
-    		posx = 0;
+    		for(Portals portal : portallist) {
+    			portal.scroll(hsp);
+    		}
+    		posx = 300;
     	}
     	
 	}
@@ -392,8 +398,7 @@ public class player extends entity {
         	}
         }
 
-        // Adjusted the condition for moving the player
-        if (isOntile) {
+        if (isOntile && !isHittingSide) {
         	movingdown = false;
             float boxWalkSpeed = 0.05f;
             if (left) {
@@ -438,15 +443,17 @@ public class player extends entity {
                     posx += hsp; 
                 }
             } else {
-            	if(posx>=0&&posx<=boundaryx) {
+            	if(posx>=300&&posx<=boundaryx) {
             		posx += hsp;
             	}else if(posx>boundaryx) {
             		posx=boundaryx;
+            	}else if(posx<300) {
+            		posx=300;
             	}
             }
         }else {
-        	if(posx<0&&left) {
-        		posx=0;
+        	if(posx<300&&left) {
+        		posx=300;
         	}
         }
 

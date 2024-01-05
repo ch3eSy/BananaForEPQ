@@ -52,6 +52,9 @@ public class Portals extends entity{
             }
         }
     }
+	public void scroll(float speed) {
+		posx-=speed;
+	}
     public double getX() {
         return posx;
     }

@@ -23,12 +23,13 @@ public class levels {
     		floorTilesList.add(new floorTiles(i, 1048, 32, 32));
     	}
     	for(i = 0; i<4;i++) {
-		floorTilesList.add(new floorTiles(850+(32*i), 920, 32, 32));
+    		floorTilesList.add(new floorTiles(850+(32*i), 920, 32, 32));
     	}
     	for(i=0;i<3;i++) {
 			floorTilesList.add(new floorTiles(1100+(32*i), 850, 32, 32));
 			floorTilesList.add(new floorTiles(470+(32*i), 950, 32, 32));
 			floorTilesList.add(new floorTiles(1515+(32*i), 256, 32, 32));
+
 			floorTilesList.add(new floorTiles(590+(32*i),700,32,32));
 			floorTilesList.add(new floorTiles(830+(32*i),550,32,32));
 			floorTilesList.add(new floorTiles(1200+(32*i),400,32,32));
