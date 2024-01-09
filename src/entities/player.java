@@ -59,6 +59,7 @@ public class player extends entity {
     long lastUpdateTime;
     private float acceleration = 1.0f;
     private Game game;
+    private int scrolled = 0;
     
     public class OnTile {
         public OnTile(int seconds) {
@@ -147,15 +148,24 @@ public class player extends entity {
         return false;
     }
     
-    public boolean isSpiking(List<Spikes> spikelist) {
+    public boolean isSpiking(List<floorTiles> floorTilesList, List<Spikes> spikelist, List<Portals> portallist) {
         for (Spikes spike : spikelist) {
             Rectangle playerHitbox = new Rectangle((int) posx, (int) posy, 80, 80);
             Rectangle spikeHitbox = spike.getHitbox();
 
             if (playerHitbox.intersects(spikeHitbox)) {
-            	posx = 0;
+            	posx = 300;
             	posy = 900;
-
+        		for(floorTiles floortile : floorTilesList) {
+        			floortile.scroll(-scrolled);
+        		}
+        		for(Spikes spikeScroll : spikelist) {
+        			spikeScroll.scroll(-scrolled);
+        		}
+        		for(Portals portal : portallist) {
+        			portal.scroll(-scrolled);
+        		}
+        		scrolled=0;
             	return true;
             }
         }
@@ -179,7 +189,7 @@ public class player extends entity {
         return false;
     }
     public void update(List<floorTiles> floorTilesList,List<Spikes> spikelist, List<Portals> portallist) {
-    	isSpiking(spikelist);
+    	isSpiking(floorTilesList, spikelist, portallist);
         isCollidingWith(floorTilesList);
         touchingPortal(portallist);
         updatePos();
@@ -199,6 +209,7 @@ public class player extends entity {
     		for(Portals portal : portallist) {
     			portal.scroll(hsp);
     		}
+    		scrolled+=hsp;
     		posx = boundaryx;
     	}
     	if(posx<=300&&left) {
@@ -211,9 +222,9 @@ public class player extends entity {
     		for(Portals portal : portallist) {
     			portal.scroll(hsp);
     		}
+    		scrolled+=hsp;
     		posx = 300;
     	}
-    	
 	}
 
 	public void render(Graphics g) {
