@@ -83,7 +83,7 @@ public class player extends entity {
 
     public boolean intersects1(Rectangle rectangle) {
         Rectangle thisRect = new Rectangle((int) posx, (int) posy, 80, 80);
-        Rectangle otherRect = new Rectangle(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+        Rectangle otherRect = new Rectangle(rectangle.x,rectangle.y,rectangle.width,rectangle.height);
         boolean result = thisRect.intersects(otherRect);
         return (result);
     }
