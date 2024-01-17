@@ -10,9 +10,13 @@ import javax.imageio.ImageIO;
 
 public class floorTiles extends entity{
 	private Image anifloor;
+	private int scrolled=0;
+	private double OriginX, OriginY;
 	
 	public floorTiles(int x,int y,int w,int h) {
 		super(x,y,w,h);
+		OriginX = x;
+		OriginY=y;
 		tileloadAnimations();
 	}
 	public void render(Graphics g) {
@@ -40,6 +44,9 @@ public class floorTiles extends entity{
 	}
 	public void scroll(float speed) {
 		posx-=speed;
+	}
+	public void resetScroll() {
+		posx = OriginX;
 	}
 
     public double getX() {

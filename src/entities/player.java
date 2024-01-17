@@ -157,15 +157,14 @@ public class player extends entity {
             	posx = 300;
             	posy = 900;
         		for(floorTiles floortile : floorTilesList) {
-        			floortile.scroll(-scrolled);
+        			floortile.resetScroll();
         		}
         		for(Spikes spikeScroll : spikelist) {
-        			spikeScroll.scroll(-scrolled);
+        			spikeScroll.resetScroll();
         		}
         		for(Portals portal : portallist) {
-        			portal.scroll(-scrolled);
+        			portal.resetScroll();
         		}
-        		scrolled=0;
             	return true;
             }
         }
@@ -209,10 +208,9 @@ public class player extends entity {
     		for(Portals portal : portallist) {
     			portal.scroll(hsp);
     		}
-    		scrolled+=hsp;
     		posx = boundaryx;
     	}
-    	if(posx<=300&&left) {
+    	if(posx<=250&&left) {
     		for(floorTiles floortile : floorTilesList) {
     			floortile.scroll(hsp);
     		}
@@ -222,8 +220,7 @@ public class player extends entity {
     		for(Portals portal : portallist) {
     			portal.scroll(hsp);
     		}
-    		scrolled+=hsp;
-    		posx = 300;
+    		posx = 250;
     	}
 	}
 
@@ -454,17 +451,17 @@ public class player extends entity {
                     posx += hsp; 
                 }
             } else {
-            	if(posx>=300&&posx<=boundaryx) {
+            	if(posx>=250&&posx<=boundaryx) {
             		posx += hsp;
             	}else if(posx>boundaryx) {
             		posx=boundaryx;
-            	}else if(posx<300) {
-            		posx=300;
+            	}else if(posx<250) {
+            		posx=250;
             	}
             }
         }else {
-        	if(posx<300&&left) {
-        		posx=300;
+        	if(posx<250&&left) {
+        		posx=250;
         	}
         }
 

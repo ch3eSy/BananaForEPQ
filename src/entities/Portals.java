@@ -13,8 +13,11 @@ import javax.imageio.ImageIO;
 public class Portals extends entity{
 	private BufferedImage[][] aniport;
     private int aniTick, aniIndex, aniSpd = 25;
+	private double OriginX, OriginY;
     public Portals(int x,int y,int w,int h) {
 		super(x,y,w,h);
+		OriginX = x;
+		OriginY=y;
 		portalsloadAnimations();
 	}
 	public void render(Graphics g, int colournum) {
@@ -55,6 +58,10 @@ public class Portals extends entity{
 	public void scroll(float speed) {
 		posx-=speed;
 	}
+	public void resetScroll() {
+		posx = OriginX;
+	}
+
     public double getX() {
         return posx;
     }

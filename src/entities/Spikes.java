@@ -9,8 +9,11 @@ import javax.imageio.ImageIO;
 
 public class Spikes extends entity{
 	private Image anispike;
+	private double OriginX, OriginY;
 	public Spikes(int x,int y,int w,int h) {
 		super(x,y,w,h);
+		OriginX = x;
+		OriginY=y;
 		spikesloadAnimations();
 	}
 	public void render(Graphics g) {
@@ -40,6 +43,10 @@ public class Spikes extends entity{
 	public Rectangle getHitbox() {
 		return new Rectangle((int)posx+3,(int)posy-10,32,20);
 	}
+	public void resetScroll() {
+		posx = OriginX;
+	}
+
 
     public double getX() {
         return posx;
