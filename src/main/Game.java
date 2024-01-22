@@ -15,6 +15,7 @@ import entities.Spikes;
 import entities.backdrop;
 import entities.floorTiles;
 import entities.player;
+import entities.enemyWalking;
 import main.levels.*;
 
 public class Game implements Runnable{
@@ -27,6 +28,7 @@ public class Game implements Runnable{
 	public int level = 1;
     private List<floorTiles> floorTilesList;
 	private player Player;
+	private enemyWalking snail1;
 	private backdrop Backdrop;
 	private levels Level;
 	private List<Spikes> spikeList;
@@ -64,6 +66,7 @@ public class Game implements Runnable{
         portalList = new ArrayList<>();
         if(level==1) {
         	Player = new player(0,600,80,80,this);
+        	snail1 = new enemyWalking(1000,1000,80,80);
         	floorTilesList = levels.level1(1);
         	spikeList = levels.level1(2);
         	portalList.add(new Portals(1503,128,128,128));
@@ -121,10 +124,12 @@ public class Game implements Runnable{
 	    for (Portals portal : portalList) {
 	    	portal.update();
 	    }
+	    snail1.update();
 	}
 	public void render(Graphics g) {
 		Backdrop.render(g);
 		Player.render(g);
+		snail1.render(g);
 	    for (floorTiles tile : floorTilesList) {
 	        tile.render(g);
 	    }
