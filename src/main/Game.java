@@ -120,7 +120,7 @@ public class Game implements Runnable{
 		gameThread.start();
 	}
 	public void update() {
-        Player.update(floorTilesList,spikeList, portalList);
+        Player.update(floorTilesList,spikeList, portalList,snail1);
 	    for (Portals portal : portalList) {
 	    	portal.update();
 	    }

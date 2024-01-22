@@ -148,7 +148,7 @@ public class player extends entity {
         return false;
     }
     
-    public boolean isSpiking(List<floorTiles> floorTilesList, List<Spikes> spikelist, List<Portals> portallist) {
+    public boolean isSpiking(List<floorTiles> floorTilesList, List<Spikes> spikelist, List<Portals> portallist,enemyWalking snail1) {
         for (Spikes spike : spikelist) {
             Rectangle playerHitbox = new Rectangle((int) posx, (int) posy, 80, 80);
             Rectangle spikeHitbox = spike.getHitbox();
@@ -165,6 +165,7 @@ public class player extends entity {
         		for(Portals portal : portallist) {
         			portal.resetScroll();
         		}
+        		snail1.resetScroll();
             	return true;
             }
         }
@@ -187,17 +188,17 @@ public class player extends entity {
 
         return false;
     }
-    public void update(List<floorTiles> floorTilesList,List<Spikes> spikelist, List<Portals> portallist) {
-    	isSpiking(floorTilesList, spikelist, portallist);
+    public void update(List<floorTiles> floorTilesList,List<Spikes> spikelist, List<Portals> portallist, enemyWalking snail1) {
+    	isSpiking(floorTilesList, spikelist, portallist,snail1);
         isCollidingWith(floorTilesList);
         touchingPortal(portallist);
         updatePos();
-        checkScroll(floorTilesList, spikelist, portallist);
+        checkScroll(floorTilesList, spikelist, portallist,snail1);
         updateAnimationTick();
         setAnimation();
     }
 
-    private void checkScroll(List<floorTiles> floorTilesList, List<Spikes> spikelist, List<Portals> portallist) {
+    private void checkScroll(List<floorTiles> floorTilesList, List<Spikes> spikelist, List<Portals> portallist,enemyWalking snail1) {
     	if(posx>=boundaryx&&right) {
     		for(floorTiles floortile : floorTilesList) {
     			floortile.scroll(hsp);
@@ -207,7 +208,10 @@ public class player extends entity {
     		}
     		for(Portals portal : portallist) {
     			portal.scroll(hsp);
+    			boolean canscrollsnail = portal.nosnailscroll(hsp);
+        		snail1.scroll(hsp,canscrollsnail);
     		}
+
     		posx = boundaryx;
     	}
     	if(posx<=250&&left) {
@@ -219,7 +223,10 @@ public class player extends entity {
     		}
     		for(Portals portal : portallist) {
     			portal.scroll(hsp);
+    			boolean canscrollsnail = portal.nosnailscroll(hsp);
+        		snail1.scroll(hsp, canscrollsnail);
     		}
+
     		posx = 250;
     	}
 	}

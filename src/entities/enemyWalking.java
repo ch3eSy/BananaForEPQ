@@ -37,9 +37,13 @@ public class enemyWalking extends entity{
         }
     }
 	public void update() {
+		move();
         updateAnimationTick();
 	}
-    private void updateAnimationTick() {
+    private void move() {
+    	posx-=0.05;
+	}
+	private void updateAnimationTick() {
         aniTick++;
         if (aniTick >= aniSpd) {
             aniTick = 0;
@@ -52,10 +56,8 @@ public class enemyWalking extends entity{
 	public Rectangle getHitbox() {
 		return new Rectangle((int)posx-5,(int)posy-5,96,128);
 	}
-	public void scroll(float speed) {
-		if((posx==OriginX)&&speed<0) {	
-			posx=posx;
-		}else {
+	public void scroll(float speed,boolean scrollsnail) {
+		if(!scrollsnail) {
 			posx-=speed;
 		}
 	}
