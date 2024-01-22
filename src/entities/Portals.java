@@ -56,7 +56,11 @@ public class Portals extends entity{
         }
     }
 	public void scroll(float speed) {
-		posx-=speed;
+		if((posx==OriginX)&&speed<0) {	
+			posx=posx;
+		}else {
+			posx-=speed;
+		}
 	}
 	public void resetScroll() {
 		posx = OriginX;

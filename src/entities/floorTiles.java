@@ -43,7 +43,11 @@ public class floorTiles extends entity{
 		return new Rectangle((int)posx,(int)posy,32,32);
 	}
 	public void scroll(float speed) {
-		posx-=speed;
+		if((posx==OriginX)&&speed<0) {	
+			posx=posx;
+		}else {
+			posx-=speed;
+		}
 	}
 	public void resetScroll() {
 		posx = OriginX;

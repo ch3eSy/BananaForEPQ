@@ -54,9 +54,12 @@ public class Spikes extends entity{
 	public double getY() {
 		return posy;
 	}
-	public void scroll(float hsp) {
-		posx-=hsp;
-		
+	public void scroll(float speed) {
+		if((posx==OriginX)&&speed<0) {	
+			posx=posx;
+		}else {
+			posx-=speed;
+		}
 	}
 }
 

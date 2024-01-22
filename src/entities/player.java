@@ -382,7 +382,6 @@ public class player extends entity {
             if (isOntile) {
                 new JumpTime(1);
                 isOntile = false;
-                System.out.println("Jumped Off Box");
             } else {
                 new JumpTime(1);
             }
@@ -395,7 +394,7 @@ public class player extends entity {
 
             } else {
                 posy += playerSpeed;
-                movingdown = true;
+                movingdown = true;	
             }
         }
         if (isJumping) {
