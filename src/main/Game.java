@@ -33,6 +33,7 @@ public class Game implements Runnable{
 	private levels Level;
 	private List<Spikes> spikeList;
 	private List<Portals> portalList;
+	private List<enemyWalking> snails;
 	private boolean started = false;
 	private int i = 0;
 	private int colournum;
@@ -64,9 +65,10 @@ public class Game implements Runnable{
         floorTilesList = new ArrayList<>();
         spikeList = new ArrayList<>();
         portalList = new ArrayList<>();
+        snails = new ArrayList<>();
         if(level==1) {
         	Player = new player(0,600,80,80,this);
-        	snail1 = new enemyWalking(1000,1000,80,80);
+        	snails.add(new enemyWalking(1000,1000,80,80));
         	floorTilesList = levels.level1(1);
         	spikeList = levels.level1(2);
         	portalList.add(new Portals(1503,128,128,128));
@@ -120,16 +122,20 @@ public class Game implements Runnable{
 		gameThread.start();
 	}
 	public void update() {
-        Player.update(floorTilesList,spikeList, portalList,snail1);
+        Player.update(floorTilesList,spikeList, portalList,snails);
 	    for (Portals portal : portalList) {
 	    	portal.update();
 	    }
-	    snail1.update();
+	    for(enemyWalking snail : snails) {
+	    		snail.update();
+	    }
 	}
 	public void render(Graphics g) {
 		Backdrop.render(g);
 		Player.render(g);
-		snail1.render(g);
+		for(enemyWalking snail : snails) {
+			snail.render(g);
+		}
 	    for (floorTiles tile : floorTilesList) {
 	        tile.render(g);
 	    }
