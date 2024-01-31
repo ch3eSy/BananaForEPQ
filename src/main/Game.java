@@ -10,9 +10,11 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import entities.EnemyBullet;
 import entities.Portals;
 import entities.Spikes;
 import entities.backdrop;
+import entities.enemyShooter;
 import entities.floorTiles;
 import entities.player;
 import entities.enemyWalking;
@@ -28,15 +30,19 @@ public class Game implements Runnable{
 	public int level = 1;
     private List<floorTiles> floorTilesList;
 	private player Player;
+
 	private enemyWalking snail1;
 	private backdrop Backdrop;
 	private levels Level;
 	private List<Spikes> spikeList;
 	private List<Portals> portalList;
 	private List<enemyWalking> snails;
+	private List<enemyShooter> monkey;
 	private boolean started = false;
 	private int i = 0;
 	private int colournum;
+	private int bull=0;
+	private List<EnemyBullet> bullets;
 	
 	
 	public Game() {
@@ -66,12 +72,22 @@ public class Game implements Runnable{
         spikeList = new ArrayList<>();
         portalList = new ArrayList<>();
         snails = new ArrayList<>();
+        monkey = new ArrayList<>();
+        bullets = new ArrayList<>();
+        bullets.add(new EnemyBullet(500,500,100,20));
+        bullets.add(new EnemyBullet(500,500,100,20));
+        bullets.add(new EnemyBullet(500,500,100,20));
+        bullets.add(new EnemyBullet(500,500,100,20));
+        bullets.add(new EnemyBullet(500,500,100,20));
+        
         if(level==1) {
         	Player = new player(0,600,80,80,this);
+
         	snails.add(new enemyWalking(1000,1000,80,80));
         	floorTilesList = levels.level1(1);
         	spikeList = levels.level1(2);
         	portalList.add(new Portals(1503,128,128,128));
+        	monkey.add(new enemyShooter(1500,500,80,80, this));
 
         }else if(level==2) {
         	floorTilesList = levels.level2(1);
@@ -110,10 +126,7 @@ public class Game implements Runnable{
 		Backdrop = new backdrop(0,0,1920,1080);
 	}
 
-	public Image Image(InputStream is) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 	
 
 
@@ -123,40 +136,52 @@ public class Game implements Runnable{
 	}
 	public void update() {
         Player.update(floorTilesList,spikeList, portalList,snails);
+
 	    for (Portals portal : portalList) {
 	    	portal.update();
 	    }
 	    for(enemyWalking snail : snails) {
 	    		snail.update();
 	    }
+	    for(enemyShooter enemShoot : monkey) {
+	    	enemShoot.update();
+	    }
 	}
 	public void render(Graphics g) {
-		Backdrop.render(g);
-		Player.render(g);
-		for(enemyWalking snail : snails) {
-			snail.render(g);
-		}
-	    for (floorTiles tile : floorTilesList) {
-	        tile.render(g);
-	    }
-	    for (Spikes spike : spikeList) {
-	    	spike.render(g);
-	    }
-	    for (Portals portal : portalList) {
-	    	if(level==1||level==6||level==11||level==16) {
-	    		colournum=1;
-	    	}else if(level==2||level==7||level==12||level==17) {
-	    		colournum=2;
-	    	}else if(level==3||level==8||level==13||level==18) {
-	    		colournum=3;
-	    	}else if(level==4||level==9||level==14||level==19) {
-	    		colournum=4;
-	    	}else if(level==5||level==10||level==15||level==20) {
-	    		colournum=5;
+			Backdrop.render(g);
+			Player.render(g);
+			for(EnemyBullet bullet : bullets) {
+				bullet.render(g);
+			}
+			for(enemyShooter enemShoot : monkey) {
+				enemShoot.render(g);
+			}
+			for(enemyWalking snail : snails) {
+				snail.render(g);
+			}
+			for (floorTiles tile : floorTilesList) {
+				tile.render(g);
+			}
+			for (Spikes spike : spikeList) {
+	    		spike.render(g);
 	    	}
+	    	for (Portals portal : portalList) {
+	    		if(level==1||level==6||level==11||level==16) {
+	    			colournum=1;
+	    		}else if(level==2||level==7||level==12||level==17) {
+	    			colournum=2;
+	    		}else if(level==3||level==8||level==13||level==18) {
+	    			colournum=3;
+	    		}else if(level==4||level==9||level==14||level==19) {
+	    			colournum=4;
+	    		}else if(level==5||level==10||level==15||level==20) {
+	    			colournum=5;
+	    		}
 	    	
-	    	portal.render(g, colournum);
-	    }
+	    		portal.render(g, colournum);
+	    	
+	    	}
+		
 	}
 	
 	
@@ -215,16 +240,28 @@ public class Game implements Runnable{
 		
 	}
 	
+	public void enemyshoot(double posx, double posy) {
+		for(EnemyBullet bullett : bullets) {
+			
+		}
+		
+	}
+	
 	public void windowFocusLost() {
 		Player.resetDirBooleans();
+
 	}
 	
 	public player getPlayer() {
 		return Player;
 	}
+
 	
 	public backdrop getBackdrop() {
 		return Backdrop;
 	}
+
+	
+	
 	
 }

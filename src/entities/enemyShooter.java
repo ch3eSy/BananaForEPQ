@@ -6,23 +6,38 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import static utils.Constants.enemyConstants.GetSpriteLength;
+import static utils.Constants.enemyConstants.idle;
+import static utils.Constants.enemyConstants.runningleft;
+import static utils.Constants.enemyConstants.attack;
 import javax.imageio.ImageIO;
+
+import main.Game;
 
 public class enemyShooter extends entity{
 	private BufferedImage[][] animations;
     private int aniTick, aniIndex, aniSpd = 25;
 	private double OriginX, OriginY;
-    public enemyShooter(int x,int y,int w,int h) {
+	private int enemyaction = runningleft;
+	public Timer timer;
+//	public Graphics g;
+	private EnemyBullet bullet;
+	private Game game;
+	private int shootdelay= 0;
+    public enemyShooter(int x,int y,int w,int h, Game game) {
 		super(x,y,w,h);
+		this.game = game;
 		OriginX = x;
 		OriginY=y;
-		portalsloadAnimations();
+		loadAnimations();
 	}
 	public void render(Graphics g) {
-		g.drawImage(animations[0][aniIndex],(int)posx,(int)posy,(int)width,(int)height,null);
+		g.drawImage(animations[enemyaction][aniIndex],(int)posx,(int)posy,(int)width,(int)height,null);
 	}
-    private void portalsloadAnimations() {
+    private void loadAnimations() {
         InputStream is = getClass().getResourceAsStream("/snailsprites.png");
 
         try {
@@ -41,8 +56,16 @@ public class enemyShooter extends entity{
         updateAnimationTick();
 	}
     private void move() {
+    	enemyaction = runningleft;
     	posx-=0.05;
+    	shootdelay +=1;
+    	System.out.println(shootdelay);
+    	if(shootdelay==1000) {
+    		System.out.println("Processing");
+    		shoot();
+    	}
 	}
+
 	private void updateAnimationTick() {
         aniTick++;
         if (aniTick >= aniSpd) {
@@ -56,6 +79,11 @@ public class enemyShooter extends entity{
 	public Rectangle getHitbox() {
 		return new Rectangle((int)posx-5,(int)posy-5,96,128);
 	}
+	
+	public void shoot() {
+		game.enemyshoot(posx,posy);
+	}
+	
 	public void scroll(float speed,boolean scrollsnail) {
 		if(!scrollsnail) {
 			posx-=speed;

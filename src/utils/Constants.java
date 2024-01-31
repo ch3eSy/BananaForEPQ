@@ -43,4 +43,30 @@ public class Constants {
 			
 		}
 	}
+
+	public static class enemyConstants{
+		
+		public static final int attack = 1;
+		public static final int idle = 3;
+		public static final int runningright =2;
+		public static final int runningleft = 0;
+		
+		
+		public static int GetSpriteLength(int enemy_action) {
+			
+			switch(enemy_action) {
+			case runningright:
+				return 5;
+			case runningleft:
+				return 5;
+			case idle:
+				return 5;
+			case attack:
+				return 5;
+			default:
+				return 1;
+			}
+			
+		}
+	}
 }

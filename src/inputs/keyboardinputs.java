@@ -42,6 +42,7 @@ public class keyboardinputs implements KeyListener {
 		case  KeyEvent.VK_D:
 			gamePanel.getGame().getPlayer().setRight(false);
 			break;
+
 		}
 	}
 	@Override
@@ -67,8 +68,7 @@ public class keyboardinputs implements KeyListener {
 			break;
 		case KeyEvent.VK_F:
 			break;
-		case KeyEvent.VK_RIGHT:
-			gamePanel.getGame().reset();
+
 		}
 		
 		
