@@ -27,6 +27,7 @@ public class enemyShooter extends entity{
 	private EnemyBullet bullet;
 	private Game game;
 	private int shootdelay= 0;
+	private int shots=0;
     public enemyShooter(int x,int y,int w,int h, Game game) {
 		super(x,y,w,h);
 		this.game = game;
@@ -59,9 +60,10 @@ public class enemyShooter extends entity{
     	enemyaction = runningleft;
     	posx-=0.05;
     	shootdelay +=1;
-    	System.out.println(shootdelay);
     	if(shootdelay==1000) {
     		System.out.println("Processing");
+    		shootdelay=0;
+    		shots+=1;
     		shoot();
     	}
 	}
@@ -81,7 +83,10 @@ public class enemyShooter extends entity{
 	}
 	
 	public void shoot() {
-		game.enemyshoot(posx,posy);
+		game.enemyshoot(posx,posy,shots);
+		if(shots==5) {
+			shots = 0;
+		}
 	}
 	
 	public void scroll(float speed,boolean scrollsnail) {

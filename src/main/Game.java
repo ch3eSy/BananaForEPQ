@@ -43,6 +43,7 @@ public class Game implements Runnable{
 	private int colournum;
 	private int bull=0;
 	private List<EnemyBullet> bullets;
+	private EnemyBullet current;
 	
 	
 	public Game() {
@@ -74,11 +75,11 @@ public class Game implements Runnable{
         snails = new ArrayList<>();
         monkey = new ArrayList<>();
         bullets = new ArrayList<>();
-        bullets.add(new EnemyBullet(500,500,100,20));
-        bullets.add(new EnemyBullet(500,500,100,20));
-        bullets.add(new EnemyBullet(500,500,100,20));
-        bullets.add(new EnemyBullet(500,500,100,20));
-        bullets.add(new EnemyBullet(500,500,100,20));
+        bullets.add(new EnemyBullet(500,20000,100,20));
+        bullets.add(new EnemyBullet(500,20000,100,20));
+        bullets.add(new EnemyBullet(500,20000,100,20));
+        bullets.add(new EnemyBullet(500,20000,100,20));
+        bullets.add(new EnemyBullet(500,20000,100,20));
         
         if(level==1) {
         	Player = new player(0,600,80,80,this);
@@ -141,47 +142,49 @@ public class Game implements Runnable{
 	    	portal.update();
 	    }
 	    for(enemyWalking snail : snails) {
-	    		snail.update();
+	    	snail.update();
 	    }
 	    for(enemyShooter enemShoot : monkey) {
 	    	enemShoot.update();
 	    }
+	    for(EnemyBullet bullet : bullets) {
+	    	bullet.update();
+	    }
 	}
 	public void render(Graphics g) {
-			Backdrop.render(g);
-			Player.render(g);
-			for(EnemyBullet bullet : bullets) {
-				bullet.render(g);
-			}
-			for(enemyShooter enemShoot : monkey) {
-				enemShoot.render(g);
-			}
-			for(enemyWalking snail : snails) {
-				snail.render(g);
-			}
-			for (floorTiles tile : floorTilesList) {
-				tile.render(g);
-			}
-			for (Spikes spike : spikeList) {
-	    		spike.render(g);
+		Backdrop.render(g);
+		Player.render(g);
+		for(EnemyBullet bullet : bullets) {
+			bullet.render(g);
+		}
+		for(enemyShooter enemShoot : monkey) {
+			enemShoot.render(g);
+		}
+		for(enemyWalking snail : snails) {
+			snail.render(g);
+		}
+		for (floorTiles tile : floorTilesList) {
+			tile.render(g);
+		}
+		for (Spikes spike : spikeList) {
+	    	spike.render(g);
+	    }
+	    for (Portals portal : portalList) {
+	    	if(level==1||level==6||level==11||level==16) {
+	    		colournum=1;
+	    	}else if(level==2||level==7||level==12||level==17) {
+	    		colournum=2;
+	    	}else if(level==3||level==8||level==13||level==18) {
+	    		colournum=3;
+	    	}else if(level==4||level==9||level==14||level==19) {
+	    		colournum=4;
+	    	}else if(level==5||level==10||level==15||level==20) {
+	    		colournum=5;
 	    	}
-	    	for (Portals portal : portalList) {
-	    		if(level==1||level==6||level==11||level==16) {
-	    			colournum=1;
-	    		}else if(level==2||level==7||level==12||level==17) {
-	    			colournum=2;
-	    		}else if(level==3||level==8||level==13||level==18) {
-	    			colournum=3;
-	    		}else if(level==4||level==9||level==14||level==19) {
-	    			colournum=4;
-	    		}else if(level==5||level==10||level==15||level==20) {
-	    			colournum=5;
-	    		}
 	    	
-	    		portal.render(g, colournum);
+	    	portal.render(g, colournum);
 	    	
-	    	}
-		
+	    }
 	}
 	
 	
@@ -240,9 +243,21 @@ public class Game implements Runnable{
 		
 	}
 	
-	public void enemyshoot(double posx, double posy) {
+	public void enemyshoot(double posx, double posy, int b) {
 		for(EnemyBullet bullett : bullets) {
-			
+
+			if(i < b) {
+				current = bullets.get(i);
+				current.move((int)posx,(int)posy);
+//				bullett.move((int)posx,(int)posy);
+				i++;
+				if(i==5) {
+					i=0;
+				}
+			}else {
+				break;
+			}
+
 		}
 		
 	}
