@@ -61,7 +61,6 @@ public class enemyShooter extends entity{
     	posx-=0.05;
     	shootdelay +=1;
     	if(shootdelay==1000) {
-    		System.out.println("Processing");
     		shootdelay=0;
     		shots+=1;
     		shoot();

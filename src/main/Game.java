@@ -17,6 +17,7 @@ import entities.backdrop;
 import entities.enemyShooter;
 import entities.floorTiles;
 import entities.player;
+import entities.playerBullet;
 import entities.enemyWalking;
 import main.levels.*;
 
@@ -43,7 +44,10 @@ public class Game implements Runnable{
 	private int colournum;
 	private int bull=0;
 	private List<EnemyBullet> bullets;
+	private List<playerBullet> playerBullets;
 	private EnemyBullet current;
+	private int s = 0;
+	private playerBullet curr;
 	
 	
 	public Game() {
@@ -75,11 +79,18 @@ public class Game implements Runnable{
         snails = new ArrayList<>();
         monkey = new ArrayList<>();
         bullets = new ArrayList<>();
+        playerBullets = new ArrayList<>();
         bullets.add(new EnemyBullet(500,20000,100,20));
         bullets.add(new EnemyBullet(500,20000,100,20));
         bullets.add(new EnemyBullet(500,20000,100,20));
         bullets.add(new EnemyBullet(500,20000,100,20));
-        bullets.add(new EnemyBullet(500,20000,100,20));
+        bullets.add(new EnemyBullet(500,20000,100,20));        
+        playerBullets.add(new playerBullet(500,50,100,20));
+        playerBullets.add(new playerBullet(500,50,100,20));
+        playerBullets.add(new playerBullet(500,50,100,20));
+        playerBullets.add(new playerBullet(500,50,100,20));
+        playerBullets.add(new playerBullet(500,50,100,20));
+        
         
         if(level==1) {
         	Player = new player(0,600,80,80,this);
@@ -150,6 +161,9 @@ public class Game implements Runnable{
 	    for(EnemyBullet bullet : bullets) {
 	    	bullet.update();
 	    }
+	    for(playerBullet playBull : playerBullets) {
+	    	playBull.update();
+	    }
 	}
 	public void render(Graphics g) {
 		Backdrop.render(g);
@@ -157,6 +171,9 @@ public class Game implements Runnable{
 		for(EnemyBullet bullet : bullets) {
 			bullet.render(g);
 		}
+	    for(playerBullet playBull : playerBullets) {
+	    	playBull.render(g);
+	    }
 		for(enemyShooter enemShoot : monkey) {
 			enemShoot.render(g);
 		}
@@ -251,13 +268,14 @@ public class Game implements Runnable{
 				current.move((int)posx,(int)posy);
 //				bullett.move((int)posx,(int)posy);
 				i++;
-				if(i==5) {
-					i=0;
-				}
+
 			}else {
 				break;
 			}
 
+		}
+		if(i==5) {
+			i=0;
 		}
 		
 	}
@@ -274,6 +292,22 @@ public class Game implements Runnable{
 	
 	public backdrop getBackdrop() {
 		return Backdrop;
+	}
+
+	public void Attack(double posx, double posy, int b,int dir) {
+		for(playerBullet bullet : playerBullets) {
+			if(s < b) {
+				curr = playerBullets.get(s);
+				curr.move((int)posx,(int)posy,(int)dir);
+				s++;
+			}else {
+				break;
+			}
+		}
+		if(s==5) {
+			s=0;
+		}
+		
 	}
 
 	

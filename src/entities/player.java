@@ -60,6 +60,8 @@ public class player extends entity {
     private float acceleration = 1.0f;
     private Game game;
     private int scrolled = 0;
+	private int shots= 0;
+	private int dir = 0;
     
     public class OnTile {
         public OnTile(int seconds) {
@@ -271,7 +273,7 @@ public class player extends entity {
         else if (movingdownright)
             playeraction = jumpingright;
         else if (movingdown) {
-            playeraction = jumpingleft;
+            playeraction = jumpingright;
         } else
             playeraction = idle;
         if (attacking)
@@ -543,6 +545,28 @@ public class player extends entity {
     public void setDown(boolean down) {
         this.down = down;
     }
+
+	public void Attack() {
+		if(left) {
+			dir = 0;
+		}else if(right) {
+			dir = 1;
+		}else if(!left && !right) {
+			dir = 1;
+		}else if(left && right) {
+			dir=1;
+		}
+		
+		shots +=1;
+		game.Attack(posx, posy, shots, dir);
+
+		
+		if(shots==5) {
+			shots = 0;
+		}
+	}
+
+
 
 
 }
