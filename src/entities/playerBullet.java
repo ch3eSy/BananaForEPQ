@@ -2,6 +2,7 @@ package entities;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 public class playerBullet extends entity{
 	private int x;
@@ -36,5 +37,8 @@ public class playerBullet extends entity{
 			}
 		}
 		
+	}
+	public Rectangle getHitbox() {
+		return new Rectangle((int)posx,(int)posy,20,5);
 	}
 }

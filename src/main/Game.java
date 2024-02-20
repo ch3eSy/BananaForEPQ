@@ -155,14 +155,15 @@ public class Game implements Runnable{
 	    for(enemyWalking snail : snails) {
 	    	snail.update();
 	    }
+
+	    for(playerBullet playBull : playerBullets) {
+	    	playBull.update();
+	    }
 	    for(enemyShooter enemShoot : monkey) {
-	    	enemShoot.update();
+	    	enemShoot.update(playerBullets);
 	    }
 	    for(EnemyBullet bullet : bullets) {
 	    	bullet.update();
-	    }
-	    for(playerBullet playBull : playerBullets) {
-	    	playBull.update();
 	    }
 	}
 	public void render(Graphics g) {

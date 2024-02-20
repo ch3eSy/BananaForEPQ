@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -28,6 +29,8 @@ public class enemyShooter extends entity{
 	private Game game;
 	private int shootdelay= 0;
 	private int shots=0;
+	private Rectangle bullhitbox;
+	private Rectangle enthitbox;
     public enemyShooter(int x,int y,int w,int h, Game game) {
 		super(x,y,w,h);
 		this.game = game;
@@ -52,11 +55,27 @@ public class enemyShooter extends entity{
             e.printStackTrace();
         }
     }
-	public void update() {
+	public void update(List<playerBullet> playerBullets) {
+		checkCollisions(playerBullets);
 		move();
         updateAnimationTick();
 	}
-    private void move() {
+    public boolean intersects1(Rectangle rectangle) {
+        Rectangle thisRect = new Rectangle((int)posx,(int)posy,width,height);
+        Rectangle otherRect = new Rectangle(rectangle.x,rectangle.y,rectangle.width,rectangle.height);
+        boolean result = thisRect.intersects(otherRect);
+        return (result);
+    }
+    private void checkCollisions(List<playerBullet> playerBullets) {
+    	for(playerBullet bullet : playerBullets) {
+    		enthitbox = new Rectangle((int)posx,(int)posy,width,height);
+    		bullhitbox = bullet.getHitbox();
+    		if(enthitbox.intersects(bullhitbox)) {
+    			System.out.println("Killed");
+    		}
+    	}
+	}
+	private void move() {
     	enemyaction = runningleft;
     	posx-=0.05;
     	shootdelay +=1;
