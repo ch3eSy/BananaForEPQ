@@ -48,6 +48,9 @@ public class Game implements Runnable{
 	private EnemyBullet current;
 	private int s = 0;
 	private playerBullet curr;
+	private int listlength;
+	private boolean mustRemove;
+	private playerBullet removal;
 	
 	
 	public Game() {
@@ -85,11 +88,6 @@ public class Game implements Runnable{
         bullets.add(new EnemyBullet(500,20000,100,20));
         bullets.add(new EnemyBullet(500,20000,100,20));
         bullets.add(new EnemyBullet(500,20000,100,20));        
-        playerBullets.add(new playerBullet(500,50,100,20));
-        playerBullets.add(new playerBullet(500,50,100,20));
-        playerBullets.add(new playerBullet(500,50,100,20));
-        playerBullets.add(new playerBullet(500,50,100,20));
-        playerBullets.add(new playerBullet(500,50,100,20));
         
         
         if(level==1) {
@@ -147,6 +145,7 @@ public class Game implements Runnable{
 		gameThread.start();
 	}
 	public void update() {
+		removal = null;
         Player.update(floorTilesList,spikeList, portalList,snails);
 
 	    for (Portals portal : portalList) {
@@ -155,9 +154,14 @@ public class Game implements Runnable{
 	    for(enemyWalking snail : snails) {
 	    	snail.update();
 	    }
-
-	    for(playerBullet playBull : playerBullets) {
-	    	playBull.update();
+	    if(!playerBullets.isEmpty()) {
+	    	for(playerBullet playBull : playerBullets) {
+	    		mustRemove = playBull.update();
+	    		if(mustRemove) {
+	    			removal = playBull;
+	    		}
+	    	}
+	    	playerBullets.remove(removal);
 	    }
 	    for(enemyShooter enemShoot : monkey) {
 	    	enemShoot.update(playerBullets);
@@ -172,9 +176,11 @@ public class Game implements Runnable{
 		for(EnemyBullet bullet : bullets) {
 			bullet.render(g);
 		}
-	    for(playerBullet playBull : playerBullets) {
-	    	playBull.render(g);
-	    }
+		if(!playerBullets.isEmpty()) {
+			for(playerBullet playBull : playerBullets) {
+				playBull.render(g);
+			}
+		}
 		for(enemyShooter enemShoot : monkey) {
 			enemShoot.render(g);
 		}
@@ -263,7 +269,6 @@ public class Game implements Runnable{
 	
 	public void enemyshoot(double posx, double posy, int b) {
 		for(EnemyBullet bullett : bullets) {
-
 			if(i < b) {
 				current = bullets.get(i);
 				current.move((int)posx,(int)posy);
@@ -296,19 +301,28 @@ public class Game implements Runnable{
 	}
 
 	public void Attack(double posx, double posy, int b,int dir) {
-		for(playerBullet bullet : playerBullets) {
-			if(s < b) {
-				curr = playerBullets.get(s);
-				curr.move((int)posx,(int)posy,(int)dir);
-				s++;
-			}else {
-				break;
-			}
+		if(playerBullets.size()!=5) {
+			curr = new playerBullet((int)posx,(int)posy,60,5,this);
+			curr.move(dir);
+			playerBullets.add(curr);
 		}
-		if(s==5) {
-			s=0;
-		}
+//		for(playerBullet bullet : playerBullets) {
+//			if(s < b) {
+//				curr = playerBullets.get(s);
+//				curr.move((int)posx,(int)posy,(int)dir);
+//				s++;
+//			}else {
+//				break;
+//			}
+//		}
+//		if(s==5) {
+//			s=0;
+//		}
 		
+	}
+
+	public void removeFromList(playerBullet toRemove) {
+		playerBullets.remove(toRemove);
 	}
 
 	
