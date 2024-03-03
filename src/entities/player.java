@@ -558,7 +558,7 @@ public class player extends entity {
 		}
 		
 		shots +=1;
-		game.Attack(posx, posy+10, shots, dir);
+		game.Attack(posx, posy+40, shots, dir);
 
 		
 		if(shots==5) {
