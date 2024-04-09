@@ -99,14 +99,14 @@ public class player extends entity {
         isOntile = false;
 
         for (floorTiles floortile : floorTilesList) {
-            Rectangle playerHitbox = new Rectangle((int) posx+5, (int) posy+20, 59, 58);
+            Rectangle playerHitbox = new Rectangle((int) posx+5, (int) posy+20, 58, 59);
             Rectangle floorHitbox = floortile.getHitbox();
 
             if (playerHitbox.intersects(floorHitbox)) {
                 hittingtile = 1;
 
                 int side1 = ((int) floortile.getX());
-                int side2 = ((int) floortile.getX())+29;
+                int side2 = (((int) floortile.getX())+((int)floortile.getWidth()));
 
                 // Check if player is within the vertical bounds of the box
                 if (posy + height <= floortile.getY() + 5 && posy + height >= floortile.getY()) {
@@ -116,12 +116,12 @@ public class player extends entity {
                     // Stop vertical speed when on the box
                     vsp = 0;
                 }else if((posy-32 <= floortile.getY()&&posy>floortile.getY())) {
-                	posy = floortile.getY()+32;
+                	posy = floortile.getY()+floortile.getWidth();
                 	vsp=0;
                 }
 
                 // Check if player is colliding with the sides of the box
-                if (((posx + width-5 >= side1 && posx <= side1) || (posx <= side2 && posx + width >= side2))&&((posy+height>=floortile.getY()+5)&&posy<=floortile.getY()+32)) {
+                if (((posx + width-5 >= side1 && posx <= side1) || (posx <= side2 && posx + width >= side2))&&((posy+height>=floortile.getY()+5)&&posy<=floortile.getY()+floortile.getHeight())) {
                     isHittingSide = true;
 
                     // Adjust the player's position to be outside the box

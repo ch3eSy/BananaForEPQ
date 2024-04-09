@@ -97,7 +97,7 @@ public class Game implements Runnable{
         	floorTilesList = levels.level1(1);
         	spikeList = levels.level1(2);
         	portalList.add(new Portals(1503,128,128,128));
-        	monkey.add(new enemyShooter(1500,500,80,80, this));
+        	monkey.add(new enemyShooter(1500,968,80,80, this));
 
         }else if(level==2) {
         	floorTilesList = levels.level2(1);
@@ -302,8 +302,13 @@ public class Game implements Runnable{
 
 	public void Attack(double posx, double posy, int b,int dir) {
 		if(playerBullets.size()!=5) {
-			curr = new playerBullet((int)posx,(int)posy,60,5,this);
+			if(dir == 0) {
+				curr = new playerBullet((int)posx,(int)posy,60,5,this);
+			}else if(dir==1) {
+				curr = new playerBullet((int)posx+40,(int)posy,60,5,this);
+			}
 			curr.move(dir);
+			
 			playerBullets.add(curr);
 		}
 //		for(playerBullet bullet : playerBullets) {

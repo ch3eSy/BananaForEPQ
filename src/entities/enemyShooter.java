@@ -20,9 +20,9 @@ import main.Game;
 
 public class enemyShooter extends entity{
 	private BufferedImage[][] animations;
-    private int aniTick, aniIndex, aniSpd = 25;
+    private int aniTick, aniIndex, aniSpd = 22;
 	private double OriginX, OriginY;
-	private int enemyaction = runningleft;
+	private int enemyaction = attack;
 	public Timer timer;
 //	public Graphics g;
 	private EnemyBullet bullet;
@@ -31,6 +31,9 @@ public class enemyShooter extends entity{
 	private int shots=0;
 	private Rectangle bullhitbox;
 	private Rectangle enthitbox;
+	private boolean timetoShoot;
+	private int count;
+	private boolean delay;
     public enemyShooter(int x,int y,int w,int h, Game game) {
 		super(x,y,w,h);
 		this.game = game;
@@ -42,15 +45,15 @@ public class enemyShooter extends entity{
 		g.drawImage(animations[enemyaction][aniIndex],(int)posx,(int)posy,(int)width,(int)height,null);
 	}
     private void loadAnimations() {
-        InputStream is = getClass().getResourceAsStream("/snailsprites.png");
+        InputStream is = getClass().getResourceAsStream("/Monkey.png");
 
         try {
             BufferedImage img = ImageIO.read(is);
-            animations = new BufferedImage[3][6];
+            animations = new BufferedImage[3][7];
 
             for (int j = 0; j < animations.length; j++)
                 for (int i = 0; i < animations[j].length; i++)
-                    animations[j][i] = img.getSubimage(i * 64, j * 64, 64, 64);
+                    animations[j][i] = img.getSubimage(i * 128, j * 128, 128, 128);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -59,8 +62,10 @@ public class enemyShooter extends entity{
 		checkCollisions(playerBullets);
 		move();
         updateAnimationTick();
+        delaytime();
 	}
-    public boolean intersects1(Rectangle rectangle) {
+
+	public boolean intersects1(Rectangle rectangle) {
         Rectangle thisRect = new Rectangle((int)posx,(int)posy,width,height);
         Rectangle otherRect = new Rectangle(rectangle.x,rectangle.y,rectangle.width,rectangle.height);
         boolean result = thisRect.intersects(otherRect);
@@ -76,12 +81,12 @@ public class enemyShooter extends entity{
     	}
 	}
 	private void move() {
-    	enemyaction = runningleft;
-    	posx-=0.05;
-    	shootdelay +=1;
-    	if(shootdelay==1000) {
-    		shootdelay=0;
-    		shots+=1;
+//    	enemyaction = attack;
+
+
+    	if(timetoShoot) {
+    		timetoShoot = false;
+    		shots +=1;
     		shoot();
     	}
 	}
@@ -91,7 +96,11 @@ public class enemyShooter extends entity{
         if (aniTick >= aniSpd) {
             aniTick = 0;
             aniIndex++;
-            if (aniIndex >= 6) {
+//            if(aniIndex == )
+            if(aniIndex==5&&enemyaction==attack) {
+            	timetoShoot = true;
+            }
+            if (aniIndex >= 7) {
                 aniIndex = 0;
             }
         }
@@ -104,9 +113,25 @@ public class enemyShooter extends entity{
 		game.enemyshoot(posx,posy,shots);
 		if(shots==5) {
 			shots = 0;
+			enemyaction = idle;
+			startdelay();
 		}
 	}
 	
+    private void delaytime() {
+		if(delay) {
+			count+=1;
+			if(count==1000) {
+				enemyaction = attack;
+			}
+		}
+		
+	}
+	private void startdelay() {
+		delay = true;
+		count = 0;
+		
+	}
 	public void scroll(float speed,boolean scrollsnail) {
 		if(!scrollsnail) {
 			posx-=speed;

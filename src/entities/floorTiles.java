@@ -40,7 +40,7 @@ public class floorTiles extends entity{
 
 	}
 	public Rectangle getHitbox() {
-		return new Rectangle((int)posx,(int)posy,32,32);
+		return new Rectangle((int)posx+2,(int)posy,30,30);
 	}
 	public void scroll(float speed) {
 		if((posx==OriginX)&&speed<0) {	
@@ -58,6 +58,14 @@ public class floorTiles extends entity{
     }
 	public double getY() {
 		return posy;
+	}
+	public double getWidth() {
+
+		return width;
+	}
+	public double getHeight() {
+
+		return height;
 	}
 }
 	

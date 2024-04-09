@@ -46,10 +46,10 @@ public class Constants {
 
 	public static class enemyConstants{
 		
-		public static final int attack = 1;
-		public static final int idle = 3;
-		public static final int runningright =2;
-		public static final int runningleft = 0;
+		public static final int attack = 0;
+		public static final int idle = 1;
+		public static final int runningright =3;
+		public static final int runningleft = 2;
 		
 		
 		public static int GetSpriteLength(int enemy_action) {
