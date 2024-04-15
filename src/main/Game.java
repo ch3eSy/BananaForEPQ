@@ -51,6 +51,8 @@ public class Game implements Runnable{
 	private int listlength;
 	private boolean mustRemove;
 	private playerBullet removal;
+	private EnemyBullet Enemcurr;
+	private EnemyBullet Enemremoval;
 	
 	
 	public Game() {
@@ -83,11 +85,11 @@ public class Game implements Runnable{
         monkey = new ArrayList<>();
         bullets = new ArrayList<>();
         playerBullets = new ArrayList<>();
-        bullets.add(new EnemyBullet(500,20000,100,20));
-        bullets.add(new EnemyBullet(500,20000,100,20));
-        bullets.add(new EnemyBullet(500,20000,100,20));
-        bullets.add(new EnemyBullet(500,20000,100,20));
-        bullets.add(new EnemyBullet(500,20000,100,20));        
+//        bullets.add(new EnemyBullet(500,20000,100,20));
+//        bullets.add(new EnemyBullet(500,20000,100,20));
+//        bullets.add(new EnemyBullet(500,20000,100,20));
+//        bullets.add(new EnemyBullet(500,20000,100,20));
+//        bullets.add(new EnemyBullet(500,20000,100,20));        
         
         
         if(level==1) {
@@ -146,10 +148,16 @@ public class Game implements Runnable{
 	}
 	public void update() {
 		removal = null;
+		Enemremoval = null;
         Player.update(floorTilesList,spikeList, portalList,snails);
 
 	    for (Portals portal : portalList) {
 	    	portal.update();
+	    }
+	    if(!monkey.isEmpty()) {
+		    for(enemyShooter enemShoot : monkey) {
+		    	enemShoot.update(playerBullets);
+		    }
 	    }
 	    for(enemyWalking snail : snails) {
 	    	snail.update();
@@ -163,9 +171,16 @@ public class Game implements Runnable{
 	    	}
 	    	playerBullets.remove(removal);
 	    }
-	    for(enemyShooter enemShoot : monkey) {
-	    	enemShoot.update(playerBullets);
+	    if(!bullets.isEmpty()) {
+	    	for(EnemyBullet enemBull : bullets) {
+	    		mustRemove = enemBull.update();
+	    		if(mustRemove) {
+	    			Enemremoval = enemBull;
+	    		}
+	    	}
+	    	bullets.remove(Enemremoval);
 	    }
+
 	    for(EnemyBullet bullet : bullets) {
 	    	bullet.update();
 	    }
@@ -173,16 +188,20 @@ public class Game implements Runnable{
 	public void render(Graphics g) {
 		Backdrop.render(g);
 		Player.render(g);
-		for(EnemyBullet bullet : bullets) {
-			bullet.render(g);
+		if(!bullets.isEmpty()) {
+			for(EnemyBullet bullet : bullets) {
+				bullet.render(g);
+			}
 		}
 		if(!playerBullets.isEmpty()) {
 			for(playerBullet playBull : playerBullets) {
 				playBull.render(g);
 			}
 		}
-		for(enemyShooter enemShoot : monkey) {
-			enemShoot.render(g);
+		if(!monkey.isEmpty()) {
+			for(enemyShooter enemShoot : monkey) {
+				enemShoot.render(g);
+			}
 		}
 		for(enemyWalking snail : snails) {
 			snail.render(g);
@@ -267,24 +286,24 @@ public class Game implements Runnable{
 		
 	}
 	
-	public void enemyshoot(double posx, double posy, int b) {
-		for(EnemyBullet bullett : bullets) {
-			if(i < b) {
-				current = bullets.get(i);
-				current.move((int)posx,(int)posy);
-//				bullett.move((int)posx,(int)posy);
-				i++;
-
-			}else {
-				break;
-			}
-
-		}
-		if(i==5) {
-			i=0;
-		}
-		
-	}
+//	public void enemyshoot(double posx, double posy, int b) {
+//		for(EnemyBullet bullett : bullets) {
+//			if(i < b) {
+//				current = bullets.get(i);
+//				current.move((int)posx,(int)posy);
+////				bullett.move((int)posx,(int)posy);
+//				i++;
+//
+//			}else {
+//				break;
+//			}
+//
+//		}
+//		if(i==5) {
+//			i=0;
+//		}
+//		
+//	}
 	
 	public void windowFocusLost() {
 		Player.resetDirBooleans();
@@ -325,9 +344,53 @@ public class Game implements Runnable{
 //		}
 		
 	}
+	public void enemyshoot(double posx, double posy, int b,int dir) {
+		if(bullets.size()!=5) {
+			if(dir == 0) {
+				Enemcurr = new EnemyBullet((int)posx,(int)posy+64,60,5,this);
+			}else if(dir==1) {
+				Enemcurr = new EnemyBullet((int)posx,(int)posy+30,60,5,this);
+			}
+			Enemcurr.move(dir);
+			
+			bullets.add(Enemcurr);
+		}
+//		for(playerBullet bullet : playerBullets) {
+//			if(s < b) {
+//				curr = playerBullets.get(s);
+//				curr.move((int)posx,(int)posy,(int)dir);
+//				s++;
+//			}else {
+//				break;
+//			}
+//		}
+//		if(s==5) {
+//			s=0;
+//		}
+		
+	}
 
 	public void removeFromList(playerBullet toRemove) {
 		playerBullets.remove(toRemove);
+	}
+	public void removeFromList2(EnemyBullet toRemove) {
+		bullets.remove(toRemove);
+	}
+	
+
+	public void removeMonkey(enemyShooter monkey) {
+		
+		
+	}
+
+	public void resetplayer() {
+		bullets.clear();
+		playerBullets.clear();
+	}
+
+	public void removeFromListShooter(enemyShooter enemyShooter) {
+		monkey.remove(enemyShooter);
+		
 	}
 
 	

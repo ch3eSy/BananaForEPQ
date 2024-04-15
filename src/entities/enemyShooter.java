@@ -34,6 +34,8 @@ public class enemyShooter extends entity{
 	private boolean timetoShoot;
 	private int count;
 	private boolean delay;
+	private boolean trueorno;
+	private boolean killed;
     public enemyShooter(int x,int y,int w,int h, Game game) {
 		super(x,y,w,h);
 		this.game = game;
@@ -58,11 +60,12 @@ public class enemyShooter extends entity{
             e.printStackTrace();
         }
     }
-	public void update(List<playerBullet> playerBullets) {
-		checkCollisions(playerBullets);
+	public boolean update(List<playerBullet> playerBullets) {
+		killed = checkCollisions(playerBullets);
 		move();
         updateAnimationTick();
         delaytime();
+        return killed;
 	}
 
 	public boolean intersects1(Rectangle rectangle) {
@@ -71,14 +74,18 @@ public class enemyShooter extends entity{
         boolean result = thisRect.intersects(otherRect);
         return (result);
     }
-    private void checkCollisions(List<playerBullet> playerBullets) {
+    private boolean checkCollisions(List<playerBullet> playerBullets) {
     	for(playerBullet bullet : playerBullets) {
     		enthitbox = new Rectangle((int)posx,(int)posy,width,height);
     		bullhitbox = bullet.getHitbox();
     		if(enthitbox.intersects(bullhitbox)) {
     			System.out.println("Killed");
+    			trueorno = true;
+    		}else {
+    			trueorno =  false;
     		}
     	}
+    	return trueorno;
 	}
 	private void move() {
 //    	enemyaction = attack;
@@ -110,7 +117,7 @@ public class enemyShooter extends entity{
 	}
 	
 	public void shoot() {
-		game.enemyshoot(posx,posy,shots);
+		game.enemyshoot(posx,posy,shots,1);
 		if(shots==5) {
 			shots = 0;
 			enemyaction = idle;

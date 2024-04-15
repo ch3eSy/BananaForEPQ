@@ -170,6 +170,7 @@ public class player extends entity {
         		for(enemyWalking snail : snails) {
         			snail.resetScroll();
         		}
+        		game.resetplayer();
             	return true;
             }
         }
@@ -401,7 +402,7 @@ public class player extends entity {
                 new JumpTime(1);
             }
             if (!left && !right) {
-                movingup = true;
+                movingupright = true;
             }
 
         } else if (down && !up) {
