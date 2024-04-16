@@ -53,6 +53,8 @@ public class Game implements Runnable{
 	private playerBullet removal;
 	private EnemyBullet Enemcurr;
 	private EnemyBullet Enemremoval;
+	private boolean monkeremove;
+	private enemyShooter monkeyRemoval;
 	
 	
 	public Game() {
@@ -156,8 +158,14 @@ public class Game implements Runnable{
 	    }
 	    if(!monkey.isEmpty()) {
 		    for(enemyShooter enemShoot : monkey) {
-		    	enemShoot.update(playerBullets);
+		    	monkeremove = enemShoot.update(playerBullets);
+		    	if(monkeremove) {
+		    		monkeyRemoval =enemShoot;
+		    	}
 		    }
+		    monkey.remove(monkeyRemoval);
+		    
+		   
 	    }
 	    for(enemyWalking snail : snails) {
 	    	snail.update();
@@ -388,10 +396,7 @@ public class Game implements Runnable{
 		playerBullets.clear();
 	}
 
-	public void removeFromListShooter(enemyShooter enemyShooter) {
-		monkey.remove(enemyShooter);
-		
-	}
+
 
 	
 	
