@@ -151,7 +151,7 @@ public class Game implements Runnable{
 	public void update() {
 		removal = null;
 		Enemremoval = null;
-        Player.update(floorTilesList,spikeList, portalList,snails);
+        Player.update(floorTilesList,spikeList, portalList,snails,monkey);
 
 	    for (Portals portal : portalList) {
 	    	portal.update();

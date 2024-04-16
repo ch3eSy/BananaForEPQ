@@ -193,17 +193,17 @@ public class player extends entity {
 
         return false;
     }
-    public void update(List<floorTiles> floorTilesList,List<Spikes> spikelist, List<Portals> portallist, List<enemyWalking> snails) {
+    public void update(List<floorTiles> floorTilesList,List<Spikes> spikelist, List<Portals> portallist, List<enemyWalking> snails,List<enemyShooter> monkeys) {
     	isSpiking(floorTilesList, spikelist, portallist,snails);
         isCollidingWith(floorTilesList);
         touchingPortal(portallist);
         updatePos();
-        checkScroll(floorTilesList, spikelist, portallist,snails);
+        checkScroll(floorTilesList, spikelist, portallist,snails,monkeys);
         updateAnimationTick();
         setAnimation();
     }
 
-    private void checkScroll(List<floorTiles> floorTilesList, List<Spikes> spikelist, List<Portals> portallist,List<enemyWalking> snails) {
+    private void checkScroll(List<floorTiles> floorTilesList, List<Spikes> spikelist, List<Portals> portallist,List<enemyWalking> snails,List<enemyShooter> monkeys) {
     	if(posx>=boundaryx&&right) {
     		for(floorTiles floortile : floorTilesList) {
     			floortile.scroll(hsp);
@@ -216,6 +216,10 @@ public class player extends entity {
     			for(enemyWalking snail : snails) {
         			boolean canscrollsnail = portal.nosnailscroll(hsp);
             		snail.scroll(hsp,canscrollsnail);
+    			}
+    			for(enemyShooter monkey : monkeys) {
+        			boolean canscrollsnail = portal.nosnailscroll(hsp);
+            		monkey.scroll(hsp, canscrollsnail);
     			}
     		}
 
@@ -233,6 +237,10 @@ public class player extends entity {
     			for(enemyWalking snail : snails) {
         			boolean canscrollsnail = portal.nosnailscroll(hsp);
             		snail.scroll(hsp, canscrollsnail);
+    			}
+    			for(enemyShooter monkey : monkeys) {
+        			boolean canscrollsnail = portal.nosnailscroll(hsp);
+            		monkey.scroll(hsp, canscrollsnail);
     			}
     		}
 

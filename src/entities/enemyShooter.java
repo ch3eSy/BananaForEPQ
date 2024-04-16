@@ -139,8 +139,8 @@ public class enemyShooter extends entity{
 		count = 0;
 		
 	}
-	public void scroll(float speed,boolean scrollsnail) {
-		if(!scrollsnail) {
+	public void scroll(float speed,boolean scrollmonkey) {
+		if(!scrollmonkey) {
 			posx-=speed;
 		}
 	}
