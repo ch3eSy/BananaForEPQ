@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -13,6 +14,10 @@ public class enemyWalking extends entity{
 	private BufferedImage[][] animations;
     private int aniTick, aniIndex, aniSpd = 25;
 	private double OriginX, OriginY;
+	private boolean killed;
+	private boolean trueorno;
+	private Rectangle bullhitbox;
+	private Rectangle enthitbox;
     public enemyWalking(int x,int y,int w,int h) {
 		super(x,y,w,h);
 		OriginX = x;
@@ -36,9 +41,30 @@ public class enemyWalking extends entity{
             e.printStackTrace();
         }
     }
-	public void update() {
+	public boolean update(List<playerBullet> playerBullets) {
+		killed = checkCollisions(playerBullets);
 		move();
         updateAnimationTick();
+        return killed;
+	}
+	public boolean intersects1(Rectangle rectangle) {
+        Rectangle thisRect = new Rectangle((int)posx,(int)posy,width,height);
+        Rectangle otherRect = new Rectangle(rectangle.x,rectangle.y,rectangle.width,rectangle.height);
+        boolean result = thisRect.intersects(otherRect);
+        return (result);
+    }
+    private boolean checkCollisions(List<playerBullet> playerBullets) {
+    	for(playerBullet bullet : playerBullets) {
+    		enthitbox = new Rectangle((int)posx,(int)posy,width,height);
+    		bullhitbox = bullet.getHitbox();
+    		if(enthitbox.intersects(bullhitbox)) {
+    			System.out.println("Killed");
+    			trueorno = true;
+    		}else {
+    			trueorno =  false;
+    		}
+    	}
+    	return trueorno;
 	}
     private void move() {
     	posx-=0.05;

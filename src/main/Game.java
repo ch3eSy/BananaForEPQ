@@ -3,12 +3,16 @@ package main;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 import entities.EnemyBullet;
 import entities.Portals;
@@ -55,6 +59,10 @@ public class Game implements Runnable{
 	private EnemyBullet Enemremoval;
 	private boolean monkeremove;
 	private enemyShooter monkeyRemoval;
+	private boolean snailremove;
+	private enemyWalking snailRemoval;
+	private Clip clip;
+	
 	
 	
 	public Game() {
@@ -79,6 +87,27 @@ public class Game implements Runnable{
 		initClasses();
 	}
 
+	public void loadSound(String filename) {
+	    try {
+	        InputStream is = getClass().getResourceAsStream(filename);
+	        if (is == null) {
+	            throw new IllegalArgumentException("File not found: " + filename);
+	        }
+	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new BufferedInputStream(is));
+	        clip = AudioSystem.getClip();
+	        clip.open(audioInputStream);
+	        clip.start();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
+
+	public void stopSound() {
+	    if (clip != null && clip.isRunning()) {
+	        clip.stop();
+	    }
+	}
+
 	private void initClasses() {
         floorTilesList = new ArrayList<>();
         spikeList = new ArrayList<>();
@@ -87,6 +116,8 @@ public class Game implements Runnable{
         monkey = new ArrayList<>();
         bullets = new ArrayList<>();
         playerBullets = new ArrayList<>();
+        stopSound();
+        loadSound("/Music.wav");
 //        bullets.add(new EnemyBullet(500,20000,100,20));
 //        bullets.add(new EnemyBullet(500,20000,100,20));
 //        bullets.add(new EnemyBullet(500,20000,100,20));
@@ -167,8 +198,14 @@ public class Game implements Runnable{
 		    
 		   
 	    }
-	    for(enemyWalking snail : snails) {
-	    	snail.update();
+	    if(!snails.isEmpty()) {
+	    	for(enemyWalking snail : snails) {
+	    		snailremove = snail.update(playerBullets);
+	    		if(snailremove) {
+	    			snailRemoval = snail;
+	    		}
+	    	}
+	    	snails.remove(snailRemoval);
 	    }
 	    if(!playerBullets.isEmpty()) {
 	    	for(playerBullet playBull : playerBullets) {
