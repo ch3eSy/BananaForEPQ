@@ -3,6 +3,7 @@ package entities;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.List;
 
 import main.Game;
 
@@ -17,6 +18,7 @@ public class playerBullet extends entity{
 		super(x,y,w,h);
 		this.game=game;
 	}
+	
 	public void render(Graphics g) {
 		g.setColor(Color.RED);
 		g.fillRect((int)posx, (int)posy, 20, 5);
@@ -27,7 +29,8 @@ public class playerBullet extends entity{
 		moving = true;
 		
 	}
-	public boolean update() {
+	public boolean update(List<enemyWalking> snails, List<enemyShooter> monkey) {
+
 		if(moving) {
 			if(direction == 1) {
 				posx+=3;
@@ -35,12 +38,29 @@ public class playerBullet extends entity{
 				posx-=3;
 			}
 		}
+		checkCollision(snails, monkey);
+		
 		if((posx>=1920)||posx<=0) {
 			return true;
 		}else {
 			return false;
 		}
 	}
+	private boolean checkCollision(List<enemyWalking> snails, List<enemyShooter> monkey) {
+		for(enemyWalking snail: snails) {
+			Rectangle snailhitbox = snail.getHitbox();
+			
+		}
+		
+		return false;
+	}
+    public boolean intersects1(Rectangle rectangle) {
+        Rectangle thisRect = getHitbox();
+        Rectangle otherRect = new Rectangle(rectangle.x,rectangle.y,rectangle.width,rectangle.height);
+        boolean result = thisRect.intersects(otherRect);
+        return (result);
+    }
+
 	public Rectangle getHitbox() {
 		return new Rectangle((int)posx,(int)posy,20,5);
 	}

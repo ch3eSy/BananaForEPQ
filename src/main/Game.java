@@ -209,7 +209,7 @@ public class Game implements Runnable{
 	    }
 	    if(!playerBullets.isEmpty()) {
 	    	for(playerBullet playBull : playerBullets) {
-	    		mustRemove = playBull.update();
+	    		mustRemove = playBull.update(snails,monkey);
 	    		if(mustRemove) {
 	    			removal = playBull;
 	    		}

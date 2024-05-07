@@ -423,9 +423,9 @@ public class player extends entity {
         }
         if (isJumping) {
         	if(left&&!right) {
-        		hsp -= playerSpeed;
+        		hsp -= playerSpeed/4;
         	} else if (right&&!left) {
-        		hsp += playerSpeed;
+        		hsp += playerSpeed/4;
         	}
         }
 
