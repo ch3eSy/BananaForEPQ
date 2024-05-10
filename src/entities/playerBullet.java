@@ -13,6 +13,7 @@ public class playerBullet extends entity{
 	private boolean moving= false;
 	private int direction;
 	private Game game;
+	private boolean deadbull=false;
 	public playerBullet(int x,int y,int w,int h, Game game){
 
 		super(x,y,w,h);
@@ -29,6 +30,9 @@ public class playerBullet extends entity{
 		moving = true;
 		
 	}
+	public void toRemove(){
+		deadbull = true;
+	}
 	public boolean update(List<enemyWalking> snails, List<enemyShooter> monkey) {
 
 		if(moving) {
@@ -38,28 +42,12 @@ public class playerBullet extends entity{
 				posx-=3;
 			}
 		}
-		checkCollision(snails, monkey);
-		
 		if((posx>=1920)||posx<=0) {
-			return true;
-		}else {
-			return false;
+			deadbull=true;
 		}
+		return deadbull;
 	}
-	private boolean checkCollision(List<enemyWalking> snails, List<enemyShooter> monkey) {
-		for(enemyWalking snail: snails) {
-			Rectangle snailhitbox = snail.getHitbox();
-			
-		}
-		
-		return false;
-	}
-    public boolean intersects1(Rectangle rectangle) {
-        Rectangle thisRect = getHitbox();
-        Rectangle otherRect = new Rectangle(rectangle.x,rectangle.y,rectangle.width,rectangle.height);
-        boolean result = thisRect.intersects(otherRect);
-        return (result);
-    }
+
 
 	public Rectangle getHitbox() {
 		return new Rectangle((int)posx,(int)posy,20,5);

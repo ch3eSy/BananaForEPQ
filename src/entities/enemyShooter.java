@@ -79,8 +79,10 @@ public class enemyShooter extends entity{
     		enthitbox = new Rectangle((int)posx,(int)posy,width,height);
     		bullhitbox = bullet.getHitbox();
     		if(enthitbox.intersects(bullhitbox)) {
+    			bullet.toRemove();
     			System.out.println("Killed");
     			trueorno = true;
+
     		}else {
     			trueorno =  false;
     		}
