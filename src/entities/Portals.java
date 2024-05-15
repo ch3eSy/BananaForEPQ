@@ -64,13 +64,7 @@ public class Portals extends entity{
 		}
 	}
 	
-	public boolean nosnailscroll(float speed) {
-		if(posx==OriginX&&speed<0) {
-			return true;
-		}else {
-			return false;
-		}
-	}
+
 	
 	public void resetScroll() {
 		posx = OriginX;

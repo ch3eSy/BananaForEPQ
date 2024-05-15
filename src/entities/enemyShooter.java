@@ -141,10 +141,10 @@ public class enemyShooter extends entity{
 		count = 0;
 		
 	}
-	public void scroll(float speed,boolean scrollmonkey) {
-		if(!scrollmonkey) {
+	public void scroll(float speed) {
+
 			posx-=speed;
-		}
+
 	}
 	public void resetScroll() {
 		posx = OriginX;

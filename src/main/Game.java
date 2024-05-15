@@ -123,7 +123,7 @@ public class Game implements Runnable{
 //        bullets.add(new EnemyBullet(500,20000,100,20));
 //        bullets.add(new EnemyBullet(500,20000,100,20));
 //        bullets.add(new EnemyBullet(500,20000,100,20));        
-        
+    	portalList.add(new Portals(7552,920,128,128));
         
         if(level==1) {
         	Player = new player(0,600,80,80,this);
@@ -131,32 +131,30 @@ public class Game implements Runnable{
         	snails.add(new enemyWalking(1000,1000,80,80));
         	floorTilesList = levels.level1(1);
         	spikeList = levels.level1(2);
-        	portalList.add(new Portals(1503,128,128,128));
         	monkey.add(new enemyShooter(1500,968,80,80, this));
 
         }else if(level==2) {
         	floorTilesList = levels.level2(1);
-        	portalList.add(new Portals(1500,800,128,128));
+
     		Player = new player(0,200,80,80,this);
 //            spikeList.add(new Spikes(500,1048,32,32));
         }else if(level == 3) {
         	floorTilesList.add(new floorTiles(160, 1000, 32, 32));
-        	portalList.add(new Portals(1500,900,128,128));
+
     		Player = new player(0,600,80,80,this);
         }else if(level == 4) {
-        	portalList.add(new Portals(1500,900,128,128));
+
     		Player = new player(0,600,80,80,this);
         }else if(level == 5) {
-        	portalList.add(new Portals(1500,900,128,128));
+
     		Player = new player(0,600,80,80,this);
         }else if(level == 6) {
-        	portalList.add(new Portals(1500,900,128,128));
+
     		Player = new player(0,600,80,80,this);
         }else if(level == 7) {
-        	portalList.add(new Portals(1500,900,128,128));
     		Player = new player(0,600,80,80,this);
         }else if(level == 8) {
-        	portalList.add(new Portals(1500,900,128,128));
+
     		Player = new player(0,600,80,80,this);
         }else if(level == 9) {
         	portalList.add(new Portals(1500,900,128,128));
@@ -182,7 +180,7 @@ public class Game implements Runnable{
 	public void update() {
 		removal = null;
 		Enemremoval = null;
-        Player.update(floorTilesList,spikeList, portalList,snails,monkey);
+        Player.update(floorTilesList,spikeList, portalList,snails,monkey,playerBullets,bullets);
 
 	    for (Portals portal : portalList) {
 	    	portal.update();

@@ -19,7 +19,7 @@ public class levels {
         for(i=0;i<5;i++) {
         	spikeList.add(new Spikes(448+(i*32),1016,32,32));
         }
-    	for(i = 0; i<1920;i+=32) {
+    	for(i = 0; i<7680;i+=32) {
     		floorTilesList.add(new floorTiles(i, 1048, 32, 32));
     	}
     	for(i = 0; i<4;i++) {

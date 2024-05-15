@@ -39,4 +39,8 @@ public class EnemyBullet extends entity{
 			return false;
 		}
 	}
+	public void scroll(float speed) {
+
+			posx-=speed;
+	}
 }

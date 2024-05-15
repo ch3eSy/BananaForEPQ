@@ -47,7 +47,10 @@ public class playerBullet extends entity{
 		}
 		return deadbull;
 	}
+	public void scroll(float speed) {
 
+		posx-=speed;
+	}
 
 	public Rectangle getHitbox() {
 		return new Rectangle((int)posx,(int)posy,20,5);

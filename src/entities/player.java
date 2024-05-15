@@ -41,8 +41,8 @@ public class player extends entity {
     private int playeraction = idle;
     private boolean movingleft = false, movingright = false, movingupleft = false, movingupright = false, movingup = false,attacking = false, movingdownright = false, movingdownleft = false, movingdown = false;
     private boolean left, up, right, down;
-    private float playerSpeed = 0.02f;
-    private float gravity = 0.85f;
+    private float playerSpeed = 0.01f;
+    private float gravity = 0.15f;
     private double boundaryx = 1450, boundaryy = 1080;
     private Timer timer;
     public boolean isJumping = false;
@@ -62,6 +62,8 @@ public class player extends entity {
     private int scrolled = 0;
 	private int shots= 0;
 	private int dir = 0;
+	private int playerMaxR = -5,playerMaxL= 5;
+	
     
     public class OnTile {
         public OnTile(int seconds) {
@@ -193,17 +195,17 @@ public class player extends entity {
 
         return false;
     }
-    public void update(List<floorTiles> floorTilesList,List<Spikes> spikelist, List<Portals> portallist, List<enemyWalking> snails,List<enemyShooter> monkeys) {
+    public void update(List<floorTiles> floorTilesList,List<Spikes> spikelist, List<Portals> portallist, List<enemyWalking> snails,List<enemyShooter> monkeys,List<playerBullet> bulls,List<EnemyBullet>Ebullets) {
     	isSpiking(floorTilesList, spikelist, portallist,snails);
         isCollidingWith(floorTilesList);
         touchingPortal(portallist);
         updatePos();
-        checkScroll(floorTilesList, spikelist, portallist,snails,monkeys);
+        checkScroll(floorTilesList, spikelist, portallist,snails,monkeys,bulls,Ebullets);
         updateAnimationTick();
         setAnimation();
     }
 
-    private void checkScroll(List<floorTiles> floorTilesList, List<Spikes> spikelist, List<Portals> portallist,List<enemyWalking> snails,List<enemyShooter> monkeys) {
+    private void checkScroll(List<floorTiles> floorTilesList, List<Spikes> spikelist, List<Portals> portallist,List<enemyWalking> snails,List<enemyShooter> monkeys,List<playerBullet> bulls,List<EnemyBullet>Ebullets ) {
     	if(posx>=boundaryx&&right) {
     		for(floorTiles floortile : floorTilesList) {
     			floortile.scroll(hsp);
@@ -213,15 +215,25 @@ public class player extends entity {
     		}
     		for(Portals portal : portallist) {
     			portal.scroll(hsp);
-    			for(enemyWalking snail : snails) {
-        			boolean canscrollsnail = portal.nosnailscroll(hsp);
-            		snail.scroll(hsp,canscrollsnail);
-    			}
-    			for(enemyShooter monkey : monkeys) {
-        			boolean canscrollsnail = portal.nosnailscroll(hsp);
-            		monkey.scroll(hsp, canscrollsnail);
-    			}
     		}
+    		for(enemyWalking snail : snails) {
+        		 
+            	snail.scroll(hsp);
+    		}
+    		for(enemyShooter monkey : monkeys) {
+        		 
+            	monkey.scroll(hsp);
+    		}
+    		for(EnemyBullet ebull : Ebullets) {
+        		 
+            	ebull.scroll(hsp);
+    		}
+    		for(playerBullet pbull : bulls) {
+        		 
+            	pbull.scroll(hsp);
+    		}
+    			
+    		
 
     		posx = boundaryx;
     	}
@@ -234,18 +246,22 @@ public class player extends entity {
     		}
     		for(Portals portal : portallist) {
     			portal.scroll(hsp);
-    			for(enemyWalking snail : snails) {
-        			boolean canscrollsnail = portal.nosnailscroll(hsp);
-            		snail.scroll(hsp, canscrollsnail);
-    			}
-    			for(enemyShooter monkey : monkeys) {
-        			boolean canscrollsnail = portal.nosnailscroll(hsp);
-            		monkey.scroll(hsp, canscrollsnail);
-    			}
     		}
-
-    		posx = 250;
+    		for(enemyWalking snail : snails) {
+            	snail.scroll(hsp);
+    		}
+    		for(enemyShooter monkey : monkeys) {
+            	monkey.scroll(hsp);
+    		}
+    		for(EnemyBullet ebull : Ebullets) {
+    			ebull.scroll(hsp);
+    		}
+        	posx = 250;
+    			
     	}
+
+
+    	
 	}
 
 	public void render(Graphics g) {
@@ -332,7 +348,9 @@ public class player extends entity {
         movingdownleft = false;
         movingdownright = false;
         movingdown = false;
-
+        
+        vsp+=0.25;
+        
         if (vsp == 0 && hittingtile != 1 && posy <= boundaryy - 73) {
             isJumping = true;
         }
@@ -431,10 +449,15 @@ public class player extends entity {
 
         if (isOntile && !isHittingSide) {
         	movingdown = false;
-            float boxWalkSpeed = 0.05f;
+            float boxWalkSpeed = 0.02f;
             if (left) {
                 hsp -= boxWalkSpeed;
                 if(posx>=0) {
+                	if(hsp>10) {
+                		hsp=10;
+                	}else if(hsp<-10) {
+                		hsp=-10;
+                	}
                 	posx+=hsp;
                 }else {
                 	posx=0;
@@ -442,6 +465,11 @@ public class player extends entity {
             } else if (right) {
             	hsp += boxWalkSpeed;
             	if(posx<=boundaryx) {
+                	if(hsp>10) {
+                		hsp=10;
+                	}else if(hsp<-10) {
+                		hsp=-10;
+                	}
             		posx+=hsp;
             	}else {
             		posx = boundaryx;
@@ -475,6 +503,11 @@ public class player extends entity {
                 }
             } else {
             	if(posx>=250&&posx<=boundaryx) {
+                	if(hsp>10) {
+                		hsp=10;
+                	}else if(hsp<-10) {
+                		hsp=-10;
+                	}
             		posx += hsp;
             	}else if(posx>boundaryx) {
             		posx=boundaryx;
