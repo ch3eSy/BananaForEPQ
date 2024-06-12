@@ -29,7 +29,8 @@ public class Game implements Runnable{
 	
 	private GameWindow gameWindow;
 	private GamePanel gamePanel;
-	private Thread gameThread;
+	public Thread gameThread;
+	
 	private final int fps_max = 140;
 	private final int ups_max = 200;
 	public int level = 1;

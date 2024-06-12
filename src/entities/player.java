@@ -63,7 +63,77 @@ public class player extends entity {
 	private int shots= 0;
 	private int dir = 0;
 	private int playerMaxR = -5,playerMaxL= 5;
+	private Thread playerThread;
+	private playerProcess process;
+	private List<floorTiles> tiles;
 	
+	
+	private class playerProcess implements Runnable{
+		private int counter;
+		private final int fps_max = 140;
+		private final int ups_max = 200;
+		public playerProcess() {
+			startPlayerProcess();
+			
+		}
+		public void startPlayerProcess() {
+	        playerThread=new Thread(this);
+	        playerThread.start();
+		}
+		public void update() {
+			
+		}
+		
+		@Override
+		public void run() {
+			
+			double timePerFrame = 1000000000/fps_max;
+			double timePerUpdate = 1000000000/ups_max;
+			long prevtime = System.nanoTime();
+			
+			
+			int frames = 0;
+			int updates = 0;
+			long lastCheck = System.currentTimeMillis();
+			
+			double deltau = 0;
+			double deltaf = 0;
+			
+			
+			
+			while(true) {
+				
+				long currentTime = System.nanoTime();
+				
+				deltau += (currentTime - prevtime) / timePerUpdate;
+				deltaf +=(currentTime - prevtime) / timePerFrame;
+				prevtime = currentTime;
+				
+				if(deltau>=1) {
+					update();
+					updates++;
+					deltau--;
+				}
+				
+				
+	/*			if(now - lastFrame >= timePerFrame) {
+					
+					gamePanel.repaint();
+					lastFrame = now;
+					frames++;
+				}
+				
+				
+	*/
+				if (System.currentTimeMillis() - lastCheck >=1000) {
+					lastCheck = System.currentTimeMillis();
+					frames=0;
+					updates=0;
+				}
+			}
+			
+		}
+	}
     
     public class OnTile {
         public OnTile(int seconds) {
@@ -83,6 +153,7 @@ public class player extends entity {
         super(x, y, w, h);
         this.game = game;
         loadAnimations();
+        process = new playerProcess();
     }
 
     public boolean intersects1(Rectangle rectangle) {
@@ -196,6 +267,7 @@ public class player extends entity {
         return false;
     }
     public void update(List<floorTiles> floorTilesList,List<Spikes> spikelist, List<Portals> portallist, List<enemyWalking> snails,List<enemyShooter> monkeys,List<playerBullet> bulls,List<EnemyBullet>Ebullets) {
+    	tiles = floorTilesList;
     	isSpiking(floorTilesList, spikelist, portallist,snails);
         isCollidingWith(floorTilesList);
         touchingPortal(portallist);
@@ -206,7 +278,7 @@ public class player extends entity {
     }
 
     private void checkScroll(List<floorTiles> floorTilesList, List<Spikes> spikelist, List<Portals> portallist,List<enemyWalking> snails,List<enemyShooter> monkeys,List<playerBullet> bulls,List<EnemyBullet>Ebullets ) {
-    	if(posx>=boundaryx&&right) {
+    	if(posx>=boundaryx&&hsp>0) {
     		for(floorTiles floortile : floorTilesList) {
     			floortile.scroll(hsp);
     		}
@@ -234,10 +306,10 @@ public class player extends entity {
     		}
     			
     		
-
+    		scrolled+=hsp;
     		posx = boundaryx;
     	}
-    	if(posx<=250&&left) {
+    	if(posx<=250&&hsp<0&&scrolled>0) {
     		for(floorTiles floortile : floorTilesList) {
     			floortile.scroll(hsp);
     		}
