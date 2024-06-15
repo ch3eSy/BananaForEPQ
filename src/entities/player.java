@@ -66,12 +66,17 @@ public class player extends entity {
 	private Thread playerThread;
 	private playerProcess process;
 	private List<floorTiles> tiles;
+	private int count;
+	private List<Spikes> spikes;
+	private List<Portals> portals;
+	private List<enemyWalking> snail;
 	
 	
 	private class playerProcess implements Runnable{
 		private int counter;
 		private final int fps_max = 140;
 		private final int ups_max = 200;
+
 		public playerProcess() {
 			startPlayerProcess();
 			
@@ -81,8 +86,83 @@ public class player extends entity {
 	        playerThread.start();
 		}
 		public void update() {
-			
+			if(!tiles.isEmpty()) {
+				isCollidingWith(tiles);
+			}
+			isSpiking(	tiles,spikes,portals,snail);
 		}
+	    public boolean isSpiking(List<floorTiles> floorTilesList, List<Spikes> spikelist, List<Portals> portallist,List<enemyWalking> snails) {
+	        for (Spikes spike : spikelist) {
+	            Rectangle playerHitbox = new Rectangle((int) posx, (int) posy, 80, 80);
+	            Rectangle spikeHitbox = spike.getHitbox();
+
+	            if (playerHitbox.intersects(spikeHitbox)) {
+	            	posx = 300;
+	            	posy = 900;
+	        		for(floorTiles floortile : floorTilesList) {
+	        			floortile.resetScroll();
+	        		}
+	        		for(Spikes spikeScroll : spikelist) {
+	        			spikeScroll.resetScroll();
+	        		}
+	        		for(Portals portal : portallist) {
+	        			portal.resetScroll();
+	        		}
+	        		for(enemyWalking snail : snails) {
+	        			snail.resetScroll();
+	        		}
+	        		game.resetplayer();
+	            	return true;
+	            }
+	        }
+
+	        return false;
+	    }
+	    public boolean isCollidingWith(List<floorTiles> floorTilesList) {
+	        hittingtile = 0;
+	        isOntile = false;
+
+	        for (floorTiles floortile : floorTilesList) {
+	            Rectangle playerHitbox = new Rectangle((int) posx+5, (int) posy+20, 58, 59);
+	            Rectangle floorHitbox = floortile.getHitbox();
+
+	            if (playerHitbox.intersects(floorHitbox)) {
+	                hittingtile = 1;
+
+	                int side1 = ((int) floortile.getX());
+	                int side2 = (((int) floortile.getX())+((int)floortile.getWidth()));
+
+	                if (posy + height <= floortile.getY() + 5 && posy + height >= floortile.getY()) {
+	                    isOntile = true;
+
+	                    vsp = 0;
+	                }else if((posy-32 <= floortile.getY()&&posy>floortile.getY())) {
+	                	posy = floortile.getY()+floortile.getWidth();
+	                	vsp=0;
+	                }
+
+	                // Check if player is colliding with the sides of the box
+	                if (((posx + width-5 >= side1 && posx <= side1) || (posx <= side2 && posx + width >= side2))&&((posy+height>=floortile.getY()+5)&&posy<=floortile.getY()+floortile.getHeight())) {
+	                    isHittingSide = true;
+
+	                    // Stop horizontal speed when hitting the side
+	                    hsp = 0;
+	                } else {
+	                    isHittingSide = false;
+	                }
+
+	                // Check if player is standing on the tile
+	                if (posy + height <= floortile.getY() + 5) {
+	                    isOntile = true;
+	                    currentFloorTile = floortile;  // Set the current floor tile
+	                }
+
+	                return true;
+	            }
+	        }
+
+	        return false;
+	    }
 		
 		@Override
 		public void run() {
@@ -153,7 +233,7 @@ public class player extends entity {
         super(x, y, w, h);
         this.game = game;
         loadAnimations();
-        process = new playerProcess();
+
     }
 
     public boolean intersects1(Rectangle rectangle) {
@@ -167,89 +247,9 @@ public class player extends entity {
         return new Rectangle((int) posx, (int) posy, width, height);
     }
 
-    public boolean isCollidingWith(List<floorTiles> floorTilesList) {
-        hittingtile = 0;
-        isOntile = false;
 
-        for (floorTiles floortile : floorTilesList) {
-            Rectangle playerHitbox = new Rectangle((int) posx+5, (int) posy+20, 58, 59);
-            Rectangle floorHitbox = floortile.getHitbox();
-
-            if (playerHitbox.intersects(floorHitbox)) {
-                hittingtile = 1;
-
-                int side1 = ((int) floortile.getX());
-                int side2 = (((int) floortile.getX())+((int)floortile.getWidth()));
-
-                // Check if player is within the vertical bounds of the box
-                if (posy + height <= floortile.getY() + 5 && posy + height >= floortile.getY()) {
-                    isOntile = true;
-                    // Adjust the player's position to be exactly on the box
-
-                    // Stop vertical speed when on the box
-                    vsp = 0;
-                }else if((posy-32 <= floortile.getY()&&posy>floortile.getY())) {
-                	posy = floortile.getY()+floortile.getWidth();
-                	vsp=0;
-                }
-
-                // Check if player is colliding with the sides of the box
-                if (((posx + width-5 >= side1 && posx <= side1) || (posx <= side2 && posx + width >= side2))&&((posy+height>=floortile.getY()+5)&&posy<=floortile.getY()+floortile.getHeight())) {
-                    isHittingSide = true;
-
-                    // Adjust the player's position to be outside the box
-//                    if (posx + width >= side1 && posx <= side1) {
-//                        posx = side1 - width;
-//                    } else {
-//                        posx = side2;
-//                    }
-
-                    // Stop horizontal speed when hitting the side
-                    hsp = 0;
-                } else {
-                    isHittingSide = false;
-                }
-
-                // Check if player is standing on the tile
-                if (posy + height <= floortile.getY() + 5) {
-                    isOntile = true;
-                    currentFloorTile = floortile;  // Set the current floor tile
-                }
-
-                return true;
-            }
-        }
-
-        return false;
-    }
     
-    public boolean isSpiking(List<floorTiles> floorTilesList, List<Spikes> spikelist, List<Portals> portallist,List<enemyWalking> snails) {
-        for (Spikes spike : spikelist) {
-            Rectangle playerHitbox = new Rectangle((int) posx, (int) posy, 80, 80);
-            Rectangle spikeHitbox = spike.getHitbox();
 
-            if (playerHitbox.intersects(spikeHitbox)) {
-            	posx = 300;
-            	posy = 900;
-        		for(floorTiles floortile : floorTilesList) {
-        			floortile.resetScroll();
-        		}
-        		for(Spikes spikeScroll : spikelist) {
-        			spikeScroll.resetScroll();
-        		}
-        		for(Portals portal : portallist) {
-        			portal.resetScroll();
-        		}
-        		for(enemyWalking snail : snails) {
-        			snail.resetScroll();
-        		}
-        		game.resetplayer();
-            	return true;
-            }
-        }
-
-        return false;
-    }
     public boolean touchingPortal(List<Portals> portallist) {
         for (Portals portal : portallist) {
             Rectangle playerHitbox = new Rectangle((int) posx, (int) posy, 80, 80);
@@ -268,13 +268,17 @@ public class player extends entity {
     }
     public void update(List<floorTiles> floorTilesList,List<Spikes> spikelist, List<Portals> portallist, List<enemyWalking> snails,List<enemyShooter> monkeys,List<playerBullet> bulls,List<EnemyBullet>Ebullets) {
     	tiles = floorTilesList;
-    	isSpiking(floorTilesList, spikelist, portallist,snails);
-        isCollidingWith(floorTilesList);
+    	spikes=spikelist;
+    	portals=portallist;
+    	snail=snails;
         touchingPortal(portallist);
         updatePos();
         checkScroll(floorTilesList, spikelist, portallist,snails,monkeys,bulls,Ebullets);
         updateAnimationTick();
         setAnimation();
+        if(process==null) {
+        	process = new playerProcess();
+        }
     }
 
     private void checkScroll(List<floorTiles> floorTilesList, List<Spikes> spikelist, List<Portals> portallist,List<enemyWalking> snails,List<enemyShooter> monkeys,List<playerBullet> bulls,List<EnemyBullet>Ebullets ) {
