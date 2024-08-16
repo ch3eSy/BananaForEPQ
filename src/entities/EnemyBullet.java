@@ -2,6 +2,7 @@ package entities;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 import main.Game;
 
@@ -42,5 +43,8 @@ public class EnemyBullet extends entity{
 	public void scroll(float speed) {
 
 			posx-=speed;
+	}
+	public Rectangle gethitbox() {
+		return new Rectangle((int)posx,(int)posy,20,5);
 	}
 }

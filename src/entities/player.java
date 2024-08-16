@@ -63,13 +63,16 @@ public class player extends entity {
 	private int shots= 0;
 	private int dir = 0;
 	private int playerMaxR = -5,playerMaxL= 5;
-	private Thread playerThread;
+	private Thread playerThread;	
 	private playerProcess process;
 	private List<floorTiles> tiles;
 	private int count;
 	private List<Spikes> spikes;
 	private List<Portals> portals;
 	private List<enemyWalking> snail;
+	private List<EnemyBullet> EnemBulls;
+	private int lives = 3;
+	private int i;
 	
 	
 	private class playerProcess implements Runnable{
@@ -89,9 +92,40 @@ public class player extends entity {
 			if(!tiles.isEmpty()) {
 				isCollidingWith(tiles);
 			}
+			if(isShot(EnemBulls, tiles, spikes, portals, snail)) {
+				lives--;
+				System.out.println(lives);
+			}
 			isSpiking(	tiles,spikes,portals,snail);
 		}
-	    public boolean isSpiking(List<floorTiles> floorTilesList, List<Spikes> spikelist, List<Portals> portallist,List<enemyWalking> snails) {
+	    private boolean isShot(List<EnemyBullet> enemBulls,List<floorTiles> floorTilesList, List<Spikes> spikelist, List<Portals> portallist,List<enemyWalking> snails) {
+			for(EnemyBullet bullet : enemBulls) {
+				Rectangle playerHitbox = new Rectangle((int) posx, (int) posy, 80, 80);
+				Rectangle bullethitbox = bullet.gethitbox();
+				if(playerHitbox.intersects(bullethitbox)) {
+	            	posx = 300;
+	            	posy = 900;
+	        		for(floorTiles floortile : floorTilesList) {
+	        			floortile.resetScroll();
+	        		}
+	        		for(Spikes spikeScroll : spikelist) {
+	        			spikeScroll.resetScroll();
+	        		}
+	        		for(Portals portal : portallist) {
+	        			portal.resetScroll();
+	        		}
+	        		for(enemyWalking snail : snails) {
+	        			snail.resetScroll();
+	        		}
+	        		game.resetplayer();
+	            	return true;
+	            }
+	        }
+
+	        return false;
+			
+		}
+		public boolean isSpiking(List<floorTiles> floorTilesList, List<Spikes> spikelist, List<Portals> portallist,List<enemyWalking> snails) {
 	        for (Spikes spike : spikelist) {
 	            Rectangle playerHitbox = new Rectangle((int) posx, (int) posy, 80, 80);
 	            Rectangle spikeHitbox = spike.getHitbox();
@@ -271,6 +305,7 @@ public class player extends entity {
     	spikes=spikelist;
     	portals=portallist;
     	snail=snails;
+    	EnemBulls = Ebullets;
         touchingPortal(portallist);
         updatePos();
         checkScroll(floorTilesList, spikelist, portallist,snails,monkeys,bulls,Ebullets);
@@ -342,6 +377,9 @@ public class player extends entity {
 
 	public void render(Graphics g) {
         g.drawImage(animations[playeraction][aniIndex], (int) posx, (int) posy, (int) width, (int) height, null);
+        for(i=0;i<lives;i++) {
+        	g.drawImage(animations[idle][aniIndex], 50+(i*32), 50, (int) width, (int) height, null);
+		}
     }
 
     private void updateAnimationTick() {
@@ -616,6 +654,8 @@ public class player extends entity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
+        
     }
 
     public void resetDirBooleans() {
