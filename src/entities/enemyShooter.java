@@ -81,13 +81,12 @@ public class enemyShooter extends entity{
     		if(enthitbox.intersects(bullhitbox)) {
     			bullet.toRemove();
     			System.out.println("Killed");
-    			trueorno = true;
-
-    		}else {
-    			trueorno =  false;
+    			return true;
     		}
+    			
+
     	}
-    	return trueorno;
+    	return false;
 	}
 	private void move() {
 //    	enemyaction = attack;
