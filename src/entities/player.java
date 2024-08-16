@@ -94,9 +94,38 @@ public class player extends entity {
 			}
 			if(isShot(EnemBulls, tiles, spikes, portals, snail)) {
 				lives--;
-				System.out.println(lives);
 			}
-			isSpiking(	tiles,spikes,portals,snail);
+			if(isHit(tiles, spikes, portals, snail)) {
+				lives--;
+			}
+			if(isSpiking(tiles,spikes,portals,snail)) {
+				lives--;
+			}
+		}
+		private boolean isHit(List<floorTiles> floorTilesList, List<Spikes> spikelist, List<Portals> portallist,List<enemyWalking> snails) {
+			for(enemyWalking snail : snails) {
+				Rectangle playerHitbox = new Rectangle((int) posx, (int) posy, 80, 80);
+				Rectangle snailHitbox = snail.getHitbox();
+				if(playerHitbox.intersects(snailHitbox)) {
+	            	posx = 300;
+	            	posy = 900;
+	        		for(floorTiles floortile : floorTilesList) {
+	        			floortile.resetScroll();
+	        		}
+	        		for(Spikes spikeScroll : spikelist) {
+	        			spikeScroll.resetScroll();
+	        		}
+	        		for(Portals portal : portallist) {
+	        			portal.resetScroll();
+	        		}
+	        		for(enemyWalking snaill : snails) {
+	        			snaill.resetScroll();
+	        		}
+	        		game.resetplayer();
+	            	return true;
+				}
+			}
+			return false;
 		}
 	    private boolean isShot(List<EnemyBullet> enemBulls,List<floorTiles> floorTilesList, List<Spikes> spikelist, List<Portals> portallist,List<enemyWalking> snails) {
 			for(EnemyBullet bullet : enemBulls) {
