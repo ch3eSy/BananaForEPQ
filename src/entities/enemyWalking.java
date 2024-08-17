@@ -17,7 +17,6 @@ public class enemyWalking extends entity{
     private int aniTick, aniIndex, aniSpd = 25;
 	private double OriginX, OriginY;
 	private boolean killed;
-	private boolean trueorno;
 	private Rectangle bullhitbox;
 	private Rectangle enthitbox;
     public enemyWalking(int x,int y,int w,int h) {

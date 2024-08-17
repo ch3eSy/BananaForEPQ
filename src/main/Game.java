@@ -31,7 +31,7 @@ public class Game implements Runnable{
 	private GamePanel gamePanel;
 	public Thread gameThread;
 	
-	private final int fps_max = 140;
+	private final int fps_max = 240;
 	private final int ups_max = 200;
 	public int level = 1;
     private List<floorTiles> floorTilesList;
@@ -185,6 +185,11 @@ public class Game implements Runnable{
 
 	    for (Portals portal : portalList) {
 	    	portal.update();
+	    }
+	    if(!spikeList.isEmpty()) {
+	    	for(Spikes spike : spikeList) {
+	    		spike.update();
+	    	}
 	    }
 	    if(!monkey.isEmpty()) {
 		    for(enemyShooter enemShoot : monkey) {
