@@ -42,10 +42,10 @@ public class player extends entity {
     private boolean movingleft = false, movingright = false, movingupleft = false, movingupright = false, movingup = false,attacking = false, movingdownright = false, movingdownleft = false, movingdown = false;
     private boolean left, up, right, down;
     private float playerSpeed = 0.01f;
-    private float gravity = 0.15f;
+    private float gravity = 0.005f;
     private double boundaryx = 1450, boundaryy = 1080;
     private Timer timer;
-    public boolean isJumping = false;
+    public boolean isJumping = true;
     private float jumpspeed = 2.25f;
     private int vsp = 0;
     private float hsp = 0f;
@@ -492,7 +492,7 @@ public class player extends entity {
         movingdownright = false;
         movingdown = false;
         
-        vsp+=0.25;
+        
         
         if (vsp == 0 && hittingtile != 1 && posy <= boundaryy - 73) {
             isJumping = true;
@@ -504,7 +504,9 @@ public class player extends entity {
         }
 
         if ((isJumping)) {
+        	
             vsp += gravity;
+            
         }
 
         if ((posy >= boundaryy - 73) || (hittingtile == 1)) {
@@ -584,9 +586,9 @@ public class player extends entity {
         }
         if (isJumping) {
         	if(left&&!right) {
-        		hsp -= playerSpeed/4;
+        		hsp -= playerSpeed/2;
         	} else if (right&&!left) {
-        		hsp += playerSpeed/4;
+        		hsp += playerSpeed/2;
         	}
         }
 
