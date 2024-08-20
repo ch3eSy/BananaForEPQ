@@ -69,4 +69,29 @@ public class Constants {
 			
 		}
 	}
+	
+	public static class spikeConstants{
+		
+		public static final int up = 0;
+		public static final int down = 2;
+		public static final int left = 3;
+		public static final int right = 1;
+		
+		public static int GetSpriteLength(int enemy_action) {
+			
+			switch(enemy_action) {
+			case up:
+				return 5;
+			case down:
+				return 5;
+			case left:
+				return 5;
+			case right:
+				return 5;
+			default:
+				return 1;
+			}
+			
+		}
+	}
 }

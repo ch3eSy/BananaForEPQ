@@ -11,16 +11,18 @@ import javax.imageio.ImageIO;
 public class Spikes extends entity{
 	private Image anispike;
 	private double OriginX, OriginY;
+	private int rotation;
 	private BufferedImage[][] animations;
 	private int aniTick, aniSpd = 25, aniIndex;
-	public Spikes(int x,int y,int w,int h) {
+	public Spikes(int x,int y,int w,int h, int r) {
 		super(x,y,w,h);
 		OriginX = x;
 		OriginY=y;
+		rotation = r;
 		spikesloadAnimations();
 	}
 	public void render(Graphics g) {
-		g.drawImage(animations[0][aniIndex],(int)posx,(int)posy,(int)width,(int)height,null);
+		g.drawImage(animations[rotation][aniIndex],(int)posx,(int)posy,(int)width,(int)height,null);
 	}
 	
 	private void spikesloadAnimations() {
