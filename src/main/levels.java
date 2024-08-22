@@ -51,7 +51,7 @@ public class levels {
         	floorTilesList.add(new floorTiles(448+(i*32),1016,32,32));
         }
     	for(i = 0; i<1920;i+=32) {
-    		spikeList.add(new Spikes(i, 1048, 32, 32));
+    		spikeList.add(new Spikes(i, 1048, 32, 32,0));
     	}
 
         
