@@ -22,6 +22,7 @@ import entities.enemyShooter;
 import entities.floorTiles;
 import entities.player;
 import entities.playerBullet;
+import entities.tutorialText;
 import entities.enemyWalking;
 import main.levels.*;
 
@@ -63,6 +64,7 @@ public class Game implements Runnable{
 	private boolean snailremove;
 	private enemyWalking snailRemoval;
 	private Clip clip;
+	private tutorialText text;
 	
 	
 	
@@ -124,15 +126,16 @@ public class Game implements Runnable{
 //        bullets.add(new EnemyBullet(500,20000,100,20));
 //        bullets.add(new EnemyBullet(500,20000,100,20));
 //        bullets.add(new EnemyBullet(500,20000,100,20));        
-    	portalList.add(new Portals(7552,920,128,128));
+    	
         
         if(level==1) {
         	Player = new player(0,600,80,80,this);
 
-        	snails.add(new enemyWalking(1000,1000,80,80));
+
         	floorTilesList = levels.level1(1);
         	spikeList = levels.level1(2);
-        	monkey.add(new enemyShooter(1500,968,80,80, this));
+        	portalList.add(new Portals(7552,920,128,128));
+        	text = new tutorialText(400, 800, 600, 700);
 
         }else if(level==2) {
         	floorTilesList = levels.level2(1);
@@ -237,6 +240,7 @@ public class Game implements Runnable{
 	public void render(Graphics g) {
 		Backdrop.render(g);
 		Player.render(g);
+		text.render(g);
 		if(!bullets.isEmpty()) {
 			for(EnemyBullet bullet : bullets) {
 				bullet.render(g);
@@ -435,6 +439,11 @@ public class Game implements Runnable{
 	public void resetplayer() {
 		bullets.clear();
 		playerBullets.clear();
+	}
+
+	public void removetext1() {
+		text.setFalse1();
+		
 	}
 
 

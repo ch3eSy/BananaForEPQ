@@ -89,6 +89,9 @@ public class player extends entity {
 	        playerThread.start();
 		}
 		public void update() {
+			if(posx>400) {
+				game.removetext1();
+			}
 			if(!tiles.isEmpty()) {
 				isCollidingWith(tiles);
 			}
@@ -346,6 +349,10 @@ public class player extends entity {
     }
 
     private void checkScroll(List<floorTiles> floorTilesList, List<Spikes> spikelist, List<Portals> portallist,List<enemyWalking> snails,List<enemyShooter> monkeys,List<playerBullet> bulls,List<EnemyBullet>Ebullets ) {
+    	if(scrolled>=6200&&right) {
+    		scrolled=6200;
+    		return;
+    	}
     	if(posx>=boundaryx&&hsp>0) {
     		for(floorTiles floortile : floorTilesList) {
     			floortile.scroll(hsp);
