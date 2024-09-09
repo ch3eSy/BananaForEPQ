@@ -5,15 +5,16 @@ import java.awt.Graphics;
 
 public class tutorialText extends entity{
 
-	private boolean tutorial1=true;
+	private int tutorial=1;
+	
 	public tutorialText(int posx, int posy, int width, int height) {
 		super(posx, posy, width, height);
 
 	}
 
 	public void render(Graphics g) {
-		if(tutorial1) {
-		g.setColor(Color.RED);
+		if(tutorial==1) {
+		g.setColor(Color.red);
 		g.setFont(new Font("Stanberry", Font.BOLD, 50));
 		g.drawString("These Are Spikes.", (int)posx, (int)posy);
 		g.setFont(new Font("Stanberry", Font.BOLD, 40));
@@ -46,10 +47,16 @@ public class tutorialText extends entity{
 		g.drawString("E", (int)posx+175, (int)posy+60);
 		g.setColor(Color.orange);
 		g.drawString("M", (int)posx+190, (int)posy+60);
+		}else if(tutorial==2) {
+			g.setColor(Color.RED);
+			g.setFont(new Font("Stanberry", Font.BOLD, 50));
+			g.drawString("This is a MONKEY!", (int)posx, (int)posy);
+			g.setFont(new Font("Stanberry", Font.BOLD, 40));
+			g.drawString("He will throw boomerangs at you", (int)posx, (int)posy+50);
 		}
 	
 	}
-	public void setFalse1() {
-		tutorial1= false;
+	public void set(int num) {
+		tutorial=num;
 	}
 }

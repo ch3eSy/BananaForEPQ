@@ -79,6 +79,7 @@ public class player extends entity {
 		private int counter;
 		private final int fps_max = 140;
 		private final int ups_max = 200;
+		private int tutorial=1;
 
 		public playerProcess() {
 			startPlayerProcess();
@@ -89,9 +90,12 @@ public class player extends entity {
 	        playerThread.start();
 		}
 		public void update() {
-			if(posx>400) {
-				game.removetext1();
+			if(posx>1400&&tutorial==1) {
+				tutorial=2;
+				game.tutpart(tutorial);
+				posx=100;
 			}
+			
 			if(!tiles.isEmpty()) {
 				isCollidingWith(tiles);
 			}

@@ -441,14 +441,16 @@ public class Game implements Runnable{
 		playerBullets.clear();
 	}
 
-	public void removetext1() {
-		text.setFalse1();
-		
+	public void tutpart(int num) {
+		if(num==2) {
+			text.set(num);
+			spikeList.clear();
+			monkey.add(new enemyShooter(1700, 968, 80, 80, this));
+		}else if(num==3) {
+			
+		}
 	}
 
 
 
-	
-	
-	
 }
