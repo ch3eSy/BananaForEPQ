@@ -6,7 +6,6 @@ import java.awt.Graphics;
 public class tutorialText extends entity{
 
 	private int tutorial=1;
-	
 	public tutorialText(int posx, int posy, int width, int height) {
 		super(posx, posy, width, height);
 
@@ -53,6 +52,7 @@ public class tutorialText extends entity{
 			g.drawString("This is a MONKEY!", (int)posx, (int)posy);
 			g.setFont(new Font("Stanberry", Font.BOLD, 40));
 			g.drawString("He will throw boomerangs at you", (int)posx, (int)posy+50);
+			
 		}
 	
 	}

@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -36,6 +37,7 @@ public class enemyShooter extends entity{
 	private boolean delay;
 	private boolean trueorno;
 	private boolean killed;
+	private int randomnum = (int)(Math.random() * 3001);
     public enemyShooter(int x,int y,int w,int h, Game game) {
 		super(x,y,w,h);
 		this.game = game;
@@ -119,6 +121,7 @@ public class enemyShooter extends entity{
 	
 	public void shoot() {
 		game.enemyshoot(posx,posy,shots,1);
+
 		if(shots==5) {
 			shots = 0;
 			enemyaction = idle;
@@ -129,16 +132,17 @@ public class enemyShooter extends entity{
     private void delaytime() {
 		if(delay) {
 			count+=1;
-			if(count==1000) {
+			if(count==randomnum) {
 				enemyaction = attack;
 			}
 		}
 		
 	}
 	private void startdelay() {
+		randomnum = (int)(Math.random() * 3001);
 		delay = true;
 		count = 0;
-		
+
 	}
 	public void scroll(float speed) {
 
