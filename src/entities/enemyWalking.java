@@ -81,7 +81,7 @@ public class enemyWalking extends entity{
         }
     }
 	public Rectangle getHitbox() {
-		return new Rectangle((int)posx-5,(int)posy-5,96,128);
+		return new Rectangle((int)posx+20,(int)posy-5,90,128);
 	}
 	public void scroll(float speed) {
 

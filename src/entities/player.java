@@ -91,9 +91,13 @@ public class player extends entity {
 		}
 		public void update() {
 			if(posx>1400&&tutorial==1) {
+				posx=100;
 				tutorial=2;
 				game.tutpart(tutorial);
+			}else if(posx>1400&&tutorial==2) {
 				posx=100;
+				tutorial=3;
+				game.tutpart(tutorial);
 			}
 			
 			if(!tiles.isEmpty()) {
