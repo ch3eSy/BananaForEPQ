@@ -448,8 +448,13 @@ public class Game implements Runnable{
 			monkey.add(new enemyShooter(1700, 968, 80, 80, this));
 		}else if(num==3) {
 			text.set(num);
-			monkey.clear();
+
 			snails.add(new enemyWalking(1700,968,128,128));
+
+			if(!monkey.isEmpty()) {
+				monkey.clear();
+			}
+
 		}
 	}
 

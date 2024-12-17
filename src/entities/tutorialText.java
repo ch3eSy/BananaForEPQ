@@ -52,12 +52,16 @@ public class tutorialText extends entity{
 			g.drawString("This is a MONKEY!", (int)posx, (int)posy);
 			g.setFont(new Font("Stanberry", Font.BOLD, 40));
 			g.drawString("He will throw boomerangs at you", (int)posx, (int)posy+50);
+
 		}else if(tutorial==3) {
 			g.setFont(new Font("Stanberry", Font.BOLD, 50));
 			g.setColor(Color.RED);
 			g.drawString("This is a SNAIL!", (int)posx, (int)posy);
 			g.drawString("He will walk and not stop walking!", (int)posx, (int)posy+50);
-			
+			g.setFont(new Font("Stanberry", Font.BOLD, 30));
+			g.drawString("If the boomerangs hit you, you lose a life",(int)posx,(int)posy+80);
+			g.setFont(new Font("Stanberry", Font.BOLD, 20));
+			g.drawString("Note : you can fire back by pressing your 'E' key", (int)posx, (int)posy+100);
 		}
 	
 	}

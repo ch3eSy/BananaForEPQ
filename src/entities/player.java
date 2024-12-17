@@ -99,6 +99,11 @@ public class player extends entity {
 				tutorial=3;
 				game.tutpart(tutorial);
 			}
+			if(posx>1400&&tutorial==2) {
+				tutorial=3;
+				game.tutpart(tutorial);
+				posx=100;
+			}
 			
 			if(!tiles.isEmpty()) {
 				isCollidingWith(tiles);
