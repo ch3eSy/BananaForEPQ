@@ -445,14 +445,15 @@ public class Game implements Runnable{
 		if(num==2) {
 			text.set(num);
 			spikeList.clear();
-			monkey.add(new enemyShooter(1700, 968, 80, 80, this));
-		}else if(num==3) {
-			text.set(num);
-
 			snails.add(new enemyWalking(1700,968,128,128));
 
-			if(!monkey.isEmpty()) {
-				monkey.clear();
+		}else if(num==3) {
+			text.set(num);
+			monkey.add(new enemyShooter(1700, 968, 80, 80, this));
+
+
+			if(!snails.isEmpty()) {
+				snails.clear();
 			}
 
 		}

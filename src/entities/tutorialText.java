@@ -47,17 +47,19 @@ public class tutorialText extends entity{
 		g.setColor(Color.orange);
 		g.drawString("M", (int)posx+190, (int)posy+60);
 		}else if(tutorial==2) {
-			g.setColor(Color.RED);
-			g.setFont(new Font("Stanberry", Font.BOLD, 50));
-			g.drawString("This is a MONKEY!", (int)posx, (int)posy);
-			g.setFont(new Font("Stanberry", Font.BOLD, 40));
-			g.drawString("He will throw boomerangs at you", (int)posx, (int)posy+50);
-
-		}else if(tutorial==3) {
 			g.setFont(new Font("Stanberry", Font.BOLD, 50));
 			g.setColor(Color.RED);
 			g.drawString("This is a SNAIL!", (int)posx, (int)posy);
 			g.drawString("He will walk and not stop walking!", (int)posx, (int)posy+50);
+			g.drawString("You can kill the snail by shooting - Press 'E'", (int)posx, (int)posy+100);
+
+
+		}else if(tutorial==3) {
+			g.setColor(Color.red);
+			g.setFont(new Font("Stanberry", Font.BOLD, 50));
+			g.drawString("This is a MONKEY!", (int)posx, (int)posy);
+			g.setFont(new Font("Stanberry", Font.BOLD, 40));
+			g.drawString("He will throw boomerangs at you", (int)posx, (int)posy+50);
 			g.setFont(new Font("Stanberry", Font.BOLD, 30));
 			g.drawString("If the boomerangs hit you, you lose a life",(int)posx,(int)posy+80);
 			g.setFont(new Font("Stanberry", Font.BOLD, 20));
