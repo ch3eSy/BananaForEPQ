@@ -430,6 +430,7 @@ public class Game implements Runnable{
 		bullets.remove(toRemove);
 	}
 	
+	
 
 	public void removeMonkey(enemyShooter monkey) {
 		
