@@ -252,7 +252,6 @@ public class player extends entity {
 			
 			
 			int frames = 0;
-			int updates = 0;
 			long lastCheck = System.currentTimeMillis();
 			
 			double deltau = 0;
@@ -270,7 +269,6 @@ public class player extends entity {
 				
 				if(deltau>=1) {
 					update();
-					updates++;
 					deltau--;
 				}
 				
@@ -287,7 +285,6 @@ public class player extends entity {
 				if (System.currentTimeMillis() - lastCheck >=1000) {
 					lastCheck = System.currentTimeMillis();
 					frames=0;
-					updates=0;
 				}
 			}
 			
