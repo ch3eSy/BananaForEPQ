@@ -22,7 +22,14 @@ public class MenuPanel extends JPanel{
 		setPreferredSize(size);
 		setMaximumSize(size);
 	}
-	public Menu getmenu() {
+	public void paintComponent(Graphics g) {
+		
+		
+		super.paintComponent(g);
+		menu.render(g);
+		
+	}
+	public Menu getMenu() {
 		return menu;
 	}
 

@@ -29,7 +29,7 @@ public class MenuWindow{
 			@Override
 			public void windowLostFocus(WindowEvent e) {
 				System.out.println("lost");
-//				menupanel.getMenu().windowFocusLost();
+				menupanel.getMenu().windowFocusLost();
 				
 			}
 			
