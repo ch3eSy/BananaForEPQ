@@ -41,8 +41,11 @@ public class MenuWindow{
 		jframe.pack();
 		
 		
-		
 
+
+	}
+	public void kill() {
+		jframe.dispose();
 	}
 
 

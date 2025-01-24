@@ -6,4 +6,8 @@ public class MainClass {
 		new Menu();
 	}
 
+	public static void startGame() {
+		new Game();
+	}
+
 }

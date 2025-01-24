@@ -2,6 +2,11 @@ package main;
 
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.MediaTracker;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import menuEnt.menuBackdrop;
 import javax.swing.*;
 
@@ -20,10 +25,25 @@ public class Menu implements Runnable{
 		menuPanel = new MenuPanel(this);
 		menuPanel.setLayout(null);
 		menuWindow = new MenuWindow(menuPanel);
-
-	    startIcon = new ImageIcon("/mainmenu.png");
+		startIcon = new ImageIcon(getClass().getResource("/startButton.png"));
+		if (startIcon.getImageLoadStatus() != MediaTracker.COMPLETE) {
+		    System.out.println("Image failed to load!");
+		}
+		Image scaledImage = startIcon.getImage().getScaledInstance(250, 150, Image.SCALE_SMOOTH);
+		startIcon = new ImageIcon(scaledImage);
 		startbutton = new JButton(startIcon);
-		startbutton.setBounds(885, 320, 250,100);
+		startbutton.setBounds(885, 640, 250,150);
+		startbutton.addActionListener(new ActionListener() {
+
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				 menuWindow.kill();
+				 startgame();
+
+				
+			}
+		});
 		menuPanel.add(startbutton);
 
 
@@ -35,6 +55,11 @@ public class Menu implements Runnable{
 
 	}
 	
+	public void startgame() {
+		System.out.println("BEANS");
+		MainClass.startGame();
+
+	}
 	private void initclasses() {
 
 		backg = new menuBackdrop(0,0,1920,1080);

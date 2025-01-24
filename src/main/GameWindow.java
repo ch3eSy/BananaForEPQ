@@ -6,7 +6,7 @@ import java.awt.event.WindowFocusListener;
 
 import javax.swing.*;
 
-public class GameWindow{
+public class GameWindow extends JFrame{
 	private JFrame jframe;
 
 	public GameWindow(GamePanel gamePanel) {
