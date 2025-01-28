@@ -20,7 +20,9 @@ public class floorTiles extends entity{
 		tileloadAnimations();
 	}
 	public void render(Graphics g) {
-		g.drawImage(anifloor,(int)posx,(int)posy,(int)width,(int)height,null);
+		if(posx<=2000&&posx>=-100) {
+			g.drawImage(anifloor,(int)posx,(int)posy,(int)width,(int)height,null);
+		}
 	}
 	
 	private void tileloadAnimations() {
