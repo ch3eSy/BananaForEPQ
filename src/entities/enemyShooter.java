@@ -38,6 +38,7 @@ public class enemyShooter extends entity{
 	private boolean trueorno;
 	private boolean killed;
 	private int randomnum = (int)(Math.random() * 3001);
+	private boolean onscreen;
     public enemyShooter(int x,int y,int w,int h, Game game) {
 		super(x,y,w,h);
 		this.game = game;
@@ -92,6 +93,9 @@ public class enemyShooter extends entity{
 	}
 	private void move() {
 //    	enemyaction = attack;
+		if(posx>=1920||posx<=0) {
+			onscreen=false;
+		}
 
 
     	if(timetoShoot) {
@@ -131,9 +135,12 @@ public class enemyShooter extends entity{
 	
     private void delaytime() {
 		if(delay) {
-			count+=1;
-			if(count==randomnum) {
+			if((count==randomnum)&&onscreen==true) {
 				enemyaction = attack;
+			}else if((count==randomnum)&&onscreen==false) {
+				count=count;
+			}else {
+				count+=1;
 			}
 		}
 		
