@@ -62,7 +62,7 @@ public class player extends entity {
     private int scrolled = 0;
 	private int shots= 0;
 	private int dir = 0;
-	private int playerMaxR = -5,playerMaxL= 5;
+	private int playerMaxR,playerMaxL;
 	private Thread playerThread;	
 	private playerProcess process;
 	private List<floorTiles> tiles;

@@ -68,6 +68,7 @@ public class Menu implements Runnable{
 
 	public void render(Graphics g) {
 		backg.render(g);
+		
 	}
 	
 	public void startGameLoop() {
