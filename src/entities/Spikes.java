@@ -13,7 +13,7 @@ public class Spikes extends entity{
 	private double OriginX, OriginY;
 	private int rotation;
 	private BufferedImage[][] animations;
-	private int aniTick, aniSpd = 25, aniIndex;
+	private int aniTick, aniSpd = 35, aniIndex;
 	public Spikes(int x,int y,int w,int h, int r) {
 		super(x,y,w,h);
 		OriginX = x;
@@ -34,7 +34,7 @@ public class Spikes extends entity{
 
             for (int j = 0; j < animations.length; j++)
                 for (int i = 0; i < animations[j].length; i++)
-                    animations[j][i] = img.getSubimage(i * 64, j * 64, 64, 64);
+                    animations[j][i] = img.getSubimage(i * 256, j * 256, 256, 256);
         } catch (Exception e) {
             e.printStackTrace();
         }
