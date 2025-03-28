@@ -25,8 +25,8 @@ public class levels {
     private Game game;
     private static int i;
     
-    public void levelMap() {
-        TileMap();
+    public void levelMap(int j) {
+        TileMap(j);
     }
 	public static List level1(int type) {
 
@@ -60,10 +60,12 @@ public class levels {
 	}
 	
 	
-	public void TileMap() {
+	public void TileMap(int num) {
 		spikeList = new ArrayList<>();
 		floorTilesList = new ArrayList<>();
-		InputStream is = getClass().getResourceAsStream("/map.png");
+		String address = "/map"+num+".png";
+		System.out.println(address);
+		InputStream is = getClass().getResourceAsStream(address);
         try {
             BufferedImage image = ImageIO.read(is);
 
