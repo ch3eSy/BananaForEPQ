@@ -25,12 +25,12 @@ public class levels {
     private Game game;
     private static int i;
     
-    public void levelMap(int j) {
-        TileMap(j);
+    public void TileSet(int num) {
+		TileMap(num);
     }
+    
 	public static List level1(int type) {
 
-        
         if(type==1) {
         	return floorTilesList;
         }else if(type==2){

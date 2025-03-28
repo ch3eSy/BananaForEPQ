@@ -69,8 +69,8 @@ public class Game implements Runnable{
 	
 	
 	public Game() {
-		levels levels = new levels();
-		levels.levelMap(1);
+		levels Level;
+		
 		initClasses();
 		gamePanel = new GamePanel(this);
 		gameWindow = new GameWindow(gamePanel);
@@ -118,6 +118,7 @@ public class Game implements Runnable{
         monkey = new ArrayList<>();
         bullets = new ArrayList<>();
         playerBullets = new ArrayList<>();
+        Level.TileSet(level);
         stopSound();
         loadSound("/Music.wav");
 //        bullets.add(new EnemyBullet(500,20000,100,20));
@@ -128,13 +129,14 @@ public class Game implements Runnable{
     	
         
         if(level==1) {
-        	Player = new player(0,600,80,80,this);
-
-
         	floorTilesList = levels.level1(1);
         	spikeList = levels.level1(2);
         	portalList.add(new Portals(7552,920,128,128));
         	text = new tutorialText(400, 800, 600, 700);
+        	Player = new player(0,600,80,80,this);
+
+
+
 
         }else if(level==2) {
         	floorTilesList = levels.level2(1);
