@@ -25,12 +25,12 @@ public class levels {
     private Game game;
     private static int i;
     
-    public void levelMap(int j) {
-        TileMap(j);
+    public void TileSet(int num) {
+		TileMap(num);
     }
+    
 	public static List level1(int type) {
 
-        
         if(type==1) {
         	return floorTilesList;
         }else if(type==2){
@@ -94,11 +94,13 @@ public class levels {
                     
                     if(tile=="FloorTile") {
                     	floorTilesList.add(new floorTiles(worldX, worldY, 32, 32));
+                        System.out.println("Spawning " + tile + " at (" + worldX + "," + worldY + ")");
                     }else if (tile=="SpikeTile") {
                     	spikeList.add(new Spikes(worldX,worldY,32,32,up));
+                        System.out.println("Spawning " + tile + " at (" + worldX + "," + worldY + ")");
                     }
                     
-                    System.out.println("Spawning " + tile + " at (" + worldX + "," + worldY + ")");
+
                 }
             }
         } catch (Exception e) {
