@@ -69,7 +69,8 @@ public class Game implements Runnable{
 	
 	
 	public Game() {
-		levels Level;
+		Level = new levels();
+		level = 1;
 		
 		initClasses();
 		gamePanel = new GamePanel(this);
