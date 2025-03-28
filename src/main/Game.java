@@ -69,7 +69,8 @@ public class Game implements Runnable{
 	
 	
 	public Game() {
-
+		levels levels = new levels();
+		levels.levelMap();
 		initClasses();
 		gamePanel = new GamePanel(this);
 		gameWindow = new GameWindow(gamePanel);
