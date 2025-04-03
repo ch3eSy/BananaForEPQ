@@ -35,7 +35,7 @@ public class Game implements Runnable{
 	private final int fps_max = 240;
 	private final int ups_max = 200;
 	public int level = 1;
-    private List<floorTiles> floorTilesList;
+    public List<floorTiles> floorTilesList;
 	private player Player;
 
 	private enemyWalking snail1;
@@ -69,7 +69,7 @@ public class Game implements Runnable{
 	
 	
 	public Game() {
-		Level = new levels();
+		Level = new levels(this);
 		level = 1;
 		
 		initClasses();
