@@ -132,7 +132,7 @@ public class Game implements Runnable{
         if(level==1) {
         	floorTilesList = levels.level1(1);
         	spikeList = levels.level1(2);
-        	portalList.add(new Portals(7552,920,128,128));
+        	portalList.add(new Portals(7552,867,128,128));
         	text = new tutorialText(400, 800, 600, 700);
         	Player = new player(0,600,80,80,this);
 
@@ -447,7 +447,6 @@ public class Game implements Runnable{
 	public void tutpart(int num) {
 		if(num==2) {
 			text.set(num);
-			spikeList.clear();
 			snails.add(new enemyWalking(1700,968,128,128));
 
 		}else if(num==3) {

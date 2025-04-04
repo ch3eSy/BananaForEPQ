@@ -202,42 +202,44 @@ public class player extends entity {
 	        isOntile = false;
 
 	        for (floorTiles floortile : floorTilesList) {
-	            Rectangle playerHitbox = new Rectangle((int) posx+5, (int) posy+20, 58, 59);
-	            Rectangle floorHitbox = floortile.getHitbox();
+	        	if (floortile.getX() >= posx - 400 && floortile.getX() <= posx + 400 && floortile.getY() >= posy - 400 && floortile.getY() <= posy + 400) {
+	        		Rectangle playerHitbox = new Rectangle((int) posx+5, (int) posy+20, 58, 59);
+	            	Rectangle floorHitbox = floortile.getHitbox();
 
-	            if (playerHitbox.intersects(floorHitbox)) {
-	                hittingtile = 1;
+	            	if (playerHitbox.intersects(floorHitbox)) {
+	                	hittingtile = 1;
 
-	                int side1 = ((int) floortile.getX());
-	                int side2 = (((int) floortile.getX())+((int)floortile.getWidth()));
+	                	int side1 = ((int) floortile.getX());
+	                	int side2 = (((int) floortile.getX())+((int)floortile.getWidth()));
 
-	                if (posy + height <= floortile.getY() + 5 && posy + height >= floortile.getY()) {
-	                    isOntile = true;
+	                	if (posy + height <= floortile.getY() + 5 && posy + height >= floortile.getY()) {
+	                    	isOntile = true;
 
-	                    vsp = 0;
-	                }else if((posy-32 <= floortile.getY()&&posy>floortile.getY())) {
-	                	posy = floortile.getY()+floortile.getWidth();
-	                	vsp=0;
-	                }
+	                    	vsp = 0;
+	                	}else if((posy-32 <= floortile.getY()&&posy>floortile.getY())) {
+	                		posy = floortile.getY()+floortile.getWidth();
+	                		vsp=0;
+	                	}
 
-	                // Check if player is colliding with the sides of the box
-	                if (((posx + width-5 >= side1 && posx <= side1) || (posx <= side2 && posx + width >= side2))&&((posy+height>=floortile.getY()+5)&&posy<=floortile.getY()+floortile.getHeight())) {
-	                    isHittingSide = true;
+	                	// Check if player is colliding with the sides of the box
+	                	if (((posx + width-5 >= side1 && posx <= side1) || (posx <= side2 && posx + width >= side2))&&((posy+height>=floortile.getY()+5)&&posy<=floortile.getY()+floortile.getHeight())) {
+	                    	isHittingSide = true;
 
 	                    // Stop horizontal speed when hitting the side
-	                    hsp = 0;
-	                } else {
-	                    isHittingSide = false;
-	                }
+	                    	hsp = 0;
+	                	} else {
+	                    	isHittingSide = false;
+	                	}
 
 	                // Check if player is standing on the tile
-	                if (posy + height <= floortile.getY() + 5) {
-	                    isOntile = true;
-	                    currentFloorTile = floortile;  // Set the current floor tile
-	                }
+	                	if (posy + height <= floortile.getY() + 5) {
+	                    	isOntile = true;
+	                    	currentFloorTile = floortile;  // Set the current floor tile
+	                	}
 
-	                return true;
-	            }
+	                	return true;
+	            	}
+	        	}
 	        }
 
 	        return false;
