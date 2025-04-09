@@ -172,6 +172,7 @@ public class player extends entity {
 		}
 		public boolean isSpiking(List<floorTiles> floorTilesList, List<Spikes> spikelist, List<Portals> portallist,List<enemyWalking> snails) {
 	        for (Spikes spike : spikelist) {
+	        	if(spike.getX()>= posx-200&&spike.getX()<=posx+200) {
 	            Rectangle playerHitbox = new Rectangle((int) posx, (int) posy, 80, 80);
 	            Rectangle spikeHitbox = spike.getHitbox();
 
@@ -193,6 +194,7 @@ public class player extends entity {
 	        		game.resetplayer();
 	            	return true;
 	            }
+	        }
 	        }
 
 	        return false;
