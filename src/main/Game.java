@@ -35,7 +35,7 @@ public class Game implements Runnable{
 	private final int fps_max = 240;
 	private final int ups_max = 200;
 	public int level = 1;
-    private List<floorTiles> floorTilesList;
+    public List<floorTiles> floorTilesList;
 	private player Player;
 
 	private enemyWalking snail1;
@@ -69,7 +69,7 @@ public class Game implements Runnable{
 	
 	
 	public Game() {
-		Level = new levels();
+		Level = new levels(this);
 		level = 1;
 		
 		initClasses();
@@ -132,17 +132,20 @@ public class Game implements Runnable{
         if(level==1) {
         	floorTilesList = levels.level1(1);
         	spikeList = levels.level1(2);
-        	portalList.add(new Portals(7552,920,128,128));
+        	portalList.add(new Portals(7552,867,128,128));
         	text = new tutorialText(400, 800, 600, 700);
         	Player = new player(0,600,80,80,this);
-
+        	Player.tutorial=1;
 
 
 
         }else if(level==2) {
-        	floorTilesList = levels.level2(1);
+        	floorTilesList = levels.level1(1);
+        	spikeList = levels.level1(2);
+        	portalList.add(new Portals(7552,867,128,128));
 
-    		Player = new player(0,200,80,80,this);
+    		Player = new player(0,600,80,80,this);
+    		text.set(0);
 //            spikeList.add(new Spikes(500,1048,32,32));
         }else if(level == 3) {
         	floorTilesList.add(new floorTiles(160, 1000, 32, 32));
@@ -447,12 +450,11 @@ public class Game implements Runnable{
 	public void tutpart(int num) {
 		if(num==2) {
 			text.set(num);
-			spikeList.clear();
-			snails.add(new enemyWalking(1700,968,128,128));
+			snails.add(new enemyWalking(1700,948,128,128));
 
 		}else if(num==3) {
 			text.set(num);
-			monkey.add(new enemyShooter(1700, 968, 80, 80, this));
+			monkey.add(new enemyShooter(1700, 943, 80, 80, this));
 
 
 			if(!snails.isEmpty()) {

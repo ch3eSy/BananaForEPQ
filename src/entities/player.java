@@ -73,13 +73,13 @@ public class player extends entity {
 	private List<EnemyBullet> EnemBulls;
 	private int lives = 3;
 	private int i;
-	
+	public int tutorial=0;
 	
 	private class playerProcess implements Runnable{
 		private int counter;
 		private final int fps_max = 140;
 		private final int ups_max = 200;
-		private int tutorial=1;
+
 
 		public playerProcess() {
 			startPlayerProcess();
@@ -202,46 +202,49 @@ public class player extends entity {
 	        isOntile = false;
 
 	        for (floorTiles floortile : floorTilesList) {
-	            Rectangle playerHitbox = new Rectangle((int) posx+5, (int) posy+20, 58, 59);
-	            Rectangle floorHitbox = floortile.getHitbox();
+	        	if(floortile.getX()<= posx+200 && floortile.getX()>posx-200) {
+	        		Rectangle playerHitbox = new Rectangle((int) posx+5, (int) posy+20, 58, 59);
+	            	Rectangle floorHitbox = floortile.getHitbox();
 
-	            if (playerHitbox.intersects(floorHitbox)) {
-	                hittingtile = 1;
+	            	if (playerHitbox.intersects(floorHitbox)) {
+	                	hittingtile = 1;
 
-	                int side1 = ((int) floortile.getX());
-	                int side2 = (((int) floortile.getX())+((int)floortile.getWidth()));
+	                	int side1 = ((int) floortile.getX());
+	                	int side2 = (((int) floortile.getX())+((int)floortile.getWidth()));
 
-	                if (posy + height <= floortile.getY() + 5 && posy + height >= floortile.getY()) {
-	                    isOntile = true;
+	                	if (posy + height <= floortile.getY() + 5 && posy + height >= floortile.getY()) {
+	                    	isOntile = true;
 
-	                    vsp = 0;
-	                }else if((posy-32 <= floortile.getY()&&posy>floortile.getY())) {
-	                	posy = floortile.getY()+floortile.getWidth();
-	                	vsp=0;
-	                }
+	                    	vsp = 0;
+	                	}else if((posy-32 <= floortile.getY()&&posy>floortile.getY())) {
+	                		posy = floortile.getY()+floortile.getWidth();
+	                		vsp=0;
+	                	}
 
-	                // Check if player is colliding with the sides of the box
-	                if (((posx + width-5 >= side1 && posx <= side1) || (posx <= side2 && posx + width >= side2))&&((posy+height>=floortile.getY()+5)&&posy<=floortile.getY()+floortile.getHeight())) {
-	                    isHittingSide = true;
+	                	// Check if player is colliding with the sides of the box
+	                	if (((posx + width-5 >= side1 && posx <= side1) || (posx <= side2 && posx + width >= side2))&&((posy+height>=floortile.getY()+5)&&posy<=floortile.getY()+floortile.getHeight())) {
+	                    	isHittingSide = true;
 
 	                    // Stop horizontal speed when hitting the side
-	                    hsp = 0;
-	                } else {
-	                    isHittingSide = false;
-	                }
+	                    	hsp = 0;
+	                	} else {
+	                    	isHittingSide = false;
+	                	}
 
 	                // Check if player is standing on the tile
-	                if (posy + height <= floortile.getY() + 5) {
-	                    isOntile = true;
-	                    currentFloorTile = floortile;  // Set the current floor tile
-	                }
+	                	if (posy + height <= floortile.getY()) {
+	                    	isOntile = true;
+	                    	currentFloorTile = floortile;  // Set the current floor tile
+	                	}
 
-	                return true;
-	            }
+	                	return true;
+	            	}
+	        	}
 	        }
-
 	        return false;
 	    }
+	    
+	    
 		
 		@Override
 		public void run() {
@@ -684,9 +687,11 @@ public class player extends entity {
         }
 
      // Check if the player is hitting the bottom of the box
-        if (hittingtile == 1 && !up && !isOntile && posy < currentFloorTile.getY()) {
-            isJumping = false;
-            vsp = 0;
+        if(currentFloorTile!=null) {
+        	if (hittingtile == 1 && !up && !isOntile && posy < currentFloorTile.getY()) {
+        		isJumping = false;
+        		vsp = 0;
+        	}
         }
     }
     private void loadAnimations() {
