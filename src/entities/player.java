@@ -73,13 +73,13 @@ public class player extends entity {
 	private List<EnemyBullet> EnemBulls;
 	private int lives = 3;
 	private int i;
-	
+	public int tutorial=0;
 	
 	private class playerProcess implements Runnable{
 		private int counter;
 		private final int fps_max = 140;
 		private final int ups_max = 200;
-		private int tutorial=1;
+
 
 		public playerProcess() {
 			startPlayerProcess();
@@ -202,7 +202,7 @@ public class player extends entity {
 	        isOntile = false;
 
 	        for (floorTiles floortile : floorTilesList) {
-	        	if (floortile.getX() >= posx - 400 && floortile.getX() <= posx + 400 && floortile.getY() >= posy - 400 && floortile.getY() <= posy + 400) {
+	        	if(floortile.getX()<= posx+200 && floortile.getX()>posx-200) {
 	        		Rectangle playerHitbox = new Rectangle((int) posx+5, (int) posy+20, 58, 59);
 	            	Rectangle floorHitbox = floortile.getHitbox();
 
@@ -232,7 +232,7 @@ public class player extends entity {
 	                	}
 
 	                // Check if player is standing on the tile
-	                	if (posy + height <= floortile.getY() + 5) {
+	                	if (posy + height <= floortile.getY()) {
 	                    	isOntile = true;
 	                    	currentFloorTile = floortile;  // Set the current floor tile
 	                	}
@@ -241,7 +241,6 @@ public class player extends entity {
 	            	}
 	        	}
 	        }
-
 	        return false;
 	    }
 		
@@ -686,9 +685,11 @@ public class player extends entity {
         }
 
      // Check if the player is hitting the bottom of the box
-        if (hittingtile == 1 && !up && !isOntile && posy < currentFloorTile.getY()) {
-            isJumping = false;
-            vsp = 0;
+        if(currentFloorTile!=null) {
+        	if (hittingtile == 1 && !up && !isOntile && posy < currentFloorTile.getY()) {
+        		isJumping = false;
+        		vsp = 0;
+        	}
         }
     }
     private void loadAnimations() {
