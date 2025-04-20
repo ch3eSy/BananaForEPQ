@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import entities.Portals;
 import entities.Spikes;
+import entities.enemyShooter;
+import entities.enemyWalking;
 import entities.floorTiles;
 import static utils.Constants.spikeConstants.down;
 import static utils.Constants.spikeConstants.up;
@@ -69,6 +71,8 @@ public class levels {
             Map<Integer, String> tileMap = new HashMap<>();
             tileMap.put(new Color(0, 255, 0).getRGB(), "FloorTile");  // Green
             tileMap.put(new Color(255, 0, 0).getRGB(), "SpikeTile");  // Red
+            tileMap.put(new Color(0,0,255).getRGB(), "Monkey"); // Blue
+            tileMap.put(new Color(255,255,0).getRGB(), "Snail"); // Yellow
 
             // Tile size
             int tileSize = 32;
@@ -80,8 +84,7 @@ public class levels {
                 for (int x = 0; x < width; x++) {
                     int pixel = image.getRGB(x, y);
                     Color color = new Color(pixel, true); // Extracts colour correctly
-                    
-                    // Match the closest tile type
+
                     String tile = tileMap.getOrDefault(color.getRGB(), "Empty");
 
                     // Convert pixel coordinates to game world coordinates
@@ -92,6 +95,10 @@ public class levels {
                     	floorTilesList.add(new floorTiles(worldX, worldY, 32, 32));
                     }else if (tile=="SpikeTile") {
                     	spikeList.add(new Spikes(worldX,worldY,32,32,up, game));
+                    }else if (tile == "Monkey") {
+                    	game.monkey.add(new enemyShooter(worldX,worldY-48,80,80,game));
+                    }else if (tile=="Snail") {
+                    	game.snails.add(new enemyWalking(worldX,worldY-46,128,128));
                     }
                     
 

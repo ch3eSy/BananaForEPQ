@@ -43,8 +43,8 @@ public class Game implements Runnable{
 	private levels Level;
 	private List<Spikes> spikeList;
 	private List<Portals> portalList;
-	private List<enemyWalking> snails;
-	private List<enemyShooter> monkey;
+	public List<enemyWalking> snails;
+	public List<enemyShooter> monkey;
 	private boolean started = false;
 	private int i = 0;
 	private int colournum;
