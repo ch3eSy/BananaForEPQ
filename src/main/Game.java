@@ -145,32 +145,57 @@ public class Game implements Runnable{
         	portalList.add(new Portals(7552,867,128,128));
 
     		Player = new player(0,600,80,80,this);
+    		Player.tutorial=0;
     		text.set(0);
 //            spikeList.add(new Spikes(500,1048,32,32));
         }else if(level == 3) {
-        	floorTilesList.add(new floorTiles(160, 1000, 32, 32));
+        	floorTilesList = levels.level1(1);
+        	spikeList = levels.level1(2);
 
     		Player = new player(0,600,80,80,this);
+        	portalList.add(new Portals(7552,867,128,128));
+
         }else if(level == 4) {
+        	floorTilesList = levels.level1(1);
+        	spikeList = levels.level1(2);
 
     		Player = new player(0,600,80,80,this);
-        }else if(level == 5) {
+        	portalList.add(new Portals(7552,867,128,128));
+        }else if(level == 5){
+        	floorTilesList = levels.level1(1);
+        	spikeList = levels.level1(2);
 
     		Player = new player(0,600,80,80,this);
+        	portalList.add(new Portals(7552,867,128,128));
         }else if(level == 6) {
+        	floorTilesList = levels.level1(1);
+        	spikeList = levels.level1(2);
 
     		Player = new player(0,600,80,80,this);
+        	portalList.add(new Portals(7552,867,128,128));
         }else if(level == 7) {
+        	floorTilesList = levels.level1(1);
+        	spikeList = levels.level1(2);
     		Player = new player(0,600,80,80,this);
+        	portalList.add(new Portals(7552,867,128,128));
         }else if(level == 8) {
+        	floorTilesList = levels.level1(1);
+        	spikeList = levels.level1(2);
 
     		Player = new player(0,600,80,80,this);
+        	portalList.add(new Portals(7552,867,128,128));
         }else if(level == 9) {
+        	floorTilesList = levels.level1(1);
+        	spikeList = levels.level1(2);
         	portalList.add(new Portals(1500,900,128,128));
     		Player = new player(0,600,80,80,this);
+        	portalList.add(new Portals(7552,867,128,128));
         }else if(level == 10) {
+        	floorTilesList = levels.level1(1);
+        	spikeList = levels.level1(2);
         	portalList.add(new Portals(1500,900,128,128));
     		Player = new player(0,600,80,80,this);
+        	portalList.add(new Portals(7552,867,128,128));
         }
 
 
