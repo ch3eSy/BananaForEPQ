@@ -91,20 +91,20 @@ public class player extends entity {
 	        playerThread.start();
 		}
 		public void update() {
-//			if(posx>1400&&tutorial==1) {
-//				posx=100;
-//				tutorial=2;
-//				game.tutpart(tutorial);
-//			}else if(posx>1400&&tutorial==2) {
-//				posx=100;
-//				tutorial=3;
-//				game.tutpart(tutorial);
-//			}
-//			if(posx>1400&&tutorial==2) {
-//				tutorial=3;
-//				game.tutpart(tutorial);
-//				posx=100;
-//			}
+			if(posx>1400&&tutorial==1) {
+				posx=100;
+				tutorial=2;
+				game.tutpart(tutorial);
+			}else if(posx>1400&&tutorial==2) {
+				posx=100;
+				tutorial=3;
+				game.tutpart(tutorial);
+			}
+			if(posx>1400&&tutorial==2) {
+				tutorial=3;
+				game.tutpart(tutorial);
+				posx=100;
+			}
 			
 			if(!tiles.isEmpty()) {
 				isCollidingWith(tiles);

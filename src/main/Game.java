@@ -237,7 +237,7 @@ public class Game implements Runnable{
 	    }
 	    if(!snails.isEmpty()) {
 	    	for(enemyWalking snail : snails) {
-	    		snailremove = snail.update(playerBullets);
+	    		snailremove = snail.update(playerBullets, floorTilesList);
 	    		if(snailremove) {
 	    			snailRemoval = snail;
 	    		}
