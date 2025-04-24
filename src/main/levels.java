@@ -67,7 +67,6 @@ public class levels {
         try {
             BufferedImage image = ImageIO.read(is);
 
-            // Define color-to-tile mapping
             Map<Integer, String> tileMap = new HashMap<>();
             tileMap.put(new Color(0, 255, 0).getRGB(), "FloorTile");  // Green
             tileMap.put(new Color(255, 0, 0).getRGB(), "SpikeTile");  // Red

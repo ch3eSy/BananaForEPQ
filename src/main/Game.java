@@ -142,7 +142,7 @@ public class Game implements Runnable{
         }else if(level==2) {
         	floorTilesList = levels.level1(1);
         	spikeList = levels.level1(2);
-        	portalList.add(new Portals(7552,867,128,128));
+        	portalList.add(new Portals(7552,899,128,128));
 
     		Player = new player(0,600,80,80,this);
     		Player.tutorial=0;
@@ -153,49 +153,54 @@ public class Game implements Runnable{
         	spikeList = levels.level1(2);
 
     		Player = new player(0,600,80,80,this);
-        	portalList.add(new Portals(7552,867,128,128));
+        	portalList.add(new Portals(7552,899,128,128));
+    		Player.tutorial=0;
 
         }else if(level == 4) {
         	floorTilesList = levels.level1(1);
         	spikeList = levels.level1(2);
 
     		Player = new player(0,600,80,80,this);
-        	portalList.add(new Portals(7552,867,128,128));
+        	portalList.add(new Portals(7552,899,128,128));
+    		Player.tutorial=0;
         }else if(level == 5){
         	floorTilesList = levels.level1(1);
         	spikeList = levels.level1(2);
 
     		Player = new player(0,600,80,80,this);
-        	portalList.add(new Portals(7552,867,128,128));
+        	portalList.add(new Portals(7552,899,128,128));
         }else if(level == 6) {
         	floorTilesList = levels.level1(1);
         	spikeList = levels.level1(2);
 
     		Player = new player(0,600,80,80,this);
-        	portalList.add(new Portals(7552,867,128,128));
+        	portalList.add(new Portals(7552,899,128,128));
         }else if(level == 7) {
         	floorTilesList = levels.level1(1);
         	spikeList = levels.level1(2);
     		Player = new player(0,600,80,80,this);
-        	portalList.add(new Portals(7552,867,128,128));
+        	portalList.add(new Portals(7552,899,128,128));
         }else if(level == 8) {
         	floorTilesList = levels.level1(1);
         	spikeList = levels.level1(2);
 
     		Player = new player(0,600,80,80,this);
-        	portalList.add(new Portals(7552,867,128,128));
+        	portalList.add(new Portals(7552,899,128,128));
         }else if(level == 9) {
         	floorTilesList = levels.level1(1);
         	spikeList = levels.level1(2);
-        	portalList.add(new Portals(1500,900,128,128));
+
     		Player = new player(0,600,80,80,this);
-        	portalList.add(new Portals(7552,867,128,128));
+        	portalList.add(new Portals(7552,899,128,128));
         }else if(level == 10) {
         	floorTilesList = levels.level1(1);
         	spikeList = levels.level1(2);
-        	portalList.add(new Portals(1500,900,128,128));
     		Player = new player(0,600,80,80,this);
-        	portalList.add(new Portals(7552,867,128,128));
+        	portalList.add(new Portals(7552,899,128,128));
+        }else if(level == 11) {
+        	floorTilesList = levels.level1(1);
+        	spikeList = levels.level1(2);
+    		Player = new player(0,600,80,80,this);
         }
 
 

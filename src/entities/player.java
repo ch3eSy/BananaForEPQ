@@ -91,6 +91,27 @@ public class player extends entity {
 	        playerThread.start();
 		}
 		public void update() {
+			if(posy>=1000) {
+            	posx = 300;
+            	posy = 900;
+        		for(floorTiles floortile : tiles) {
+        			floortile.resetScroll();
+        		}
+        		for(Spikes spikeScroll : spikes) {
+        			spikeScroll.resetScroll();
+        		}
+        		for(Portals portal : portals) {
+        			portal.resetScroll();
+        		}
+        		for(enemyWalking snaill : snail) {
+        			snaill.resetScroll();
+        		}
+        		for(enemyShooter monkey : monkies) {
+        			monkey.resetScroll();
+        		}
+        		scrolled=0;
+        		game.resetplayer();
+			}
 			if(posx>1400&&tutorial==1) {
 				posx=100;
 				tutorial=2;
