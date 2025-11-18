@@ -71,6 +71,7 @@ public class player extends entity {
 	private List<Portals> portals;
 	private List<enemyWalking> snail;
 	private List<EnemyBullet> EnemBulls;
+	private List<enemyShooter> monkies;
 	private int lives = 3;
 	private int i;
 	public int tutorial=0;
@@ -90,6 +91,27 @@ public class player extends entity {
 	        playerThread.start();
 		}
 		public void update() {
+			if(posy>=1000) {
+            	posx = 300;
+            	posy = 900;
+        		for(floorTiles floortile : tiles) {
+        			floortile.resetScroll();
+        		}
+        		for(Spikes spikeScroll : spikes) {
+        			spikeScroll.resetScroll();
+        		}
+        		for(Portals portal : portals) {
+        			portal.resetScroll();
+        		}
+        		for(enemyWalking snaill : snail) {
+        			snaill.resetScroll();
+        		}
+        		for(enemyShooter monkey : monkies) {
+        			monkey.resetScroll();
+        		}
+        		scrolled=0;
+        		game.resetplayer();
+			}
 			if(posx>1400&&tutorial==1) {
 				posx=100;
 				tutorial=2;
@@ -108,17 +130,17 @@ public class player extends entity {
 			if(!tiles.isEmpty()) {
 				isCollidingWith(tiles);
 			}
-			if(isShot(EnemBulls, tiles, spikes, portals, snail)) {
+			if(isShot(EnemBulls, tiles, spikes, portals, snail,monkies)) {
 				lives--;
 			}
-			if(isHit(tiles, spikes, portals, snail)) {
+			if(isHit(tiles, spikes, portals, snail,monkies)) {
 				lives--;
 			}
-			if(isSpiking(tiles,spikes,portals,snail)) {
+			if(isSpiking(tiles,spikes,portals,snail,monkies)) {
 				lives--;
 			}
 		}
-		private boolean isHit(List<floorTiles> floorTilesList, List<Spikes> spikelist, List<Portals> portallist,List<enemyWalking> snails) {
+		private boolean isHit(List<floorTiles> floorTilesList, List<Spikes> spikelist, List<Portals> portallist,List<enemyWalking> snails, List<enemyShooter> monkeys) {
 			for(enemyWalking snail : snails) {
 				Rectangle playerHitbox = new Rectangle((int) posx, (int) posy, 80, 80);
 				Rectangle snailHitbox = snail.getHitbox();
@@ -137,13 +159,17 @@ public class player extends entity {
 	        		for(enemyWalking snaill : snails) {
 	        			snaill.resetScroll();
 	        		}
+	        		for(enemyShooter monkey : monkeys) {
+	        			monkey.resetScroll();
+	        		}
+	        		scrolled=0;
 	        		game.resetplayer();
 	            	return true;
 				}
 			}
 			return false;
 		}
-	    private boolean isShot(List<EnemyBullet> enemBulls,List<floorTiles> floorTilesList, List<Spikes> spikelist, List<Portals> portallist,List<enemyWalking> snails) {
+	    private boolean isShot(List<EnemyBullet> enemBulls,List<floorTiles> floorTilesList, List<Spikes> spikelist, List<Portals> portallist,List<enemyWalking> snails, List<enemyShooter> monkeys) {
 			for(EnemyBullet bullet : enemBulls) {
 				Rectangle playerHitbox = new Rectangle((int) posx, (int) posy, 80, 80);
 				Rectangle bullethitbox = bullet.gethitbox();
@@ -162,6 +188,10 @@ public class player extends entity {
 	        		for(enemyWalking snail : snails) {
 	        			snail.resetScroll();
 	        		}
+	        		for(enemyShooter monkey : monkeys) {
+	        			monkey.resetScroll();
+	        		}
+	        		scrolled=0;
 	        		game.resetplayer();
 	            	return true;
 	            }
@@ -170,8 +200,9 @@ public class player extends entity {
 	        return false;
 			
 		}
-		public boolean isSpiking(List<floorTiles> floorTilesList, List<Spikes> spikelist, List<Portals> portallist,List<enemyWalking> snails) {
+		public boolean isSpiking(List<floorTiles> floorTilesList, List<Spikes> spikelist, List<Portals> portallist,List<enemyWalking> snails, List<enemyShooter> monkeys) {
 	        for (Spikes spike : spikelist) {
+	        	if(spike.getX()>= posx-200&&spike.getX()<=posx+200) {
 	            Rectangle playerHitbox = new Rectangle((int) posx, (int) posy, 80, 80);
 	            Rectangle spikeHitbox = spike.getHitbox();
 
@@ -190,9 +221,14 @@ public class player extends entity {
 	        		for(enemyWalking snail : snails) {
 	        			snail.resetScroll();
 	        		}
+	        		for(enemyShooter monkey : monkeys) {
+	        			monkey.resetScroll();
+	        		}
+	        		scrolled=0;
 	        		game.resetplayer();
 	            	return true;
 	            }
+	        }
 	        }
 
 	        return false;
@@ -351,6 +387,7 @@ public class player extends entity {
     	portals=portallist;
     	snail=snails;
     	EnemBulls = Ebullets;
+    	monkies = monkeys;
         touchingPortal(portallist);
         updatePos();
         checkScroll(floorTilesList, spikelist, portallist,snails,monkeys,bulls,Ebullets);
@@ -776,8 +813,5 @@ public class player extends entity {
 			shots = 0;
 		}
 	}
-
-
-
 
 }

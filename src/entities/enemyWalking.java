@@ -17,8 +17,11 @@ public class enemyWalking extends entity{
     private int aniTick, aniIndex, aniSpd = 25;
 	private double OriginX, OriginY;
 	private boolean killed;
+	private int direction=0;
 	private Rectangle bullhitbox;
 	private Rectangle enthitbox;
+	private List<floorTiles> floorTileList;
+	private boolean aboveTile;
     public enemyWalking(int x,int y,int w,int h) {
 		super(x,y,w,h);
 		OriginX = x;
@@ -27,7 +30,7 @@ public class enemyWalking extends entity{
 
 	}
 	public void render(Graphics g) {
-		g.drawImage(animations[0][aniIndex],(int)posx,(int)posy,(int)width,(int)height,null);
+		g.drawImage(animations[direction][aniIndex],(int)posx,(int)posy,(int)width,(int)height,null);
 	}
     private void portalsloadAnimations() {
         InputStream is = getClass().getResourceAsStream("/snailsprites.png");
@@ -43,8 +46,9 @@ public class enemyWalking extends entity{
             e.printStackTrace();
         }
     }
-	public boolean update(List<playerBullet> playerBullets) {
+	public boolean update(List<playerBullet> playerBullets, List<floorTiles> floor) {
 		killed = checkCollisions(playerBullets);
+		floorTileList = floor;
 		move();
         updateAnimationTick();
         return killed;
@@ -68,7 +72,27 @@ public class enemyWalking extends entity{
     	return false;
 	}
     private void move() {
-    	posx-=0.05;
+    	aboveTile=false;
+    	for(floorTiles tile : floorTileList){
+    		if((direction == 1)&&(tile.getX()>=posx+64)&&(tile.getX()<=posx+128)&&tile.getY()>=posy+60&&tile.getY()<=posy+130) {
+    				aboveTile = true;
+    		}
+    		if((direction == 0)&&(tile.getX()<=posx&&tile.getX()>=posx-80&&tile.getY()>=posy+60&&tile.getY()<=posy+130)) {
+    				aboveTile = true;
+    		}
+    	}
+    	if(!aboveTile&&direction==1) {
+    		direction = 0;
+    		System.out.println("Changed L");
+    	}else if(!aboveTile&&direction==0) {
+    		direction = 1;
+    		System.out.println("Changed R");
+    	}
+    	if(direction == 0) {
+    		posx-=0.05;
+    	}else {
+    		posx+=0.05;
+    	}
 	}
 	private void updateAnimationTick() {
         aniTick++;

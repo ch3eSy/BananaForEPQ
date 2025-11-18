@@ -43,8 +43,8 @@ public class Game implements Runnable{
 	private levels Level;
 	private List<Spikes> spikeList;
 	private List<Portals> portalList;
-	private List<enemyWalking> snails;
-	private List<enemyShooter> monkey;
+	public List<enemyWalking> snails;
+	public List<enemyShooter> monkey;
 	private boolean started = false;
 	private int i = 0;
 	private int colournum;
@@ -142,34 +142,64 @@ public class Game implements Runnable{
         }else if(level==2) {
         	floorTilesList = levels.level1(1);
         	spikeList = levels.level1(2);
-        	portalList.add(new Portals(7552,867,128,128));
+        	portalList.add(new Portals(7552,899,128,128));
 
     		Player = new player(0,600,80,80,this);
+    		Player.tutorial=0;
     		text.set(0);
 //            spikeList.add(new Spikes(500,1048,32,32));
         }else if(level == 3) {
-        	floorTilesList.add(new floorTiles(160, 1000, 32, 32));
+        	floorTilesList = levels.level1(1);
+        	spikeList = levels.level1(2);
 
     		Player = new player(0,600,80,80,this);
+        	portalList.add(new Portals(7552,899,128,128));
+    		Player.tutorial=0;
+
         }else if(level == 4) {
+        	floorTilesList = levels.level1(1);
+        	spikeList = levels.level1(2);
 
     		Player = new player(0,600,80,80,this);
-        }else if(level == 5) {
+        	portalList.add(new Portals(7552,899,128,128));
+    		Player.tutorial=0;
+        }else if(level == 5){
+        	floorTilesList = levels.level1(1);
+        	spikeList = levels.level1(2);
 
     		Player = new player(0,600,80,80,this);
+        	portalList.add(new Portals(7552,899,128,128));
         }else if(level == 6) {
+        	floorTilesList = levels.level1(1);
+        	spikeList = levels.level1(2);
 
     		Player = new player(0,600,80,80,this);
+        	portalList.add(new Portals(7552,899,128,128));
         }else if(level == 7) {
+        	floorTilesList = levels.level1(1);
+        	spikeList = levels.level1(2);
     		Player = new player(0,600,80,80,this);
+        	portalList.add(new Portals(7552,899,128,128));
         }else if(level == 8) {
+        	floorTilesList = levels.level1(1);
+        	spikeList = levels.level1(2);
 
     		Player = new player(0,600,80,80,this);
+        	portalList.add(new Portals(7552,899,128,128));
         }else if(level == 9) {
-        	portalList.add(new Portals(1500,900,128,128));
+        	floorTilesList = levels.level1(1);
+        	spikeList = levels.level1(2);
+
     		Player = new player(0,600,80,80,this);
+        	portalList.add(new Portals(7552,899,128,128));
         }else if(level == 10) {
-        	portalList.add(new Portals(1500,900,128,128));
+        	floorTilesList = levels.level1(1);
+        	spikeList = levels.level1(2);
+    		Player = new player(0,600,80,80,this);
+        	portalList.add(new Portals(7552,899,128,128));
+        }else if(level == 11) {
+        	floorTilesList = levels.level1(1);
+        	spikeList = levels.level1(2);
     		Player = new player(0,600,80,80,this);
         }
 
@@ -212,7 +242,7 @@ public class Game implements Runnable{
 	    }
 	    if(!snails.isEmpty()) {
 	    	for(enemyWalking snail : snails) {
-	    		snailremove = snail.update(playerBullets);
+	    		snailremove = snail.update(playerBullets, floorTilesList);
 	    		if(snailremove) {
 	    			snailRemoval = snail;
 	    		}
