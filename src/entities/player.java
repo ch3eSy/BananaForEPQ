@@ -362,9 +362,6 @@ public class player extends entity {
         return new Rectangle((int) posx, (int) posy, width, height);
     }
 
-
-    
-
     public boolean touchingPortal(List<Portals> portallist) {
         for (Portals portal : portallist) {
             Rectangle playerHitbox = new Rectangle((int) posx, (int) posy, 80, 80);
