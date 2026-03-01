@@ -20,7 +20,7 @@ public class menuBackdrop extends entBase{
 	}
 	
 	private void loadAnimations() {
-		InputStream is = getClass().getResourceAsStream("/mainmenu.png");
+		InputStream is = getClass().getResourceAsStream("/ui/mainmenu.png");
 		
 		try {
 			Image img = ImageIO.read(is);

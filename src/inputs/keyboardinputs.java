@@ -62,7 +62,7 @@ public class keyboardinputs implements KeyListener {
 			break;
 		case  KeyEvent.VK_SPACE:
 			gamePanel.getGame().getPlayer().setUp(true);
-			gamePanel.getGame().loadSound("/PlayerBeep.wav");
+			gamePanel.getGame().loadSound("/sounds/PlayerBeep.wav");
 			break;
 		case  KeyEvent.VK_A:
 			gamePanel.getGame().getPlayer().setLeft(true);

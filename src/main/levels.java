@@ -26,12 +26,14 @@ public class levels {
     private static List<floorTiles> floorTilesList;
     private Game game;
     private static int i;
+    private int world = 1;
     
     public levels(Game game) {
     	this.game = game;
     }
     
-    public void TileSet(int num) {
+    public void TileSet(int w, int num) {
+    	world = w;
 		TileMap(num);
     }
     
@@ -61,7 +63,7 @@ public class levels {
 	public void TileMap(int num) {
 		spikeList = new ArrayList<>();
 		floorTilesList = new ArrayList<>();
-		String address = "/map"+num+".png";
+		String address = "/maps/world"+world+"/map"+num+".png";
 		System.out.println(address);
 		InputStream is = getClass().getResourceAsStream(address);
         try {

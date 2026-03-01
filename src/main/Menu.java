@@ -41,7 +41,7 @@ public class Menu implements Runnable{
 		menuPanel = new MenuPanel(this);
 		menuPanel.setLayout(null);
 		menuWindow = new MenuWindow(menuPanel);
-		startIcon = new ImageIcon(getClass().getResource("/startButton.png"));
+		startIcon = new ImageIcon(getClass().getResource("/ui/startButton.png"));
 		if (startIcon.getImageLoadStatus() != MediaTracker.COMPLETE) {
 		    System.out.println("Image failed to load!");
 		}
@@ -123,7 +123,7 @@ public class Menu implements Runnable{
 	}
 	
 	public void startgame() {
-		System.out.println("BEANS");
+		System.out.println("Banana | Back To The Tree");
 		MainClass.startGame();
 
 	}

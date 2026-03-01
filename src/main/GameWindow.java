@@ -10,7 +10,7 @@ public class GameWindow extends JFrame{
 	private JFrame jframe;
 
 	public GameWindow(GamePanel gamePanel) {
-		jframe= new JFrame("Beans");
+		jframe= new JFrame("Banana | Back To The Tree");
 		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jframe.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		jframe.add(gamePanel);
@@ -28,7 +28,6 @@ public class GameWindow extends JFrame{
 
 			@Override
 			public void windowLostFocus(WindowEvent e) {
-				System.out.println("lost");
 				gamePanel.getGame().windowFocusLost();
 				
 			}

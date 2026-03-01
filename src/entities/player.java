@@ -545,8 +545,8 @@ public class player extends entity {
         movingdownleft = false;
         movingdownright = false;
         movingdown = false;
-        
-        
+       
+
         
         if (vsp == 0 && hittingtile != 1 && posy <= boundaryy - 73) {
             isJumping = true;

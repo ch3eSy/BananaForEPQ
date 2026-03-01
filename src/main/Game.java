@@ -51,10 +51,7 @@ public class Game implements Runnable{
 	private int bull=0;
 	private List<EnemyBullet> bullets;
 	private List<playerBullet> playerBullets;
-	private EnemyBullet current;
-	private int s = 0;
 	private playerBullet curr;
-	private int listlength;
 	private boolean mustRemove;
 	private playerBullet removal;
 	private EnemyBullet Enemcurr;
@@ -65,6 +62,7 @@ public class Game implements Runnable{
 	private enemyWalking snailRemoval;
 	private Clip clip;
 	private tutorialText text;
+	private int world = 1;
 	
 	
 	
@@ -119,9 +117,9 @@ public class Game implements Runnable{
         monkey = new ArrayList<>();
         bullets = new ArrayList<>();
         playerBullets = new ArrayList<>();
-        Level.TileSet(level);
+        Level.TileSet(world, level);
         stopSound();
-        loadSound("/Music.wav");
+        loadSound("/sounds/Music.wav");
 //        bullets.add(new EnemyBullet(500,20000,100,20));
 //        bullets.add(new EnemyBullet(500,20000,100,20));
 //        bullets.add(new EnemyBullet(500,20000,100,20));

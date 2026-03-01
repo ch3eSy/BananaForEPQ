@@ -10,7 +10,7 @@ public class MenuWindow{
 	private JFrame jframe;
 
 	public MenuWindow(MenuPanel menupanel) {
-		jframe= new JFrame("Beans");
+		jframe= new JFrame("Banana | Back To The Tree");
 		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jframe.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		jframe.add(menupanel);
@@ -28,7 +28,6 @@ public class MenuWindow{
 
 			@Override
 			public void windowLostFocus(WindowEvent e) {
-				System.out.println("lost");
 				menupanel.getMenu().windowFocusLost();
 				
 			}
